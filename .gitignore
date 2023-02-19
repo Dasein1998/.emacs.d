@@ -1,0 +1,36 @@
+# Compiled
+*.elc
+
+# Packaging
+.cask
+
+# Backup files
+*~
+
+# Undo-tree save-files
+*.~undo-tree
+
+# flycheck temp file
+.flycheck*
+
+# The quickstart file
+package-quickstart.el
+
+# shell startfile
+init_bash.sh
+init_zsh.sh
+
+elpa/
+quelpa/
+var/
+etc/
+eln-cache/
+tree-sitter/
+server/
+auto-save-list/
+history
+*.eld
+rime/
+recentf
+triples.db
+
