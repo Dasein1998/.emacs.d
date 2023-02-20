@@ -60,7 +60,7 @@
   :hook (completion-list-mode . consult-preview-at-point-mode)
 
   ;; The :init configuration is always executed (Not lazy)
-  :init
+  :config
 
   ;; Optionally configure the register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',

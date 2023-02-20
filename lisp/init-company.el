@@ -1,10 +1,4 @@
 (provide 'init-company)
-(use-package company
-  :ensure t
-  :config
-  ; 开启全局 Company 补全
-  ;(global-company-mode 1)
-  )
 
 (use-package corfu
   :ensure t
@@ -28,12 +22,12 @@
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
   ;; See also `corfu-excluded-modes'.
-  :init
+  :config
   (global-corfu-mode)
   )
 ;; A few more useful configurations...
 (use-package emacs
-  :init
+  :config
   ;; TAB cycle if there are only few candidates
   (setq completion-cycle-threshold 3)
 
@@ -52,7 +46,7 @@
 ;; Enable Corfu completion UI
 ;; See the Corfu README for more configuration tips.
 (use-package corfu
-  :init
+  :config
   (global-corfu-mode))
 
 ;; Add extensions
@@ -76,7 +70,7 @@
          ("C-c p ^" . cape-tex)
          ("C-c p &" . cape-sgml)
          ("C-c p r" . cape-rfc1345))
-  :init
+  :config
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)

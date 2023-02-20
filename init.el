@@ -2,7 +2,9 @@
       (gc-cons-threshold most-positive-fixnum)
       ;; Empty to avoid analyzing files when loading remote files.
       (file-name-handler-alist nil))
-
+ (require 'benchmark-init-modes)
+ (require 'benchmark-init)
+ (benchmark-init/activate)
     ;; Emacs configuration file content is written below.
 
 )
@@ -25,15 +27,20 @@
           `(("." . ,(concat user-emacs-directory "backups"))))
 
 
-(require 'treesit)
-(treesit-available-p)
+;(require 'treesit)
+;(treesit-available-p)
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-;; 快速打开配置文件
-(defun open-init-file()
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
+
+;; `use-package-always-ensure' 避免每个软件包都需要加 ":ensure t" 
+;; `use-package-always-defer' 避免每个软件包都需要加 ":defer t" 
+(setq use-package-always-ensure t
+      ;use-package-always-defer t
+      use-package-enable-imenu-support t
+      use-package-expand-minimally t)
+
+
+
+
 
 
 
@@ -44,7 +51,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes nil)
  '(package-selected-packages
-   '(json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico)))
+   '(benchmark-init quelpa-use-package quelpa org-roam-ui org-roam-server org-roam json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,4 +70,6 @@
 (require 'init-ekg)
 (require 'lazy-load)
 (require 'init-lan)
+(require 'init-roam)
+(require 'init-quelpa)
 (provide 'init)

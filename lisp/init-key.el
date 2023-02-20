@@ -14,7 +14,8 @@
 
 
 (use-package hydra
-  :ensure t)
+  :ensure t
+  :defer 2)
 
 (use-package use-package-hydra
   :ensure t
