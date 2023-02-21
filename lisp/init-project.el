@@ -10,3 +10,6 @@
   :ensure t
   :after (projectile)
   :init (counsel-projectile-mode))
+(use-package magit
+  :defer 2
+  )

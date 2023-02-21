@@ -6,22 +6,19 @@
 (use-package avy
   :ensure t
   :bind
- ; (("M-j C-SPC" 、. avy-goto-char-timer))  
+ ; (("M-j C-SPC" 、. avy-goto-char-timer))
   )
-
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "M-g f") 'avy-goto-line)
 (global-set-key (kbd "M-g w") 'avy-goto-word-1)
 
-
 (use-package hydra
   :ensure t
   :defer 2)
-
 (use-package use-package-hydra
   :ensure t
   :defer 2
-  :after hydra) 
+  :after hydra)
 (use-package keyfreq
   :ensure t
   :defer 2
