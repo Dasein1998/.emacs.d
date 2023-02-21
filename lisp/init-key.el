@@ -1,7 +1,8 @@
 (provide 'init-key)
 (use-package which-key
   :ensure t
-  :config (which-key-mode))
+  :config (which-key-mode)
+  )
 (use-package avy
   :ensure t
   :bind
@@ -19,9 +20,11 @@
 
 (use-package use-package-hydra
   :ensure t
+  :defer 2
   :after hydra) 
 (use-package keyfreq
   :ensure t
+  :defer 2
   :config
   (keyfreq-mode)
   (keyfreq-autosave-mode)

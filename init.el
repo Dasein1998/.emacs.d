@@ -30,7 +30,8 @@
 ;(require 'treesit)
 ;(treesit-available-p)
 (require 'package)
-
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
 ;; `use-package-always-ensure' 避免每个软件包都需要加 ":ensure t" 
 ;; `use-package-always-defer' 避免每个软件包都需要加 ":defer t" 
 (setq use-package-always-ensure t
@@ -51,7 +52,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes nil)
  '(package-selected-packages
-   '(benchmark-init quelpa-use-package quelpa org-roam-ui org-roam-server org-roam json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico)))
+   '(page-break-lines benchmark-init quelpa-use-package quelpa org-roam-ui org-roam-server org-roam json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

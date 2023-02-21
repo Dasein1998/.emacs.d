@@ -61,7 +61,7 @@
                                         :height (cond (sys/macp 130)
                                                       (sys/win32p 110)
                                                       (t 100))))
-
+  
     ;; Set mode-line font
     ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
     ;;          when (font-installed-p font)
@@ -109,3 +109,8 @@
   :ensure t
   :custom
   (default-input-method "rime"))
+
+(use-package page-break-lines
+  :config
+  (page-break-lines-mode)
+  )
