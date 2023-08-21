@@ -18,9 +18,9 @@
 
 ;;中文字体设置
 (when (eq system-type 'windows-nt)
-  (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
-  (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+ ; (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+ ; (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+;  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
   )
 ;;; 设置中文字体
 ;(defun my-apply-font ()
@@ -61,7 +61,7 @@
                                         :height (cond (sys/macp 130)
                                                       (sys/win32p 110)
                                                       (t 100))))
-  
+
     ;; Set mode-line font
     ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
     ;;          when (font-installed-p font)
