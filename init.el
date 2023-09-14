@@ -26,9 +26,6 @@
 (setq backup-directory-alist
           `(("." . ,(concat user-emacs-directory "backups"))))
 
-
-;(require 'treesit)
-;(treesit-available-p)
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)

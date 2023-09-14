@@ -10,6 +10,7 @@ for windows
 scoop install gcc
 scoop bucket add wsw0108 https://github.com/wsw0108/scoop-bucket.git
 scoop install librime
+scoop install ripgrep
 ```
 
 for arch
@@ -20,9 +21,10 @@ sudo pacman -S librime
 
 
 # reference
-[×¨Òµ Emacs ÈëÃÅ½Ì³Ì - Öªºõ](https://www.zhihu.com/column/c_1440829147212279808)
-[Emacs ×ÔÁ¦ÇóÉúÖ¸ÄÏ ©¤©¤ À´Ğ´×Ô¼ºµÄÅäÖÃ°É - Nayuki's Archive](https://nyk.ma/posts/emacs-write-your-own/#%E8%BE%93%E5%85%A5%E6%B3%95)
+[ä¸“ä¸š Emacs å…¥é—¨æ•™ç¨‹ - çŸ¥ä¹](https://www.zhihu.com/column/c_1440829147212279808)
+
+[Emacs è‡ªåŠ›æ±‚ç”ŸæŒ‡å— â”€â”€ æ¥å†™è‡ªå·±çš„é…ç½®å§ - Nayuki's Archive](https://nyk.ma/posts/emacs-write-your-own/#%E8%BE%93%E5%85%A5%E6%B3%95)
+
 [jwiegley/use-package: A use-package declaration for simplifying your .emacs](https://github.com/jwiegley/use-package#installing-use-package)
 
-[Org-mode ¼òÃ÷ÊÖ²á - open source - ²©¿ÍÔ°](https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html#sec-1)
-
+[Org-mode ç®€æ˜æ‰‹å†Œ - open source - åšå®¢å›­](https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html#sec-1)
