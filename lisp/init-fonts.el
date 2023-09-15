@@ -18,10 +18,11 @@
 
 ;;中文字体设置
 (when (eq system-type 'windows-nt)
- ; (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+ (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
  ; (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
 ;  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
-  )
+ )
+
 ;;; 设置中文字体
 ;(defun my-apply-font ()
  ; (set-fontset-font "fontset-default" 'chinese-gbk "更纱黑体")
@@ -33,11 +34,7 @@
           (lambda (frame)
             (select-frame frame)
             (my-apply-font)))
-(use-package twilight-bright-theme
-  :ensure t
-  :config
- ; (load-theme 'twilight-bright t)
-  )
+
 (use-package kaolin-themes
 :ensure t
   :config
@@ -99,6 +96,8 @@
 (centaur-setup-fonts)
 (add-hook 'window-setup-hook #'centaur-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
+
+
 (use-package rainbow-delimiters
   :ensure t
   :config
