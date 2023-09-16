@@ -57,6 +57,7 @@
  ;; If there is more than one, they won't work right.
  )
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counsel-rg无法搜索中文的问题
 (require 'init-vertico)
 (require 'init-dashboard)
 (require 'init-fonts)
