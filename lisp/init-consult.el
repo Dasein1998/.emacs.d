@@ -118,3 +118,4 @@
   ;;;; 5. No project support
   ;; (setq consult-project-function nil)
 )
+
