@@ -20,6 +20,13 @@ package-quickstart.el
 init_bash.sh
 init_zsh.sh
 
+# project
+projects
+projectile.cache
+projectile-bookmarks.eld
+# org
+org-roam.db
+
 elpa/
 quelpa/
 var/
