@@ -75,4 +75,5 @@
 (require 'init-roam)
 (require 'init-quelpa)
 (require 'init-avy)
+(require 'init-buildin)
 (provide 'init)
