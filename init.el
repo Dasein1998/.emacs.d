@@ -2,9 +2,9 @@
       (gc-cons-threshold most-positive-fixnum)
       ;; Empty to avoid analyzing files when loading remote files.
       (file-name-handler-alist nil))
- (require 'benchmark-init-modes)
- (require 'benchmark-init)
- (benchmark-init/activate)
+; (require 'benchmark-init-modes)
+; (require 'benchmark-init)
+; (benchmark-init/activate)
     ;; Emacs configuration file content is written below.
 
 )
@@ -43,14 +43,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes nil)
+ '(elfeed-feeds
+   '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart"
+     "https://www.ruanyifeng.com/blog/atom.xml") t)
  '(package-selected-packages
-   '(ace-pinyin auto-save page-break-lines benchmark-init
-		quelpa-use-package quelpa org-roam-ui org-roam-server
-		org-roam json-mode yaml-mode rime cape corfu
-		rainbow-delimiters emacsql-sqlite ekg
-		use-package-hydra hydra consult counsel-projectile
-		projectile company-box twilight-bright-theme avy
-		which-key company dashboard vertico))
+   '(gcmh elfeed ace-pinyin auto-save page-break-lines benchmark-init
+	  quelpa-use-package quelpa org-roam-ui org-roam-server
+	  org-roam json-mode yaml-mode rime cape corfu
+	  rainbow-delimiters emacsql-sqlite ekg use-package-hydra
+	  hydra consult counsel-projectile projectile company-box
+	  twilight-bright-theme avy which-key company dashboard
+	  vertico))
  '(warning-suppress-log-types '((comp)))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
@@ -76,4 +79,6 @@
 (require 'init-quelpa)
 (require 'init-avy)
 (require 'init-buildin)
+(require 'init-elfeed)
+
 (provide 'init)

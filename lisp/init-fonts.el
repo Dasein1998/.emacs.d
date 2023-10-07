@@ -104,7 +104,7 @@
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
   )
-(use-package rime
+(use-package rime 
   :ensure t
   :custom
   (default-input-method "rime"))
@@ -113,3 +113,6 @@
   :config
   (page-break-lines-mode)
   )
+(use-package gcmh  ;gc优化
+  :init
+  (gcmh-mode))
