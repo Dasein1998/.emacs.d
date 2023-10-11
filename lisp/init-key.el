@@ -1,7 +1,8 @@
 (provide 'init-key)
 (use-package which-key
   :ensure t
-  :config (which-key-mode)
+  :hook
+  (on-first-input . which-key-mode)
   )
 (use-package avy
   :ensure t

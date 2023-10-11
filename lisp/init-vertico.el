@@ -21,8 +21,8 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :config
-  (savehist-mode))
+  :hook
+  (on-first-input . savehist-mode))
 
 ;; A few more useful configurations...
 (use-package emacs
