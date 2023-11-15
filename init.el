@@ -46,16 +46,9 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes nil)
  '(elfeed-feeds
-   '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart"
-     "https://www.ruanyifeng.com/blog/atom.xml") t)
+   '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart" "https://www.ruanyifeng.com/blog/atom.xml") t)
  '(package-selected-packages
-   '(hyperbole gcmh elfeed ace-pinyin auto-save page-break-lines
-	       benchmark-init quelpa-use-package quelpa org-roam-ui
-	       org-roam-server org-roam json-mode yaml-mode rime cape
-	       corfu rainbow-delimiters emacsql-sqlite ekg
-	       use-package-hydra hydra consult counsel-projectile
-	       projectile company-box twilight-bright-theme avy
-	       which-key company dashboard vertico))
+   '(hyperbole gcmh elfeed ace-pinyin auto-save page-break-lines benchmark-init quelpa-use-package quelpa org-roam-ui org-roam-server org-roam json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico))
  '(warning-suppress-log-types '((comp)))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
