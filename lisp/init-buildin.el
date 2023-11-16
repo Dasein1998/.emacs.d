@@ -50,3 +50,8 @@
      tab-mark         ; tabs (show by symbol)
      )))
 
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (let ( (mgs-list '("You are what you do."
+                                "Déjà vu!")) )
+              (message (nth (random (length mgs-list)) mgs-list)))))

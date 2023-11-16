@@ -2,7 +2,6 @@
 ;; Enable vertico
 (use-package vertico
   :ensure t
-  :defer 2
   :config
   (vertico-mode)
 

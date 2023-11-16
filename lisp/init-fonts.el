@@ -1,6 +1,4 @@
 (provide 'init-fonts)
-
-
 (defconst sys/win32p
   (eq system-type 'windows-nt)
   "Are we running on a WinTel system?")
@@ -14,32 +12,6 @@
   "Are we running on a Mac system?")
 
 
-
-
-;;中文字体设置
-(when (eq system-type 'windows-nt)
- (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
- ; (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-;  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
- )
-
-;;; 设置中文字体
-;(defun my-apply-font ()
- ; (set-fontset-font "fontset-default" 'chinese-gbk "更纱黑体")
-  ;(setq face-font-rescale-alist '(("更纱黑体" . 1.0)
-   ;                               )))
-;(my-apply-font)
-;;; 使字体设置应用到 client 中
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (select-frame frame)
-            (my-apply-font)))
-
-(use-package kaolin-themes
-:ensure t
-  :config
-  (load-theme 'kaolin-light t)
-  (kaolin-treemacs-theme))
 ;; Font
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
@@ -57,7 +29,9 @@
                                         :family font
                                         :height (cond (sys/macp 130)
                                                       (sys/win32p 110)
-                                                      (t 100))))
+                                                      (t 100))
+                                          )
+                                          )
 
     ;; Set mode-line font
     ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
@@ -104,7 +78,7 @@
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
   )
-(use-package rime 
+(use-package rime
   :ensure t
   :custom
   (default-input-method "rime"))
@@ -116,3 +90,27 @@
 (use-package gcmh  ;gc优化
   :init
   (gcmh-mode))
+
+(use-package kaolin-themes
+;  :ensure t
+ ; :config
+  ;(load-theme 'kaolin-light t)
+;(kaolin-treemacs-theme)
+  )
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one-light t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-atom") ; USE "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
