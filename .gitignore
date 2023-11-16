@@ -43,3 +43,4 @@ triples.db
 elgrep-data.el
 /transient/
 places
+custom.el
