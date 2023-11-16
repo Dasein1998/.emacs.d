@@ -48,7 +48,17 @@
  '(elfeed-feeds
    '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart" "https://www.ruanyifeng.com/blog/atom.xml") t)
  '(package-selected-packages
+<<<<<<< HEAD
    '(hyperbole gcmh elfeed ace-pinyin auto-save page-break-lines benchmark-init quelpa-use-package quelpa org-roam-ui org-roam-server org-roam json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico))
+=======
+   '(obsidian hyperbole gcmh elfeed ace-pinyin auto-save page-break-lines
+	      benchmark-init quelpa-use-package quelpa org-roam-ui
+	      org-roam-server org-roam json-mode yaml-mode rime cape
+	      corfu rainbow-delimiters emacsql-sqlite ekg
+	      use-package-hydra hydra consult counsel-projectile
+	      projectile company-box twilight-bright-theme avy
+	      which-key company dashboard vertico))
+>>>>>>> 7c401f217f80d3b6e09b8a11c3f3ef9379e2aaf4
  '(warning-suppress-log-types '((comp)))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
@@ -78,4 +88,5 @@
 (require 'init-buildin)
 (require 'init-elfeed)
 (require 'init-hyperbole)
+(require 'init-ob)
 (provide 'init)
