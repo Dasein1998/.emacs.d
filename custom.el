@@ -14,14 +14,7 @@
  '(elfeed-feeds
    '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart"
      "https://www.ruanyifeng.com/blog/atom.xml") t)
- '(package-selected-packages
-   '(ace-pinyin auto-save benchmark-init cape corfu dashboard dirvish
-		doom-themes ekg elfeed emacsql-sqlite embark-consult
-		fanyi flypy gcmh hydra hyperbole json-mode
-		kaolin-themes keyfreq magit marginalia obsidian
-		orderless org-roam-ui page-break-lines
-		quelpa-use-package rainbow-delimiters rime
-		use-package-hydra vertico which-key yaml-mode))
+ '(package-selected-packages nil)
  '(warning-suppress-log-types '((comp)))
  '(warning-suppress-types '((comp))))
 (custom-set-faces

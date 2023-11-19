@@ -61,7 +61,7 @@
 (require 'lazy-load)
 (require 'on)
 (require 'init-lan)
-;(require 'init-roam)
+(require 'init-roam)
 (require 'init-quelpa)
 (require 'init-avy)
 (require 'init-buildin)
