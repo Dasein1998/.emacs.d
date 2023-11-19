@@ -114,3 +114,8 @@
   (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+(set-charset-priority 'unicode)
+(prefer-coding-system 'utf-8)
+(setq system-time-locale "C")
+(when (eq system-type 'windows-nt)
+  (setq file-name-coding-system 'gbk))

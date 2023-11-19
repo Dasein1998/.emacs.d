@@ -1,14 +1,15 @@
 (provide 'init-roam)
+(setq org-modules nil)
 (use-package org-roam
   :ensure t
-  :defer 2
+  :defer t
   :config
   :hook (after-init . org-mode)
   )
 
 (use-package org-roam-ui
   :ensure t
-  :defer 2
+  :defer t
   :config
   :after (org-roam)
   )

@@ -1,7 +1,7 @@
 (provide 'init-elfeed)
 (use-package elfeed
   :ensure t
-  :defer 2)
+  :defer t)
 (setq elfeed-feeds
       '(("https://www.ruanyifeng.com/blog/atom.xml" tech)
       ("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart" zhihu)
