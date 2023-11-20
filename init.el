@@ -23,10 +23,14 @@
 (savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
-
-					;autosave in one dir
+;; Prevent flashing of unstyled modeline at startup
+(setq-default mode-line-format nil)
+;autosave in one dir
 (setq backup-directory-alist
-          `(("." . ,(concat user-emacs-directory "backups"))))
+      `(("." . ,(concat user-emacs-directory "backups"))))
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file t)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -35,58 +39,28 @@
 ;; `use-package-always-defer' 避免每个软件包都需要加 ":defer t"
 (setq use-package-always-ensure t
       ;use-package-always-defer t
-      use-package-enable-imenu-support t
       use-package-expand-minimally t)
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes nil)
- '(elfeed-feeds
-   '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart" "https://www.ruanyifeng.com/blog/atom.xml") t)
- '(package-selected-packages
-<<<<<<< HEAD
-   '(hyperbole gcmh elfeed ace-pinyin auto-save page-break-lines benchmark-init quelpa-use-package quelpa org-roam-ui org-roam-server org-roam json-mode yaml-mode rime cape corfu rainbow-delimiters emacsql-sqlite ekg use-package-hydra hydra consult counsel-projectile projectile company-box twilight-bright-theme avy which-key company dashboard vertico))
-=======
-   '(obsidian hyperbole gcmh elfeed ace-pinyin auto-save page-break-lines
-	      benchmark-init quelpa-use-package quelpa org-roam-ui
-	      org-roam-server org-roam json-mode yaml-mode rime cape
-	      corfu rainbow-delimiters emacsql-sqlite ekg
-	      use-package-hydra hydra consult counsel-projectile
-	      projectile company-box twilight-bright-theme avy
-	      which-key company dashboard vertico))
->>>>>>> 7c401f217f80d3b6e09b8a11c3f3ef9379e2aaf4
- '(warning-suppress-log-types '((comp)))
- '(warning-suppress-types '((comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counsel-rg无法搜索中文的问题
-(require 'init-dired)
+;require 'init-dired)
 (require 'init-vertico)
-(require 'init-dashboard)
+;(require 'init-dashboard)
 (require 'init-fonts)
 (require 'init-md)
 (require 'init-key)
 (require 'init-company)
 (require 'init-project)
 (require 'init-consult)
-(require 'init-ekg)
+;(require 'init-ekg)
 (require 'lazy-load)
 (require 'on)
 (require 'init-lan)
-(require 'init-roam)
+;(require 'init-roam)
 (require 'init-quelpa)
 (require 'init-avy)
 (require 'init-buildin)
-(require 'init-elfeed)
-(require 'init-hyperbole)
-(require 'init-ob)
+;(require 'init-elfeed)
+;(require 'init-hyperbole)
+;(require 'init-ob)
 (provide 'init)
