@@ -44,3 +44,5 @@ elgrep-data.el
 /transient/
 places
 custom.el
+bookmarks
+.org-id-locations

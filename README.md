@@ -6,7 +6,7 @@ depends:
 4. pacman -S fd poppler ffmpegthumbnailer mediainfo imagemagick tar unzip
 
 ## librime
-for windows
+for Windows
 
 ``` powershell
 scoop install gcc
@@ -29,6 +29,6 @@ sudo pacman -S librime
 
 [jwiegley/use-package: A use-package declaration for simplifying your .emacs](https://github.com/jwiegley/use-package#installing-use-package)
 
-[Org-mode 简明手册 - open source - 博客园](https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
+[Org-mode 简明手册 open source博客园](https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html)
 
 [emacs-newbie/introduction-to-builtin-modes.md at master · condy0919/emacs-newbie](https://github.com/condy0919/emacs-newbie/blob/master/introduction-to-builtin-modes.md)

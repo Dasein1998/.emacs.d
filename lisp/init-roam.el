@@ -5,21 +5,23 @@
   :config
   (setq org-roam-dailies-directory "000-D/")
   (setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?"
+       '(("d" "default" entry
+          "* 9-10\n\n* 10-11\n\n* 11-13\n\n* 13-14\n\n* 14-15\n\n* 15-16\n\n* 16-17\n\n* 17-18\n\n* 18-19\n\n* 19-20\n\n* 20-21\n\n* 21-22\n\n"
          :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n"))))
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
+                            "#+title: %<%Y-%m-%d>\n")))
+       )
+
+      (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+      (org-roam-db-autosync-mode)
+      (require 'org-roam-dailies)
   :hook (after-init . org-mode)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
+         ("C-c n i" . org-roam-node-ninsert)
          ("C-c n c" . org-roam-capture)
          ;; Dailies
          ("C-c n j" . org-roam-dailies-capture-today))
-
   )
 
 (use-package org-roam-ui
@@ -60,3 +62,11 @@
   (setq-default org-download-image-dir "~/org-roam/assets")
   (setq org-download-timestamp t)
   )
+
+(use-package org-modern
+  :after (org)
+  :config
+  (add-hook 'org-mode-hook #'org-modern-mode)
+  (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+  )
+(require 'org-tempo)

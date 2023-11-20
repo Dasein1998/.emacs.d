@@ -48,7 +48,10 @@
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counsel-rg无法搜索中文的问题
-;require 'init-dired)
+(set-frame-parameter (selected-frame) 'buffer-predicate
+		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
+
+;(require 'init-dired)
 (require 'init-vertico)
 ;(require 'init-dashboard)
 (require 'init-fonts)
