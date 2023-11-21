@@ -1,5 +1,11 @@
 (provide 'init-roam)
+(use-package org
+:ensure nil
+:defer t
+:config
 (setq org-modules nil)
+(require 'org-tempo)
+)
 (use-package org-roam
   :defer t
   :config
@@ -56,7 +62,7 @@
    ("C-c n r" . consult-org-roam-search))
 
 (use-package org-download
-  :after (org)
+  :after org
   :config
   (add-hook 'dired-mode-hook 'org-download-enable)
   (setq-default org-download-image-dir "~/org-roam/assets")
@@ -64,9 +70,9 @@
   )
 
 (use-package org-modern
-  :after (org)
+  :after org
   :config
   (add-hook 'org-mode-hook #'org-modern-mode)
   (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
   )
-(require 'org-tempo)
+

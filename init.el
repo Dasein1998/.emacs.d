@@ -2,7 +2,7 @@
       (gc-cons-threshold most-positive-fixnum)
       ;; Empty to avoid analyzing files when loading remote files.
       (file-name-handler-alist nil))
-      ;(benchmark-init/activate)
+      (benchmark-init/activate)
 )
 
 (tool-bar-mode -1)                           ; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
@@ -20,6 +20,7 @@
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
 (setq-default mode-line-format nil)          ; Prevent flashing of unstyled modeline at startup
+(setq frame-inhibit-implied-resize t)        ;禁止frame缩放
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 

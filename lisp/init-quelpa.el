@@ -1,6 +1,5 @@
 (provide 'init-quelpa)
 (use-package quelpa
-  :ensure t
   :commands quelpa
   :custom
   (quelpa-git-clone-depth 1)
@@ -14,7 +13,6 @@
    :url "https://github.com/quelpa/quelpa-use-package.git"))
 (require 'quelpa-use-package)
 (use-package benchmark-init
-  :ensure t
   :config
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
@@ -39,5 +37,6 @@
       (file-name-extension (buffer-name)) t))))
 
 (use-package flypy
-  :quelpa (flypy :fetcher github :repo "Dasein1998/xhyx-emacs")
+  :quelpa (flypy :fetcher github :repo "Dasein1998/xhyx-emacs"
+  :defer t)
   )

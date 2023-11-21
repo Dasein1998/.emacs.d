@@ -83,20 +83,10 @@
   :custom
   (default-input-method "rime"))
 
-(use-package page-break-lines
-  :config
-  (page-break-lines-mode)
-  )
 (use-package gcmh  ;gc优化
   :init
   (gcmh-mode))
 
-(use-package kaolin-themes
-;  :ensure t
- ; :config
-  ;(load-theme 'kaolin-light t)
-;(kaolin-treemacs-theme)
-  )
 (use-package doom-themes
   :ensure t
   :config
