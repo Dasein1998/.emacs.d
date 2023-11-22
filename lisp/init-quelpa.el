@@ -17,8 +17,9 @@
   :ensure t
   :config
   ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
-  
+  (add-hook 'after-init-hook 'benchmark-init/deactivate)
+  )
+
 (quelpa
  '(auto-save
    :fetcher git
@@ -36,3 +37,7 @@
       (string-suffix-p
       "gpg"
       (file-name-extension (buffer-name)) t))))
+
+(use-package flypy
+  :quelpa (flypy :fetcher github :repo "Dasein1998/xhyx-emacs")
+  )

@@ -1,4 +1,8 @@
 (provide 'init-key)
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
 (use-package which-key
   :ensure t
   :hook
@@ -15,14 +19,14 @@
 
 (use-package hydra
   :ensure t
-  :defer 2)
+  :defer t)
 (use-package use-package-hydra
   :ensure t
-  :defer 2
+  :defer t
   :after hydra)
 (use-package keyfreq
   :ensure t
-  :defer 2
+  :defer t
   :config
   (keyfreq-mode)
   (keyfreq-autosave-mode)
@@ -56,3 +60,4 @@
   (global-set-key [(super e)] #'dirvish))
  )
 
+(global-set-key (kbd "C-z") nil)

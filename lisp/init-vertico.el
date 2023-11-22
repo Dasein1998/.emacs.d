@@ -4,6 +4,7 @@
   :ensure t
   :config
   (vertico-mode)
+  (vertico-mouse-mode)
 
   ;; Different scroll margin
   ;; (setq vertico-scroll-margin 0)
