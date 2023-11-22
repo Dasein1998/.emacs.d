@@ -11,6 +11,7 @@
 	       )
 (use-package fanyi
   :ensure t
+  :defer t
   :custom
   (fanyi-providers '(;; 海词
                      fanyi-haici-provider
