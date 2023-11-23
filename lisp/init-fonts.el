@@ -108,3 +108,13 @@
 (setq system-time-locale "C")
 (when (eq system-type 'windows-nt)
   (setq file-name-coding-system 'gbk))
+
+(use-package pangu-spacing
+  :config
+   (add-hook 'org-mode-hook
+           '(lambda ()
+              (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+   (add-hook 'markdown-mode-hook
+           '(lambda ()
+              (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+    )
