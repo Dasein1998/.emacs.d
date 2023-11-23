@@ -21,4 +21,6 @@
                      fanyi-etymon-provider
                      ;; Longman
                      fanyi-longman-provider))
+  :bind
+  (("C-c C-t" . fanyi-dwim2))
   )
