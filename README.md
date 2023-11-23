@@ -1,9 +1,12 @@
 # .emacs.d
-depends:
+Depends:
 1. librime
 2. rg
-3. Windows: 'scoop install coreutils fd poppler imagemagick unzip'
-4. pacman -S fd poppler ffmpegthumbnailer mediainfo imagemagick tar unzip
+3. Windows: `scoop install coreutils fd poppler imagemagick unzip`
+4. Arch: `pacman -S fd poppler ffmpegthumbnailer mediainfo imagemagick tar unzip`
+5. Fonts: Lxgw WenKai Screen
+`yay -S ttf-lxgw-wenkai-screen`
+
 
 ## librime
 for Windows
