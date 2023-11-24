@@ -1,0 +1,11 @@
+fundamental-mode 适用于所有 Mode。
+
+(today (format-time-string "%Y-%m-%d"))
+
+org-mode ;; 空格分割的多个 Mode 名称。
+
+(dai
+"* 9-11" n n
+"* 11-13" n n
+"* 13-17" n
+)
