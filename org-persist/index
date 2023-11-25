@@ -1,9 +1,0 @@
-((:container
-  ((elisp org-element--headline-cache)
-   (elisp org-element--cache))
-  :persist-file "a8/bbad84-fced-4a1d-860a-abca1f2c2e96" :associated
-  (:hash "2b19581b0ad58877c5f35832d4814a46" :file "c:/Users/dasei/org-roam/000-D/20231124T203438--2023-11-24__daily.org" :inode 104145741382945406)
-  :expiry 30 :last-access 1700870777.810166 :last-access-hr "2023-11-25T08:06:17+0800")
- (:container
-  ((index "3.1"))
-  :persist-file "e7/87b974-4376-4d9f-96e9-3203b6a257ac" :associated nil :expiry never :last-access 1700870777.813059 :last-access-hr "2023-11-25T08:06:17+0800"))
