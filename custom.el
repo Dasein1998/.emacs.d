@@ -9,7 +9,7 @@
  '(elfeed-feeds
    '("https://rssh-ub-fork-five.vercel.app/zhihu/people/activities/hasmart" "https://www.ruanyifeng.com/blog/atom.xml") t)
  '(package-selected-packages
-   '(consult-notes pangu-spacing denote org-modern tempel-collection tempel doom-modeline embark-consult embark marginalia flypy org-download consult-org-roam fanyi yaml-mode which-key vertico use-package-hydra twilight-bright-theme rime rainbow-delimiters quelpa-use-package page-break-lines org-roam-ui orderless markdown-mode magit keyfreq kaolin-themes json-mode hyperbole hydra gcmh emacsql-sqlite elfeed ekg doom-themes dirvish dashboard counsel-projectile corfu consult cape benchmark-init auto-save all-the-icons ace-pinyin))
+   '(olivetti consult-notes pangu-spacing denote org-modern tempel-collection tempel doom-modeline embark-consult embark marginalia flypy org-download consult-org-roam fanyi yaml-mode which-key vertico use-package-hydra twilight-bright-theme rime rainbow-delimiters quelpa-use-package page-break-lines org-roam-ui orderless markdown-mode magit keyfreq kaolin-themes json-mode hyperbole hydra gcmh emacsql-sqlite elfeed ekg doom-themes dirvish dashboard counsel-projectile corfu consult cape benchmark-init auto-save all-the-icons ace-pinyin))
  '(warning-suppress-log-types '((comp)))
  '(warning-suppress-types '((comp))))
 (custom-set-faces
