@@ -111,9 +111,11 @@
 
 (use-package pangu-spacing
   :config
-   (add-hook 'org-mode-hook
+  (global-pangu-spacing-mode 1)
+  (add-hook 'org-mode-hook
            '(lambda ()
-              (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+              (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)
+	      ))
    (add-hook 'markdown-mode-hook
            '(lambda ()
               (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
