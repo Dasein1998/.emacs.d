@@ -15,9 +15,11 @@
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
   ;; Enable Corfu only for certain modes.
-   :hook ((prog-mode . corfu-mode)
-          (shell-mode . corfu-mode)
-          (eshell-mode . corfu-mode))
+   ;:hook ((prog-mode . corfu-mode)
+    ;      (shell-mode . corfu-mode)
+     ;     (eshell-mode . corfu-mode)
+;   (org-mode . corfu-mode)
+;  (markdown-mode . corfu-mode))
 
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
@@ -39,16 +41,9 @@
   ;; Enable indentation+completion using the TAB key.
   ;; `completion-at-point' is often bound to M-TAB.
   (setq tab-always-indent 'complete))
-;(use-package company-box
- ; :ensure t
- ; :if window-system
- ; :hook (company-mode . company-box-mode))
+
 ;; Enable Corfu completion UI
 ;; See the Corfu README for more configuration tips.
-(use-package corfu
-  :config
-  (global-corfu-mode))
-
 ;; Add extensions
 (use-package cape
   :ensure t
