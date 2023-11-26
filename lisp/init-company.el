@@ -85,7 +85,9 @@
   )
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode))
+  :config
+  (doom-modeline-mode 1)
+  )
 ;; Configure Tempel
 (use-package tempel
   ;; Require trigger prefix before template name when completing.

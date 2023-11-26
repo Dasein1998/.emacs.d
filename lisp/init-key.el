@@ -1,7 +1,7 @@
 (provide 'init-key)
 (defun open-init-file()
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file "~/.emacs.d/lisp/"))
 
 (use-package which-key
   :ensure t
@@ -61,3 +61,9 @@
  )
 
 (global-set-key (kbd "C-z") nil)
+
+(use-package undo-tree
+:ensure t
+:config
+(require 'undo-tree)
+(global-undo-tree-mode 1))

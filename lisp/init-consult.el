@@ -107,7 +107,7 @@
   ;; By default `consult-project-function' uses `project-root' from project.el.
   ;; Optionally configure a different project root function.
   ;;;; 1. project.el (the default)
-   (setq consult-project-function #'consult--default-project--function)
+   ;(setq consult-project-function #'consult--default-project--function)
   ;;;; 2. vc.el (vc-root-dir)
   ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
   ;;;; 3. locate-dominating-file

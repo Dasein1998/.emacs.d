@@ -92,33 +92,32 @@
     denote-prompts '(title keywords)
     denote-excluded-directories-regexp nil
     denote-excluded-keywords-regexp nil
-
 ;; Pick dates, where relevant, with Org's advanced interface:
     denote-date-prompt-use-org-read-date t
-
-
 ;; Read this manual for how to specify `denote-templates'.  We do not
 ;; include an example here to avoid potential confusion.
-
-
     denote-date-format nil; read doc string
-
 ;; By default, we do not show the context of links.  We just display
 ;; file names.  This provides a more informative view.
     denote-backlinks-show-context t)
-
 ;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
 ;; advanced.
-
 ;; If you use Markdown or plain text files (Org renders links as buttons
 ;; right away)
 (add-hook 'find-file-hook #'denote-link-buttonize-buffer)
-
 ;; We use different ways to specify a path for demo purposes.
 (setq denote-dired-directories
       (list denote-directory
             (thread-last denote-directory (expand-file-name "assets"))
-            (expand-file-name "~/org-roam/assets")))
+            (expand-file-name "~/org-roam/assets"))
+          )
+
+(setq denote-templates
+      `((daily . "* 9-11\n\n* 11-13\n\n* 13-17\n\n* 17-21")
+        (memo . ,(concat "* Some heading"
+                         "\n\n"
+                         "* Another heading"
+                         "\n\n"))))
 
 ;; Generic (great if you rename files Denote-style in lots of places):
 (add-hook 'dired-mode-hook #'denote-dired-mode)
@@ -180,32 +179,20 @@
 ;; context menu, use the following and then enable
 ;; `context-menu-mode'.
 (add-hook 'context-menu-functions #'denote-context-menu)
-  )
-  ;;; 根据日期创建或打开一篇 journal
-  (defun my-denote-journal-with-date (date)
-	"Create an entry tagged 'journal' and the other 'keywords' with the date as its title, there will be only one entry per day."
-    ;;; 如果没传日期，则使用日历选择一个日期创建
-	(interactive (list (denote-date-prompt)))
-	(let* ((formatted-date (format-time-string "%Y-%m-%d" (denote--valid-date date)))
-		   (entry-of-date-regex (concat "^[^\\.].*" formatted-date))
-		   (entry-of-date (car (directory-files denote-journal-home nil entry-of-date-regex)))
-		   )
 
-	  (if entry-of-date
-		  (find-file (expand-file-name entry-of-date denote-journal-home))
-		(denote
-		 formatted-date
-		 '("daily")
-		 nil
-		 denote-journal-home)
-		)))
+(require 'denote-journal-extras)
+(setq denote-journal-extras-directory denote-journal-home
+      denote-journal-extras-title-format "%Y-%m-%d"
+      denote-journal-extras-keyword "daily")
 
-  ;;; 创建或打开今天的 journal
-  (defun my-denote-journal-for-today ()
-    "Write a journal entry for today."
+  (defun my-denote-note ()
+     "Create a note to pages, need to provide a subdirectory title and tag"
     (interactive)
-    (my-denote-journal-with-date
-     (format-time-string "%Y-%m-%dT00:00:00")))
+    (let ((denote-prompts '(subdirectory title keywords))
+          )
+      (call-interactively #'denote)))
+)
+(advice-add 'denote-journal-extras-new-entry :filter-return #'my-increase)
 
 
 (use-package consult-notes

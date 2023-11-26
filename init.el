@@ -1,12 +1,3 @@
-(let (;; temporarily increase `gc-cons-threshold' when loading to speed up startup.
-      (gc-cons-threshold most-positive-fixnum)
-      ;; Empty to avoid analyzing files when loading remote files.
-      (file-name-handler-alist nil))
-      (benchmark-init/activate)
-)
-
-(tool-bar-mode -1)                           ; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
-(setq inhibit-startup-message t)
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
 (add-hook 'prog-mode-hook #'show-paren-mode) ; 编程模式下，光标在括号上时高亮另一个括号
@@ -19,8 +10,7 @@
 (savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
-(setq-default mode-line-format nil)          ; Prevent flashing of unstyled modeline at startup
-(setq frame-inhibit-implied-resize t)        ;禁止frame缩放
+
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 

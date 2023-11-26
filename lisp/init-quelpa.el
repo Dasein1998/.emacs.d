@@ -18,9 +18,3 @@
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
   )
 
-
-
-(use-package flypy
-  :quelpa (flypy :fetcher github :repo "Dasein1998/xhyx-emacs"
-  :defer t)
-  )
