@@ -18,23 +18,7 @@
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
   )
 
-(quelpa
- '(auto-save
-   :fetcher git
-   :url "https://github.com/manateelazycat/auto-save.git"))
-(require 'auto-save)
-(auto-save-enable)
 
-(setq auto-save-silent t)   ; quietly save
-(setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
-
-;;; custom predicates if you don't want auto save.
-;;; disable auto save mode when current filetype is an gpg file.
-(setq auto-save-disable-predicates
-      '((lambda ()
-      (string-suffix-p
-      "gpg"
-      (file-name-extension (buffer-name)) t))))
 
 (use-package flypy
   :quelpa (flypy :fetcher github :repo "Dasein1998/xhyx-emacs"

@@ -33,9 +33,11 @@
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 			 ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 (package-initialize)
-(setq use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
+(setq 
+      use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
  ;     use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
-      use-package-expand-minimally t)
+      use-package-expand-minimally t
+      vc-use-package-deactivate-advice t )
 (when (not package-archive-contents)
 	   (package-refresh-contents))
 
@@ -62,7 +64,7 @@
 (require 'init-company)
 (require 'init-project)
 (require 'init-consult)
-(require 'lazy-load)
+(require 'init-lazy)
 (require 'on)
 (require 'init-lan)
 (require 'init-note)
