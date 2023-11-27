@@ -1,5 +1,4 @@
 (provide 'init-lazy)
-(require 'lazy-load)
 (use-package sort-tab
   :ensure t
   :after doom-modeline
@@ -7,17 +6,7 @@
   :config
   (sort-tab-mode 1)
   )
-(lazy-load-global-keys
- '(
-   ("M-7" . sort-tab-select-prev-tab)    ;选择前一个标签
-   ("M-8" . sort-tab-select-next-tab)    ;选择后一个标签
-   ("M-s-7" . sort-tab-select-first-tab) ;选择第一个标签
-   ("M-s-8" . sort-tab-select-last-tab)  ;选择最后一个标签
-   ("C-;" . sort-tab-close-current-tab)  ;关闭当前标签
-   ("s-q" . sort-tab-close-other-tabs)   ;关闭后台标签
-   ("s-Q" . sort-tab-close-all-tabs)     ;关闭所有标签
-   )
- "sort-tab")
+
 (use-package auto-save
 :ensure t
 :vc (auto-save :url "https://github.com/manateelazycat/auto-save" :branch "master")
@@ -39,3 +28,15 @@
 :ensure t
 :vc (lazy-load :url "https://github.com/manateelazycat/lazy-load" :branch "master")
 )
+(require 'lazy-load)
+(lazy-load-global-keys
+ '(
+   ("M-7" . sort-tab-select-prev-tab)    ;选择前一个标签
+   ("M-8" . sort-tab-select-next-tab)    ;选择后一个标签
+   ("M-s-7" . sort-tab-select-first-tab) ;选择第一个标签
+   ("M-s-8" . sort-tab-select-last-tab)  ;选择最后一个标签
+   ("C-;" . sort-tab-close-current-tab)  ;关闭当前标签
+   ("s-q" . sort-tab-close-other-tabs)   ;关闭后台标签
+   ("s-Q" . sort-tab-close-all-tabs)     ;关闭所有标签
+   )
+ "sort-tab")
