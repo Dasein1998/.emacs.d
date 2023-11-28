@@ -246,3 +246,25 @@
   (add-hook 'markdown-mode-hook #'xs-toggle-olivetti-for-md)
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-md)
   )
+
+;;emacs中文在orgmode会无法高亮。需要添加相应的空格。
+(font-lock-add-keywords 'org-mode
+                        '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
+                           (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
+                          ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
+                           (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
+                        'append)
+(with-eval-after-load 'ox
+  (defun eli-strip-ws-maybe (text _backend _info)
+    (let* ((text (replace-regexp-in-string
+                  "\\(\\cc\\) *\n *\\(\\cc\\)"
+                  "\\1\\2" text));; remove whitespace from line break
+           ;; remove whitespace from `org-emphasis-alist'
+           (text (replace-regexp-in-string "\\(\\cc\\) \\(.*?\\) \\(\\cc\\)"
+                                           "\\1\\2\\3" text))
+           ;; restore whitespace between English words and Chinese words
+           (text (replace-regexp-in-string "\\(\\cc\\)\\(\\(?:<[^>]+>\\)?[a-z0-9A-Z-]+\\(?:<[^>]+>\\)?\\)\\(\\cc\\)"
+                                           "\\1 \\2 \\3" text)))
+      text))
+  (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
+
