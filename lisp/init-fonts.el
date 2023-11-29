@@ -143,12 +143,11 @@
 (use-package pyim
   :ensure t
   :config
-  (require 'pyim)
   (setq default-input-method "pyim")
   (require 'pyim-cstring-utils)
-(require 'pyim-humadict)
+  (require 'pyim-humadict)
+  (pyim-humadict-enable)
   (pyim-default-scheme 'huma)
-  ;(pyim-humadict-enable)
   ;(require 'popup)
   ;(setq pyim-page-tooltip 'popup)
   (require 'posframe)
