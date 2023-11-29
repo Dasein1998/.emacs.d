@@ -47,3 +47,4 @@ custom.el
 bookmarks
 .org-id-locations
 org-persist/
+pyim/
