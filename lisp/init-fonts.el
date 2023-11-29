@@ -79,6 +79,7 @@
   )
 (use-package rime
   :ensure t
+  :disabled t
   :custom
   (default-input-method "rime"))
 
@@ -137,3 +138,40 @@
   ;; enable the /inline english/ mode for all buffers
   (sis-global-inline-mode t)
   )
+
+
+(use-package pyim
+  :ensure t
+  :config
+  (require 'pyim)
+  (setq default-input-method "pyim")
+  (require 'pyim-cstring-utils)
+(require 'pyim-humadict)
+  (pyim-default-scheme 'huma)
+  ;(pyim-humadict-enable)
+  ;(require 'popup)
+  ;(setq pyim-page-tooltip 'popup)
+  (require 'posframe)
+(setq pyim-page-tooltip 'posframe)
+  
+  ;; 显示 5 个候选词。
+(setq pyim-page-length 5)
+;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
+(global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
+(global-set-key (kbd "C-\\") 'toggle-input-method)
+;; 按 "C-<return>" 将光标前的 regexp 转换为可以搜索中文的 regexp.
+(define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
+(pyim-isearch-mode 1)
+(define-key pyim-mode-map ";"
+  (lambda ()
+    (interactive)
+    (pyim-select-word-by-number 2)))
+
+
+:bind
+("M-f" . pyim-forward-word)
+("M-b" . pyim-backward-word)
+
+  )
+(use-package pyim-humadict
+  :vc (pyim-humadict :url https://github.com/Dasein1998/huma_pyim :branch main))

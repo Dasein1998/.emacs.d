@@ -20,5 +20,5 @@
 (use-package flypy
   :ensure t
   :vc (flypy :url "https://github.com/Dasein1998/xhyx-emacs" :branch "master")
-  :defer t
+  :disabled t
   )
