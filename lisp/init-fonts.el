@@ -142,6 +142,7 @@
 
 (use-package pyim
   :ensure t
+  :disabled t
   :config
   (setq default-input-method "pyim")
   (require 'pyim-cstring-utils)
@@ -152,7 +153,7 @@
   ;(setq pyim-page-tooltip 'popup)
   (require 'posframe)
 (setq pyim-page-tooltip 'posframe)
-  
+
   ;; 显示 5 个候选词。
 (setq pyim-page-length 5)
 ;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
@@ -173,4 +174,5 @@
 
   )
 (use-package pyim-humadict
+  :disabled t
   :vc (pyim-humadict :url https://github.com/Dasein1998/huma_pyim :branch main))

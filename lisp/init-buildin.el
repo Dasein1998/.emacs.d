@@ -45,7 +45,7 @@
      empty            ; empty lines at beginning/end of buffer
      lines-tail       ; lines go beyond `fill-column'
      space-before-tab ; spaces before tab
-     trailing         ; trailing blanks
+   ;  trailing         ; trailing blanks
      tabs             ; tabs (show by face)
      tab-mark         ; tabs (show by symbol)
      )))
