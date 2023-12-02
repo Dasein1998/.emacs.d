@@ -224,7 +224,9 @@
   (when (locate-library "denote")
     (consult-notes-denote-mode))
   ;; search only for text files in denote dir
-  (setq consult-notes-denote-files-function (function denote-directory-text-only-files)))
+  (setq consult-notes-denote-files-function (function denote-directory-text-only-files))
+  :bind
+  ("M-s f" . consult-notes))
 
 (use-package olivetti
   ;:diminish
@@ -278,4 +280,3 @@
                                            "\\1 \\2 \\3" text)))
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
-
