@@ -66,4 +66,6 @@
 :ensure t
 :config
 (require 'undo-tree)
-(global-undo-tree-mode 1))
+(global-undo-tree-mode 1)
+(setq undo-tree-history-directory-alist `(("." . "~/.emacs.d/.cache/"))))
+

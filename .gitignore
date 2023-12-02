@@ -9,7 +9,7 @@
 
 # Undo-tree save-files
 *.~undo-tree
-
+.cache/
 # flycheck temp file
 .flycheck*
 
