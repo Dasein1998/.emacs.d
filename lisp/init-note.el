@@ -67,10 +67,21 @@
 
 (use-package org-download
   :after org
+  :init
   :config
   (add-hook 'dired-mode-hook 'org-download-enable)
+  (add-hook 'org-mode-hook 'org-download-enable)
   (setq-default org-download-image-dir "~/org-roam/assets")
   (setq org-download-timestamp t)
+  (when IS-WINDOWS
+    (setq org-download-screenshot-method "powershell -c Add-Type -AssemblyName System.Windows.Forms;$image = [Windows.Forms.Clipboard]::GetImage();$image.Save('%s', [System.Drawing.Imaging.ImageFormat]::Png)"
+          org-download-display-inline-images 'posframe
+          org-download-abbreviate-filename-function 'expand-file-name))
+
+  (defun talon/org-download-clipboard()
+    (interactive)
+    (let ((org-download-screenshot-method "irfanview /clippaste /convert=\"%s\""))
+      (org-download-screenshot)))
   )
 
 (use-package org-modern
