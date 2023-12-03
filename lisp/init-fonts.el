@@ -128,7 +128,7 @@
   ;;  ((text-mode prog-mode) . sis-inline-mode))
 
   :config
-  (sis-ism-lazyman-config "1033" "2052" 'im-select)
+  ;(sis-ism-lazyman-config "1033" "2052" 'im-select)
   ;; enable the /cursor color/ mode
   (sis-global-cursor-color-mode t)
   ;; enable the /respect/ mode

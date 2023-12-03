@@ -274,4 +274,6 @@
     "")
     (setq org-download-annotate-function
       #'dummy-org-download-annotate-function)
+  :bind
+  ("C-c v" . org-download-screenshot)
 )
