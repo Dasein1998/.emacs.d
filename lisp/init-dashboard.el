@@ -1,5 +1,6 @@
 (provide 'init-dashboard)
 (use-package dashboard
+:disabled t
   :ensure t
   :config
   (setq dashboard-banner-logo-title "You are what you do!") ;; 个性签名，随读者喜好设置
@@ -10,6 +11,7 @@
 			  ;(projects . 5)
         )) ;; 显示多少个最近项目
   (dashboard-setup-startup-hook))
+
 
 (use-package benchmark-init
   :config
