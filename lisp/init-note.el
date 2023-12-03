@@ -65,13 +65,7 @@
    ("C-c n l" . consult-org-roam-forward-links)
    ("C-c n r" . consult-org-roam-search))
 
-(use-package org-download
-  :config
-  (add-hook 'dired-mode-hook 'org-download-enable)
-  (add-hook 'org-mode-hook 'org-download-enable)
-    (setq org-download-image-dir "~/org-roam/assets")
-    (setq org-download-screenshot-method "convert clipboard: %s ")
-)
+
 
 (use-package org-modern
   :after org
@@ -269,3 +263,15 @@
                                            "\\1 \\2 \\3" text)))
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
+(use-package org-download
+  :config
+  (setq-default org-download-heading-lvl nil)
+  (setq org-download-screenshot-method "irfanview /clippaste /convert=\"%s\"")
+  (setq-default org-download-image-dir "~/org-roam/assets/")
+        (add-hook 'dired-mode-hook 'org-download-enable)
+  (add-hook 'org-mode-hook 'org-download-enable)
+  (defun dummy-org-download-annotate-function (link)
+    "")
+    (setq org-download-annotate-function
+      #'dummy-org-download-annotate-function)
+)
