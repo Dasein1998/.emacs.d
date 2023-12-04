@@ -1,4 +1,9 @@
 (defconst IS-WINDOWS (eq system-type 'windows-nt))
+					;windows-nt的编码问题
+(when (and (eq system-type 'windows-nt)
+           (eq w32-ansi-code-page 65001))
+  (setq w32-system-coding-system 'utf-8)
+  (define-coding-system-alias 'cp65001 'utf-8))
 
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
@@ -12,7 +17,7 @@
 (savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
-
+(setq inhibit-splash-screen t)               ;关闭首页
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 
@@ -25,7 +30,7 @@
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 			 ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 (package-initialize)
-(setq 
+(setq
       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
  ;     use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
       use-package-expand-minimally t
@@ -47,7 +52,8 @@
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 
-;(require 'init-dired)
+					;(require 'init-dired)
+(require 'init-env)
 (require 'init-vertico)
 (require 'init-dashboard)
 (require 'init-fonts)
