@@ -48,7 +48,7 @@
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题
+;(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 

@@ -75,7 +75,15 @@
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
-
+(setq xref-search-program
+      (cond
+       ((or (executable-find "ripgrep")
+            (executable-find "rg"))
+        'ripgrep)
+       ((executable-find "ugrep")
+        'ugrep)
+       (t
+        'grep)))
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
   :config
@@ -113,8 +121,8 @@
   ;;;; 3. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
   ;;;; 4. projectile.el (projectile-project-root)
-;   (autoload 'projectile-project-root "projectile")
- ;  (setq consult-project-function (lambda (_) (projectile-project-root)))
+   (autoload 'projectile-project-root "projectile")
+   (setq consult-project-function (lambda (_) (projectile-project-root)))
   ;;;; 5. No project support
   ;; (setq consult-project-function nil)
 )
