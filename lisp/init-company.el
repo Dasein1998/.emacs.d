@@ -66,7 +66,7 @@
          ("C-c p ^" . cape-tex)
          ("C-c p &" . cape-sgml)
          ("C-c p r" . cape-rfc1345))
-  :init
+  :config
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
@@ -84,12 +84,9 @@
 
   )
 (use-package doom-modeline
-  :defer
   :ensure t
-  :config
-  (add-hook 'find-file-hook #'doom-modeline-mode)
-  (run-with-idle-timer 3 0 #'doom-modeline-mode)
-  (doom-modeline-mode 1)
+  :hook
+  (on-first-file . doom-modeline-mode)
   )
 ;; Configure Tempel
 (use-package tempel
@@ -100,8 +97,7 @@
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
 
-  :init
-
+  :config
   ;; Setup completion at point
   (defun tempel-setup-capf ()
     ;; Add the Tempel Capf to `completion-at-point-functions'.

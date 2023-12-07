@@ -58,6 +58,8 @@
 
 					;(require 'init-dired)
 (require 'init-env)
+(require 'on)
+
 (require 'init-vertico)
 (require 'init-dashboard)
 (require 'init-fonts)
@@ -67,7 +69,6 @@
 (require 'init-project)
 (require 'init-consult)
 (require 'init-lazy)
-(require 'on)
 (require 'init-lan)
 (require 'init-note)
 ;(require 'init-quelpa)
