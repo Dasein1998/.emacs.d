@@ -63,6 +63,7 @@
 (setq undo-tree-history-directory-alist `(("." . "~/.emacs.d/.cache/"))))
 
 (use-package meow
+:defer 2
   :ensure t
   :config
   (defun meow-setup ()

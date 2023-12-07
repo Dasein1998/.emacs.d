@@ -40,6 +40,7 @@
   :after (org-roam)
   )
 (use-package consult-org-roam
+   :defer t
    :after org-roam
    :init
    (require 'consult-org-roam)
@@ -68,12 +69,14 @@
 
 
 (use-package org-modern
+  :defer t
   :after org
   :config
   (add-hook 'org-mode-hook #'org-modern-mode)
   (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
   )
 (use-package denote
+:defer t
   :config
   ;; Remember to check the doc strings of those variables.
   (setq denote-directory (expand-file-name "~/org-roam/")

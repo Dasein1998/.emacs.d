@@ -18,6 +18,10 @@
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
 (setq inhibit-splash-screen t)               ;关闭首页
+(setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
+(blink-cursor-mode 0)                       ;避免光标闪烁
+
+
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 
@@ -66,7 +70,7 @@
 (require 'on)
 (require 'init-lan)
 (require 'init-note)
-(require 'init-quelpa)
+;(require 'init-quelpa)
 (require 'init-avy)
 (require 'init-buildin)
 ;(require 'init-elfeed)

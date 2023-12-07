@@ -4,6 +4,7 @@
   )
 
 (use-package projectile
+:defer t
 :ensure t
 :config
 (projectile-mode 1)

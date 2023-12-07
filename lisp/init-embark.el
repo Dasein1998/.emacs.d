@@ -1,5 +1,6 @@
 (provide 'init-embark)
 (use-package marginalia
+:defer t
   :ensure t
   :config
   (marginalia-mode))

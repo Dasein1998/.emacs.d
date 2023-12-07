@@ -2,12 +2,14 @@
 
 (use-package ace-pinyin
   :ensure t
+  :defer t
   :after avy
   :config
   (ace-pinyin-global-mode 1)
   )
 (use-package avy
   :ensure t
+  :defer t
   :bind
  ; (("M-j C-SPC" 、. avy-goto-char-timer))
   )
@@ -17,6 +19,7 @@
 ; https://github.com/abo-abo/ace-window
 (use-package ace-window
 :ensure t
+:defer t
 :config
 (global-set-key (kbd "M-o") 'ace-window)
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))

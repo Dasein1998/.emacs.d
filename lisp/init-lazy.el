@@ -1,6 +1,7 @@
 (provide 'init-lazy)
 (use-package sort-tab
   :ensure t
+  :defer t
   :after doom-modeline
   :vc (sort-tab :url "https://github.com/manateelazycat/sort-tab" :branch "main")
   :config
@@ -40,3 +41,8 @@
    ("s-Q" . sort-tab-close-all-tabs)     ;关闭所有标签
    )
  "sort-tab")
+(lazy-load-global-keys
+ '(
+   ("M-o" . ace-window))
+   "ace-window"
+   )

@@ -84,8 +84,11 @@
 
   )
 (use-package doom-modeline
+  :defer
   :ensure t
   :config
+  (add-hook 'find-file-hook #'doom-modeline-mode)
+  (run-with-idle-timer 3 0 #'doom-modeline-mode)
   (doom-modeline-mode 1)
   )
 ;; Configure Tempel
