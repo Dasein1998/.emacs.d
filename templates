@@ -1,6 +1,9 @@
 fundamental-mode 适用于所有 Mode。
 
 (today (format-time-string "%Y-%m-%d"))
+(yest (format-time-string "%Y-%m-%d" (time-subtract (current-time) (days-to-time 1))))
+(tom (format-time-string "%Y-%m-%d" (time-subtract (current-time) (days-to-time -1))))
+
 
 org-mode ;; 空格分割的多个 Mode 名称。
 
@@ -8,5 +11,5 @@ org-mode ;; 空格分割的多个 Mode 名称。
 "* 9-11" n n
 "* 11-13" n n
 "* 13-17" n n
-"* 17-21" n
+"* 17-21" n n
 )

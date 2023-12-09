@@ -293,3 +293,4 @@
 (use-package consult-recoll
 :ensure t
 )
+
