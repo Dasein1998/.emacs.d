@@ -128,6 +128,7 @@
   ;;  ((text-mode prog-mode) . sis-inline-mode))
 
   :config
+  (sis-ism-lazyman-config "1" "2" 'fcitx5)
   ;(sis-ism-lazyman-config "1033" "2052" 'im-select)
   ;; enable the /cursor color/ mode
   (sis-global-cursor-color-mode t)
@@ -137,6 +138,7 @@
   (sis-global-context-mode t)
   ;; enable the /inline english/ mode for all buffers
   (sis-global-inline-mode t)
+
   )
 
 

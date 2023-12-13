@@ -27,7 +27,8 @@
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file t)
-
+(unless (package-installed-p 'vc-use-package)
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
 (require 'package)
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
