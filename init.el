@@ -21,7 +21,11 @@
 (setq inhibit-splash-screen t)               ;关闭首页
 (setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
 (blink-cursor-mode 0)                       ;避免光标闪烁
-
+;(setq split-width-threshold 1)               ;强制左右分屏
+;当大于两个buffer时，删除前一个。
+(defadvice org-open-at-point (after my-org-open-at-point activate)
+  (while (>  (count-windows) 2)
+    (delete-window (cadr (window-list-1))))) 
 
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir

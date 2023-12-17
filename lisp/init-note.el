@@ -200,8 +200,10 @@
              ;consult-notes-org-roam-find-node-relation
              )
   :config
-  (setq consult-notes-file-dir-sources '(("daily"  ?d  "~/org-roam/000-D/")
-					 ("note" ?n "~/org-roam/001-pages/"))) ;; Set notes dir(s), see below
+  (setq consult-notes-file-dir-sources '(
+					 ;("daily"  ?d  "~/org-roam/000-D/")
+					 ;("note" ?n "~/org-roam/001-pages/")
+					 )) ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
   ;;If you have org files with many headings (say some subset of your agenda files, for example) that you would like to include in a consult-notes search, you can enable consult-notes-org-headings-mode and the headings for files you specify in consult-notes-org-headings-files will be included in consult-notes.
   ;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
@@ -293,4 +295,3 @@
 (use-package consult-recoll
 :ensure t
 )
-
