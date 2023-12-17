@@ -1,4 +1,5 @@
 (defconst IS-WINDOWS (eq system-type 'windows-nt))
+(defconst IS-LINUX (eq system-type 'gnu/linux))
 					;windows-nt的编码问题
 (when (and (eq system-type 'windows-nt)
            (eq w32-ansi-code-page 65001))
