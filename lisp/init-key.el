@@ -153,16 +153,20 @@
    '("<escape>" . ignore)))
    (meow-setup)
 (meow-global-mode 1))
-;;meow配合sis，实现自动切换 
+;;meow配合sis，实现自动切换
   (defvar meow-leaving-insert-mode-hook nil
     "Hook to run when leaving meow insert mode.")
   (defvar meow-entering-insert-mode-hook nil
     "Hook to run when entering meow insert mode.")
   (add-hook 'meow-insert-mode-hook
             (lambda ()
-              (if meow-insert-mode 
+              (if meow-insert-mode
                 (run-hooks 'meow-entering-insert-mode-hook)
               (run-hooks 'meow-leaving-insert-mode-hook))))
   (with-eval-after-load 'sis
     (add-hook 'meow-leaving-insert-mode-hook #'sis-set-english)
     (add-to-list 'sis-context-hooks 'meow-entering-insert-mode-hook))
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
