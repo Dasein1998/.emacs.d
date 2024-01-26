@@ -52,6 +52,5 @@
 
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (let ( (mgs-list '("You are what you do."
-                                "Déjà vu!")) )
+            (let ((mgs-list '("You are what you do.")))
               (message (nth (random (length mgs-list)) mgs-list)))))

@@ -83,11 +83,7 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
 
   )
-(use-package doom-modeline
-  :ensure t
-  :hook
-  (on-first-file . doom-modeline-mode)
-  )
+
 ;; Configure Tempel
 (use-package tempel
   ;; Require trigger prefix before template name when completing.

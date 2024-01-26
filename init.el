@@ -25,7 +25,7 @@
 ;当大于两个buffer时，删除前一个。
 (defadvice org-open-at-point (after my-org-open-at-point activate)
   (while (>  (count-windows) 2)
-    (delete-window (cadr (window-list-1))))) 
+    (delete-window (cadr (window-list-1)))))
 
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
@@ -38,7 +38,9 @@
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-			 ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+			)
+      )
 (package-initialize)
 (setq
       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
@@ -48,31 +50,22 @@
 (when (not package-archive-contents)
 	   (package-refresh-contents))
 
-(defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                   (time-subtract after-init-time before-init-time)))
-           gcs-done))
-
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-;(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
+(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 
-					;(require 'init-dired)
+;(require 'init-dired)
 (require 'init-env)
 (require 'on)
 
 (require 'init-vertico)
-(require 'init-dashboard)
+;(require 'init-dashboard)
 (require 'init-fonts)
 (require 'init-md)
 (require 'init-key)
 (require 'init-company)
-(require 'init-project)
+;(require 'init-project)
 (require 'init-consult)
 (require 'init-lazy)
 (require 'init-lan)

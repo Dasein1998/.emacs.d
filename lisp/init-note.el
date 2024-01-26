@@ -9,6 +9,7 @@
 ("C-i" . cape-elisp-block)
 
 )
+
 (use-package org-roam
   :defer t
   :disabled t

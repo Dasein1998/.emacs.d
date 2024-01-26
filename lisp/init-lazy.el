@@ -1,7 +1,7 @@
 (provide 'init-lazy)
 (use-package sort-tab
   :ensure t
-  :defer t
+  ;:defer t
   :after doom-modeline
   :vc (sort-tab :url "https://github.com/manateelazycat/sort-tab" :branch "main")
   :config
@@ -46,4 +46,3 @@
    ("M-o" . ace-window))
    "ace-window"
    )
-
