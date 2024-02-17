@@ -1,14 +1,15 @@
 (provide 'init-note)
 (use-package org
 :ensure nil
-:defer t
+:after hydra
 :config
 (setq org-modules nil)
 (require 'org-tempo)
 :bind
 ("C-i" . cape-elisp-block)
-
 )
+
+
 
 (use-package org-roam
   :defer t

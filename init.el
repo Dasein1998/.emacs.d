@@ -75,5 +75,5 @@
 (require 'init-buildin)
 ;(require 'init-elfeed)
 ;(require 'init-hyperbole)
-(require 'init-embark)
+;(require 'init-embark)
 (provide 'init)

@@ -12,7 +12,6 @@
         )) ;; 显示多少个最近项目
   (dashboard-setup-startup-hook))
 
-
 (use-package benchmark-init
   :config
   ;; To disable collection of benchmark data after init is done.
