@@ -16,24 +16,20 @@
 (use-package use-package-hydra
   :ensure t
   :after hydra)
-
-(defhydra hydra-org (global-map "C-c o" :color pink :hint nil )
-
-  ("b" org-backward-heading-same-level "back")
-  ("f" org-forward-heading-same-level "forward")
-  ("c" nil)
-  ("l" consult-line "consult-line")
-  ("s" consult-ripgrep "ripgrep")
-
-)
-;(global-set-key (kbd "C-z") nil)
-
-(use-package undo-tree
+(use-package keyfreq
   :ensure t
+  :defer t
   :config
-(require 'undo-tree)
-(global-undo-tree-mode 1)
-(setq undo-tree-history-directory-alist `(("." . "~/.emacs.d/.cache/"))))
+  (keyfreq-mode)
+  (keyfreq-autosave-mode)
+  )
+(setq keyfreq-excluded-commands
+      '(self-insert-command
+        forward-char
+        backward-char
+        previous-line
+        next-line))
+(global-set-key (kbd "C-z") nil)
 
 (use-package meow
   :defer 2
@@ -143,11 +139,3 @@
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
-
-;; key bindings
-(when (eq system-type 'darwin) ;; mac specific settings
-  (setq mac-option-modifier 'alt)
-  (setq mac-command-modifier 'meta)
-  (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
-  )
-
