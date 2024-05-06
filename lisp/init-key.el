@@ -43,7 +43,7 @@
         previous-line
         next-line))
 
-(global-set-key (kbd "C-z") nil)
+;(global-set-key (kbd "C-z") nil)
 
 (use-package undo-tree
 :ensure t
