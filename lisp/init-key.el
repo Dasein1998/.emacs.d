@@ -46,14 +46,14 @@
 ;(global-set-key (kbd "C-z") nil)
 
 (use-package undo-tree
-:ensure t
-:config
+  :ensure t
+  :config
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 (setq undo-tree-history-directory-alist `(("." . "~/.emacs.d/.cache/"))))
 
 (use-package meow
-:defer 2
+  :defer 2
   :ensure t
   :config
   (defun meow-setup ()
