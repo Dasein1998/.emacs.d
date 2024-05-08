@@ -226,15 +226,6 @@
   ("C-c v" . org-download-screenshot)
 )
 
-(use-package xeft
-:ensure t
-:vc (xeft :url "https://git.sr.ht/~casouri/xeft" )
-:config
-(setq xeft-directory "~/org-roam/")
-(setq xeft-recursive t)
-(setq xeft-database "~/xeft_db")
-)
-
 (use-package consult-recoll
 :ensure t
 )
