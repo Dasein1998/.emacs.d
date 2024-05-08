@@ -169,12 +169,9 @@
   (lambda ()
     (interactive)
     (pyim-select-word-by-number 2)))
-
-
 :bind
 ("M-f" . pyim-forward-word)
 ("M-b" . pyim-backward-word)
-
   )
 (use-package pyim-humadict
   :disabled t
