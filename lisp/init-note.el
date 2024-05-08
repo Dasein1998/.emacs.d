@@ -8,9 +8,6 @@
 :bind
 ("C-i" . cape-elisp-block)
 )
-
-
-
 (use-package org-modern
   :defer t
   :after org
