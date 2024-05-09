@@ -156,8 +156,8 @@
   :config
   (require 'pyim-humadict)
   (pyim-humadict-enable)
-  (require 'pyim-cstring-utils)  
   (pyim-default-scheme 'huma)
+  (require 'pyim-cstring-utils)  
   ;(require 'popup)
   ;(setq pyim-page-tooltip 'popup)
   ;(require 'posframe)

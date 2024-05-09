@@ -41,7 +41,7 @@
 			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
 			)
       )
-(package-initialize)
+;(package-initialize)
 (setq
       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
  ;     use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
