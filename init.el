@@ -57,6 +57,7 @@
 
 ;(require 'init-dired)
 (require 'init-env)
+(require 'init-quelpa)
 (require 'on)
 
 (require 'init-vertico)
@@ -70,7 +71,6 @@
 (require 'init-lazy)
 (require 'init-lan)
 (require 'init-note)
-;(require 'init-quelpa)
 (require 'init-avy)
 (require 'init-buildin)
 ;(require 'init-elfeed)

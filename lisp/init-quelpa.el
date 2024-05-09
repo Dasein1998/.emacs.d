@@ -12,9 +12,11 @@
    :fetcher git
    :url "https://github.com/quelpa/quelpa-use-package.git"))
 (require 'quelpa-use-package)
+
 (use-package benchmark-init
   :config
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
   )
 
+(quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))

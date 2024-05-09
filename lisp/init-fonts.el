@@ -27,7 +27,7 @@
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height (cond (sys/macp 130)
+                                        :height (cond (sys/macp 100)
                                                       (sys/win32p 110)
                                                       (t 100))
                                           ))
@@ -141,21 +141,27 @@
   (sis-global-inline-mode t)
 
   )
+(use-package posframe
+:ensure t
+:disabled t
+)
+
 
 
 (use-package pyim
   :ensure t
-  :disabled t
-  :config
+  ;:disabled t
+  :init
   (setq default-input-method "pyim")
-  (require 'pyim-cstring-utils)
+  :config
   (require 'pyim-humadict)
   (pyim-humadict-enable)
+  (require 'pyim-cstring-utils)  
   (pyim-default-scheme 'huma)
   ;(require 'popup)
   ;(setq pyim-page-tooltip 'popup)
-  (require 'posframe)
-(setq pyim-page-tooltip 'posframe)
+  ;(require 'posframe)
+  ;(setq pyim-page-tooltip 'posframe)
 
   ;; 显示 5 个候选词。
 (setq pyim-page-length 5)
@@ -173,6 +179,3 @@
 ("M-f" . pyim-forward-word)
 ("M-b" . pyim-backward-word)
   )
-(use-package pyim-humadict
-  :disabled t
-  :vc (pyim-humadict :url https://github.com/Dasein1998/huma_pyim :branch main))
