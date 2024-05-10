@@ -41,19 +41,20 @@
 			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
 			)
       )
-;(package-initialize)
+(when (< emacs-major-version 27)
+  (package-initialize))
 (setq
       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
  ;     use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
       use-package-expand-minimally t
       vc-use-package-deactivate-advice t )
-(when (not package-archive-contents)
-	   (package-refresh-contents))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
+
+
 
 ;(require 'init-dired)
 (require 'init-env)

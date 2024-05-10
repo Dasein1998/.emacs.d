@@ -55,6 +55,7 @@
 (use-package meow
   :defer 2
   :ensure t
+  :disabled t
   :config
   (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)

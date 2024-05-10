@@ -158,6 +158,7 @@
 
 (use-package olivetti
   ;:diminish
+  :disabled t
   :bind ("<f8>" . olivetti-mode)
   :init
   (setq olivetti-body-width 0.618)
