@@ -1,6 +1,5 @@
 (provide 'init-dashboard)
 (use-package dashboard
-  :disabled t
   :ensure t
   :config
   (setq dashboard-banner-logo-title "You are what you do!") ;; 个性签名，随读者喜好设置
@@ -13,13 +12,8 @@
   (dashboard-setup-startup-hook))
 
 (use-package benchmark-init
+  :ensure t
   :config
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
-  )
-
-(use-package flypy
-  :ensure t
-  :vc (flypy :url "https://github.com/Dasein1998/xhyx-emacs" :branch "master")
-  :disabled t
   )

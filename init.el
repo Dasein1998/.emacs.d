@@ -62,7 +62,7 @@
 (require 'on)
 
 (require 'init-vertico)
-;(require 'init-dashboard)
+(require 'init-dashboard)
 (require 'init-fonts)
 (require 'init-md)
 (require 'init-key)
