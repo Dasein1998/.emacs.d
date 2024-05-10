@@ -25,24 +25,6 @@
 ("s" consult-ripgrep "ripgrep")
 )
 
-
-
-
-
-(use-package keyfreq
-  :ensure t
-  :defer t
-  :config
-  (keyfreq-mode)
-  (keyfreq-autosave-mode)
-  )
-(setq keyfreq-excluded-commands
-      '(self-insert-command
-        forward-char
-        backward-char
-        previous-line
-        next-line))
-
 ;(global-set-key (kbd "C-z") nil)
 
 (use-package undo-tree

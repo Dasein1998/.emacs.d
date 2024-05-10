@@ -223,7 +223,3 @@
   :bind
   ("C-c v" . org-download-screenshot)
 )
-
-(use-package consult-recoll
-:ensure t
-)
