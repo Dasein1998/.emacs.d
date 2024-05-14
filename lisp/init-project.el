@@ -1,5 +1,6 @@
 (provide 'init-project)
 (use-package magit
+  :disabled t
   :defer t
   )
 

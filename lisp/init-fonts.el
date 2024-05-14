@@ -77,11 +77,6 @@
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
   )
-(use-package rime
-  :ensure t
-  :disabled t
-  :custom
-  (default-input-method "rime"))
 
 (use-package gcmh  ;gc优化
   :init
