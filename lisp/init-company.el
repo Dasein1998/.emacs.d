@@ -18,8 +18,8 @@
    ;:hook ((prog-mode . corfu-mode)
     ;      (shell-mode . corfu-mode)
      ;     (eshell-mode . corfu-mode)
-;   (org-mode . corfu-mode)
-;  (markdown-mode . corfu-mode))
+  ;   (org-mode . corfu-mode)
+  ;  (markdown-mode . corfu-mode))
 
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
@@ -27,7 +27,7 @@
   :init
   (global-corfu-mode)
   )
-;; A few more useful configurations...
+  ;; A few more useful configurations...
 (use-package emacs
   :config
   ;; TAB cycle if there are only few candidates
@@ -42,9 +42,9 @@
   ;; `completion-at-point' is often bound to M-TAB.
   (setq tab-always-indent 'complete))
 
-;; Enable Corfu completion UI
-;; See the Corfu README for more configuration tips.
-;; Add extensions
+  ;; Enable Corfu completion UI
+  ;; See the Corfu README for more configuration tips.
+  ;; Add extensions
 (use-package cape
   :ensure t
   :after corfu
@@ -84,7 +84,7 @@
 
   )
 
-;; Configure Tempel
+  ;; Configure Tempel
 (use-package tempel
   ;; Require trigger prefix before template name when completing.
   ;; :custom
@@ -115,9 +115,9 @@
   ;; either locally or globally. `expand-abbrev' is bound to C-x '.
   ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
   ;; (global-tempel-abbrev-mode)
-)
+  )
 
-;; Optional: Add tempel-collection.
-;; The package is young and doesn't have comprehensive coverage.
+  ;; Optional: Add tempel-collection.
+  ;; The package is young and doesn't have comprehensive coverage.
 (use-package tempel-collection
   :after (tempel))

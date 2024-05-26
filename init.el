@@ -56,7 +56,7 @@
 
 
 
-;(require 'init-dired)
+(require 'init-dired)
 (require 'init-env)
 (require 'init-quelpa)
 (require 'on)
@@ -64,7 +64,6 @@
 (require 'init-vertico)
 (require 'init-dashboard)
 (require 'init-fonts)
-(require 'init-md)
 (require 'init-key)
 (require 'init-company)
 ;(require 'init-project)
@@ -75,6 +74,5 @@
 (require 'init-avy)
 (require 'init-buildin)
 ;(require 'init-elfeed)
-;(require 'init-hyperbole)
 (require 'init-embark)
 (provide 'init)

@@ -99,11 +99,11 @@
   (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
-(set-charset-priority 'unicode)
-(prefer-coding-system 'utf-8)
-(setq system-time-locale "C")
-(when (eq system-type 'windows-nt)
-  (setq file-name-coding-system 'gbk))
+  (set-charset-priority 'unicode)
+  (prefer-coding-system 'utf-8)
+  (setq system-time-locale "C")
+  (when (eq system-type 'windows-nt)
+    (setq file-name-coding-system 'gbk))
 
 (use-package pangu-spacing
   :config
@@ -137,12 +137,9 @@
 
   )
 (use-package posframe
-:ensure t
-:disabled t
-)
-
-
-
+  :ensure t
+  :disabled t
+  )
 (use-package pyim
   :ensure t
   ;:disabled t
@@ -159,18 +156,18 @@
   ;(setq pyim-page-tooltip 'posframe)
 
   ;; 显示 5 个候选词。
-(setq pyim-page-length 5)
-;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
-(global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
-(global-set-key (kbd "C-\\") 'toggle-input-method)
-;; 按 "C-<return>" 将光标前的 regexp 转换为可以搜索中文的 regexp.
-(define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
-(pyim-isearch-mode 1)
-(define-key pyim-mode-map ";"
-  (lambda ()
-    (interactive)
-    (pyim-select-word-by-number 2)))
-:bind
-("M-f" . pyim-forward-word)
-("M-b" . pyim-backward-word)
-  )
+  (setq pyim-page-length 5)
+  ;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
+  (global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
+  (global-set-key (kbd "C-\\") 'toggle-input-method)
+  ;; 按 "C-<return>" 将光标前的 regexp 转换为可以搜索中文的 regexp.
+  (define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
+  (pyim-isearch-mode 1)
+  (define-key pyim-mode-map ";"
+    (lambda ()
+      (interactive)
+      (pyim-select-word-by-number 2)))
+  :bind
+  ("M-f" . pyim-forward-word)
+  ("M-b" . pyim-backward-word)
+    )

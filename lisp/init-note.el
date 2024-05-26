@@ -1,13 +1,13 @@
 (provide 'init-note)
 (use-package org
-:ensure nil
-:after hydra
-:config
-(setq org-modules nil)
-(require 'org-tempo)
-:bind
-("C-i" . cape-elisp-block)
-)
+  :ensure nil
+  :after hydra
+  :config
+  (setq org-modules nil)
+  (require 'org-tempo)
+  :bind
+  ("C-i" . cape-elisp-block)
+  )
 (use-package org-modern
   :defer t
   :after org
@@ -16,7 +16,7 @@
   (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
   )
 (use-package denote
-:defer t
+  :defer t
   :config
   ;; Remember to check the doc strings of those variables.
   (setq denote-directory (expand-file-name "~/org-roam/")
@@ -29,53 +29,53 @@
     denote-prompts '(title keywords)
     denote-excluded-directories-regexp nil
     denote-excluded-keywords-regexp nil
-;; Pick dates, where relevant, with Org's advanced interface:
+  ;; Pick dates, where relevant, with Org's advanced interface:
     denote-date-prompt-use-org-read-date t
-;; Read this manual for how to specify `denote-templates'.  We do not
-;; include an example here to avoid potential confusion.
+  ;; Read this manual for how to specify `denote-templates'.  We do not
+  ;; include an example here to avoid potential confusion.
     denote-date-format nil; read doc string
-;; By default, we do not show the context of links.  We just display
-;; file names.  This provides a more informative view.
+  ;; By default, we do not show the context of links.  We just display
+  ;; file names.  This provides a more informative view.
     denote-backlinks-show-context t)
-;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
-;; advanced.
-;; If you use Markdown or plain text files (Org renders links as buttons
-;; right away)
-(add-hook 'find-file-hook #'denote-link-buttonize-buffer)
-;; We use different ways to specify a path for demo purposes.
-(setq denote-dired-directories
+  ;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
+  ;; advanced.
+  ;; If you use Markdown or plain text files (Org renders links as buttons
+  ;; right away)
+  (add-hook 'find-file-hook #'denote-link-buttonize-buffer)
+  ;; We use different ways to specify a path for demo purposes.
+  (setq denote-dired-directories
       (list denote-directory
             (thread-last denote-directory (expand-file-name "assets"))
             (expand-file-name "~/org-roam/assets"))
           )
 
-(setq denote-templates
+  (setq denote-templates
       `((daily . "* 9-11\n\n* 11-13\n\n* 13-17\n\n* 17-21")
         (memo . ,(concat "* Some heading"
                          "\n\n"
                          "* Another heading"
                          "\n\n"))))
 
-;; Generic (great if you rename files Denote-style in lots of places):
-(add-hook 'dired-mode-hook #'denote-dired-mode)
-;;
-;; OR if only want it in `denote-dired-directories':
-;;(add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
+  ;; Generic (great if you rename files Denote-style in lots of places):
+  (add-hook 'dired-mode-hook #'denote-dired-mode)
+  ;;
+  ;; OR if only want it in `denote-dired-directories':
+  ;;(add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
 
 
-;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
-(denote-rename-buffer-mode 1)
+  ;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
+  (denote-rename-buffer-mode 1)
 
-;; Denote DOES NOT define any key bindings.  This is for the user to
-;; decide.  For example:
-(let ((map global-map))
-  (define-key map (kbd "C-c n n") #'denote)
-  (define-key map (kbd "C-c n c") #'denote-region) ; "contents" mnemonic
-  (define-key map (kbd "C-c n N") #'denote-type)
-  (define-key map (kbd "C-c n d") #'denote-date)
-  (define-key map (kbd "C-c n z") #'denote-signature) ; "zettelkasten" mnemonic
-  (define-key map (kbd "C-c n s") #'denote-subdirectory)
-  (define-key map (kbd "C-c n t") #'denote-template)
+  ;; Denote DOES NOT define any key bindings.  This is for the user to
+  ;; decide.  For example:
+  (let ((map global-map))
+    (define-key map (kbd "C-c n n") #'denote)
+    (define-key map (kbd "C-c n c") #'denote-region) ; "contents" mnemonic
+    (define-key map (kbd "C-c n N") #'denote-type)
+    (define-key map (kbd "C-c n d") #'denote-date)
+    (define-key map (kbd "C-c n z") #'denote-signature) ; "zettelkasten" mnemonic
+    (define-key map (kbd "C-c n s") #'denote-subdirectory)
+    (define-key map (kbd "C-c n t") #'denote-template)
   ;; If you intend to use Denote with a variety of file types, it is
   ;; easier to bind the link-related commands to the `global-map', as
   ;; shown here.  Otherwise follow the same pattern for `org-mode-map',
@@ -90,14 +90,14 @@
   (define-key map (kbd "C-c n r") #'denote-rename-file)
   (define-key map (kbd "C-c n R") #'denote-rename-file-using-front-matter))
 
-;; Key bindings specifically for Dired.
-(let ((map dired-mode-map))
+  ;; Key bindings specifically for Dired.
+  (let ((map dired-mode-map))
   (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
   (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-files)
   (define-key map (kbd "C-c C-d C-k") #'denote-dired-rename-marked-files-with-keywords)
   (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
 
-(with-eval-after-load 'org-capture
+  (with-eval-after-load 'org-capture
   (setq denote-org-capture-specifiers "%l\n%i\n%?")
   (add-to-list 'org-capture-templates
                '("n" "New note (with denote.el)" plain
@@ -108,17 +108,17 @@
                  :kill-buffer t
                  :jump-to-captured t)))
 
-;; Also check the commands `denote-link-after-creating',
-;; `denote-link-or-create'.  You may want to bind them to keys as well.
+ ;; Also check the commands `denote-link-after-creating',
+ ;; `denote-link-or-create'.  You may want to bind them to keys as well.
 
 
-;; If you want to have Denote commands available via a right click
-;; context menu, use the following and then enable
-;; `context-menu-mode'.
-(add-hook 'context-menu-functions #'denote-context-menu)
+ ;; If you want to have Denote commands available via a right click
+ ;; context menu, use the following and then enable
+ ;; `context-menu-mode'.
+  (add-hook 'context-menu-functions #'denote-context-menu)
 
-(require 'denote-journal-extras)
-(setq denote-journal-extras-directory denote-journal-home
+  (require 'denote-journal-extras)
+  (setq denote-journal-extras-directory denote-journal-home
       denote-journal-extras-title-format "%Y-%m-%d"
       denote-journal-extras-keyword "daily")
 
@@ -128,11 +128,11 @@
     (let ((denote-prompts '(subdirectory title keywords))
           )
       (call-interactively #'denote)))
-)
-(advice-add 'denote-journal-extras-new-entry :filter-return #'my-increase)
+  )
+  (advice-add 'denote-journal-extras-new-entry :filter-return #'my-increase)
 
 
-(use-package consult-notes
+  (use-package consult-notes
   :commands (consult-notes
              consult-notes-search-in-all-notes
              ;; if using org-roam
@@ -189,14 +189,14 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-md)
   )
 
-;;emacs中文在orgmode会无法高亮。需要添加相应的空格。
-(font-lock-add-keywords 'org-mode
+  ;;emacs中文在orgmode会无法高亮。需要添加相应的空格。
+  (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
                           ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
                            (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
                         'append)
-(with-eval-after-load 'ox
+  (with-eval-after-load 'ox
   (defun eli-strip-ws-maybe (text _backend _info)
     (let* ((text (replace-regexp-in-string
                   "\\(\\cc\\) *\n *\\(\\cc\\)"
@@ -209,6 +209,7 @@
                                            "\\1 \\2 \\3" text)))
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
+
 (use-package org-download
   :config
   (setq-default org-download-heading-lvl nil)
@@ -222,4 +223,4 @@
       #'dummy-org-download-annotate-function)
   :bind
   ("C-c v" . org-download-screenshot)
-)
+  )

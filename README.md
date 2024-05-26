@@ -6,7 +6,6 @@ Depends:
 4. Arch: `pacman -S fd poppler ffmpegthumbnailer mediainfo imagemagick tar unzip`
 5. Fonts: Lxgw WenKai Screen
 `yay -S ttf-lxgw-wenkai-screen`
-	use
 
 ## librime
 for Windows

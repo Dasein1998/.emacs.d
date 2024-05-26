@@ -46,7 +46,7 @@
    whitespace-style
    '(face             ; visualize things below:
      empty            ; empty lines at beginning/end of buffer
-;     lines-tail       ; lines go beyond `fill-column'
+  ;     lines-tail       ; lines go beyond `fill-column'
      space-before-tab ; spaces before tab
    ;  trailing         ; trailing blanks
      tabs             ; tabs (show by face)

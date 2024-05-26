@@ -9,6 +9,12 @@
   :defer 2
   :mode ("\\.json\\'" . json-mode)
 	       )
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :config
+  (setq markdown-command "multimarkdown")
+  )
 (use-package fanyi
   :ensure t
   :defer t

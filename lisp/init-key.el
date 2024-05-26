@@ -16,15 +16,16 @@
 (use-package use-package-hydra
   :ensure t
   :after hydra)
+
 (defhydra hydra-org (global-map "C-c o" :color pink :hint nil )
 
-("b" org-backward-heading-same-level "back")
-("f" org-forward-heading-same-level "forward")
-("c" nil)
-("l" consult-line "consult-line")
-("s" consult-ripgrep "ripgrep")
-)
+  ("b" org-backward-heading-same-level "back")
+  ("f" org-forward-heading-same-level "forward")
+  ("c" nil)
+  ("l" consult-line "consult-line")
+  ("s" consult-ripgrep "ripgrep")
 
+)
 ;(global-set-key (kbd "C-z") nil)
 
 (use-package undo-tree
@@ -125,8 +126,8 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
    (meow-setup)
-(meow-global-mode 1))
-;;meow配合sis，实现自动切换
+  (meow-global-mode 1))
+  ;;meow配合sis，实现自动切换
   (defvar meow-leaving-insert-mode-hook nil
     "Hook to run when leaving meow insert mode.")
   (defvar meow-entering-insert-mode-hook nil
