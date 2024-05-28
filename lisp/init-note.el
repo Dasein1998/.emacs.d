@@ -9,7 +9,8 @@
   ("C-i" . cape-elisp-block)
   )
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
-
+(setq org-blank-before-new-entry '((heading . nil)
+(plain-list-item . auto)))
 (use-package org-modern
   :defer t
   :after org
