@@ -34,6 +34,6 @@
 (use-package aggressive-indent
   :ensure t
   :hook
-  (emacs-lisp-mode-hook . aggressive-indent-mode)
-  (css-mode-hook . aggressive-indent-mode)
+  (emacs-lisp-mode . aggressive-indent-mode)
+  (css-mode . aggressive-indent-mode)
   )

@@ -122,10 +122,18 @@
   ;; (((text-mode prog-mode) . sis-context-mode)
   ;;  ((text-mode prog-mode) . sis-inline-mode))
 
-  :config
+  :init
   (when (eq system-type 'gnu/linux)
-  (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
-  ;(sis-ism-lazyman-config "1033" "2052" 'im-select)
+    (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
+  (when (eq system-type 'darwin)
+    (sis-ism-lazyman-config
+    "im.rime.inputmethod.Squirrel.Hans"
+    "com.apple.keylayout.ABC"
+     )
+     
+    ;;(sis-ism-lazyman-config "1" "2" 'fcitx5)
+    )
+  ;;(sis-ism-lazyman-config "1033" "2052" 'im-select)
   ;; enable the /cursor color/ mode
   (sis-global-cursor-color-mode t)
   ;; enable the /respect/ mode
@@ -142,18 +150,18 @@
   )
 (use-package pyim
   :ensure t
-  ;:disabled t
+					;:disabled t
   :init
   (setq default-input-method "pyim")
   :config
   (require 'pyim-humadict)
   (pyim-humadict-enable)
   (pyim-default-scheme 'huma)
-  (require 'pyim-cstring-utils)  
-  ;(require 'popup)
-  ;(setq pyim-page-tooltip 'popup)
-  ;(require 'posframe)
-  ;(setq pyim-page-tooltip 'posframe)
+  (require 'pyim-cstring-utils)
+					;(require 'popup)
+					;(setq pyim-page-tooltip 'popup)
+					;(require 'posframe)
+					;(setq pyim-page-tooltip 'posframe)
 
   ;; 显示 5 个候选词。
   (setq pyim-page-length 5)
@@ -164,10 +172,10 @@
   (define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
   (pyim-isearch-mode 1)
   (define-key pyim-mode-map ";"
-    (lambda ()
-      (interactive)
-      (pyim-select-word-by-number 2)))
+	      (lambda ()
+		(interactive)
+		(pyim-select-word-by-number 2)))
   :bind
   ("M-f" . pyim-forward-word)
   ("M-b" . pyim-backward-word)
-    )
+  )

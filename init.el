@@ -4,7 +4,8 @@
 (when (and (eq system-type 'windows-nt)
            (eq w32-ansi-code-page 65001))
   (setq w32-system-coding-system 'utf-8)
-  (define-coding-system-alias 'cp65001 'utf-8))
+  (define-coding-system-alias 'cp65001 'utf-8)
+  )
 
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
