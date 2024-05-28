@@ -3,12 +3,12 @@
   :defer 2
   :ensure t
   :mode ("\\.yaml\\'" . yaml-mode)
-	       )
+  )
 (use-package json-mode
   :ensure t
   :defer 2
   :mode ("\\.json\\'" . json-mode)
-	       )
+  )
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
@@ -29,4 +29,11 @@
                      fanyi-longman-provider))
   :bind
   (("C-c C-t" . fanyi-dwim2))
+  )
+
+(use-package aggressive-indent
+  :ensure t
+  :hook
+  (emacs-lisp-mode-hook . aggressive-indent-mode)
+  (css-mode-hook . aggressive-indent-mode)
   )

@@ -1,13 +1,15 @@
 (provide 'init-note)
 (use-package org
   :ensure nil
-  :after hydra
+  ;;:after hydra
   :config
   (setq org-modules nil)
   (require 'org-tempo)
   :bind
   ("C-i" . cape-elisp-block)
   )
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
+
 (use-package org-modern
   :defer t
   :after org
@@ -15,13 +17,14 @@
   (add-hook 'org-mode-hook #'org-modern-mode)
   (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
   )
+ 
 (use-package denote
   :defer t
   :config
   ;; Remember to check the doc strings of those variables.
   (setq denote-directory (expand-file-name "~/org-roam/")
 	  denote-journal-home (expand-file-name "000-D" denote-directory)
-    denote-note-home (expand-file-name "001-pages/" denote-directory)
+    denote-note-home (expand-file-name "pages/" denote-directory)
     denote-known-keywords '("daily" "temp")
     denote-infer-keywords t
     denote-sort-keywords t
@@ -97,16 +100,16 @@
   (define-key map (kbd "C-c C-d C-k") #'denote-dired-rename-marked-files-with-keywords)
   (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
 
-  (with-eval-after-load 'org-capture
-  (setq denote-org-capture-specifiers "%l\n%i\n%?")
-  (add-to-list 'org-capture-templates
-               '("n" "New note (with denote.el)" plain
-                 (file denote-last-path)
-                 #'denote-org-capture
-                 :no-save t
-                 :immediate-finish nil
-                 :kill-buffer t
-                 :jump-to-captured t)))
+  ;; (with-eval-after-load 'org-capture
+  ;; (setq denote-org-capture-specifiers "%l\n%i\n%?")
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("n" "New note (with denote.el)" plain
+  ;;                (file denote-last-path)
+  ;;                #'denote-org-capture
+  ;;                :no-save t
+  ;;                :immediate-finish nil
+  ;;                :kill-buffer t
+  ;;                :jump-to-captured t)))
 
  ;; Also check the commands `denote-link-after-creating',
  ;; `denote-link-or-create'.  You may want to bind them to keys as well.
@@ -224,3 +227,5 @@
   :bind
   ("C-c v" . org-download-screenshot)
   )
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-default-notes-file "~/org/flomo.org")
