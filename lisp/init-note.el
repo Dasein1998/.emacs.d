@@ -242,3 +242,7 @@
          "* %?"
          :empty-lines 1)
     )
+
+(setq org-agenda-files '("~/org/journal.org" 
+                         "~/org/life.org"
+))
