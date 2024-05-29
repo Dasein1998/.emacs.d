@@ -10,7 +10,8 @@
   )
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
 (setq org-blank-before-new-entry '((heading . nil)
-(plain-list-item . auto)))
+				   (plain-list-item . auto))
+      )
 (use-package org-modern
   :defer t
   :after org
@@ -40,7 +41,8 @@
 	denote-date-format nil; read doc string
 	;; By default, we do not show the context of links.  We just display
 	;; file names.  This provides a more informative view.
-	denote-backlinks-show-context t)
+	denote-backlinks-show-context t
+	)
   ;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
   ;; advanced.
   ;; If you use Markdown or plain text files (Org renders links as buttons
@@ -58,11 +60,11 @@
           (memo . ,(concat "* Some heading"
                            "\n\n"
                            "* Another heading"
-                           "\n\n"))))
+                           "\n\n")))
+	)
 
   ;; Generic (great if you rename files Denote-style in lots of places):
   (add-hook 'dired-mode-hook #'denote-dired-mode)
-  ;;
   ;; OR if only want it in `denote-dired-directories':
   ;;(add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
 
@@ -140,19 +142,20 @@
   :commands (consult-notes
              consult-notes-search-in-all-notes
              ;; if using org-roam
-					; consult-notes-org-roam-find-node
-					;consult-notes-org-roam-find-node-relation
+	     ;;consult-notes-org-roam-find-node
+	     ;;consult-notes-org-roam-find-node-relation
              )
   :config
   (setq consult-notes-file-dir-sources '(
 					 ;;("daily"  ?d  "~/org-roam/000-D/")
 					 ;;("note" ?n "~/org-roam/001-pages/")
-					 )) ;; Set notes dir(s), see below
+					 )
+	) ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
   ;;If you have org files with many headings (say some subset of your agenda files, for example) that you would like to include in a consult-notes search, you can enable consult-notes-org-headings-mode and the headings for files you specify in consult-notes-org-headings-files will be included in consult-notes.
-					;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
-					;                                          "~/path/to/file2.org"))
-					;(consult-notes-org-headings-mode)
+  ;;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
+  ;;"~/path/to/file2.org"))
+  ;;(consult-notes-org-headings-mode)
   (when (locate-library "denote")
     (consult-notes-denote-mode))
   ;; search only for text files in denote dir
@@ -161,7 +164,7 @@
   ("M-s f" . consult-notes))
 
 (use-package olivetti
-					;:diminish
+  ;;:diminish
   :disabled t
   :bind ("<f8>" . olivetti-mode)
   :init
@@ -218,7 +221,7 @@
   :config
   (setq-default org-download-heading-lvl nil)
   (setq org-download-screenshot-method "irfanview /clippaste /convert=\"%s\"")
-  (setq-default org-download-image-dir "~/org-roam/assets/")
+  (setq-default org-download-image-dir "~/org/assets/")
         (add-hook 'dired-mode-hook 'org-download-enable)
   (add-hook 'org-mode-hook 'org-download-enable)
   (defun dummy-org-download-annotate-function (link)
@@ -235,14 +238,15 @@
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
              '("f" "Flomo" entry (file "~/org/flomo.org")
-               "* %U - %^{heading} \n %?\n"))
+               "* %U - %^{heading}  %?\n")
+	     )
 (add-to-list 'org-capture-templates
   '("j" "Journal Entry"
-         entry (file+datetree "~/org/journal.org")
+         entry (file+datetree "~/org/life.org")
          "* %?"
          :empty-lines 1)
     )
 
-(setq org-agenda-files '("~/org/journal.org" 
+(setq org-agenda-files '("~/org/flomo.org"
                          "~/org/life.org"
-))
+			 ))
