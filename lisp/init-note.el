@@ -254,7 +254,16 @@
 
 (use-package helm-org-rifle
 :ensure t
+:defer t
+
 )
 (use-package org-ql
 :ensure t
+:defer t
+
 )
+(use-package org-super-links
+  :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github :commit "0.3")
+  :bind (("C-c s s" . sl-link)
+	   ("C-c s l" . sl-store-link)
+	   ("C-c s C-l" . sl-insert-link)))

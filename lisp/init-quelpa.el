@@ -7,5 +7,9 @@
   (quelpa-update-melpa-p nil)
   (quelpa-checkout-melpa-p nil)
 )
-
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(require 'quelpa-use-package)
 (quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
