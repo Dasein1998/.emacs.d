@@ -238,7 +238,8 @@
 (add-to-list 'org-capture-templates '("t" "Tasks"))
 (add-to-list 'org-capture-templates
              '("f" "Flomo" entry (file "~/org/flomo.org")
-               "* %U - %^{heading}  %?\n")
+               "* %U - %^{heading}  \n %?\n"
+               :prepend t)
 	     )
 (add-to-list 'org-capture-templates
   '("j" "Journal Entry"
@@ -250,3 +251,10 @@
 (setq org-agenda-files '("~/org/flomo.org"
                          "~/org/life.org"
 			 ))
+
+(use-package helm-org-rifle
+:ensure t
+)
+(use-package org-ql
+:ensure t
+)
