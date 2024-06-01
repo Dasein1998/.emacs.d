@@ -44,5 +44,13 @@
 (lazy-load-global-keys
  '(
    ("M-o" . ace-window))
-   "ace-window"
-   )
+ "ace-window"
+ )
+(use-package awesome-tray
+  :ensure t
+  :vc (awesome-tray :url "https://github.com/manateelazycat/awesome-tray" :branch "master" )
+  :config
+  (awesome-tray-mode 1)
+  (setq awesome-tray-date-format nil)
+
+  )

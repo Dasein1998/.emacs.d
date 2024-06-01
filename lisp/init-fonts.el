@@ -27,10 +27,10 @@
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
-                                        :height (cond (sys/macp 100)
+                                        :height (cond (sys/macp 140)
                                                       (sys/win32p 110)
                                                       (t 100))
-                                          ))
+                                        ))
 
     ;; Set mode-line font
     ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
@@ -63,7 +63,7 @@
     (cl-loop for font in '("Sarasa Term SC Nerd" "LXGW WenKai Screen R" "WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
              when (font-installed-p font)
              return (progn
-                      (setq face-font-rescale-alist `((,font . 1.3)))
+                      (setq face-font-rescale-alist `((,font . 1.0)))
                       (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
 
 (centaur-setup-fonts)
@@ -84,6 +84,7 @@
 
 (use-package doom-themes
   :ensure t
+  ;;:disabled t
   :config
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -127,10 +128,10 @@
     (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
   (when (eq system-type 'darwin)
     (sis-ism-lazyman-config
-    "im.rime.inputmethod.Squirrel.Hans"
-    "com.apple.keylayout.ABC"
+     "com.apple.keylayout.ABC"
+     "im.rime.inputmethod.Squirrel.Hans"
      )
-     
+
     ;;(sis-ism-lazyman-config "1" "2" 'fcitx5)
     )
   ;;(sis-ism-lazyman-config "1033" "2052" 'im-select)

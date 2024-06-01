@@ -253,17 +253,24 @@
 			 ))
 
 (use-package helm-org-rifle
-:ensure t
-:defer t
-
-)
+  :ensure t
+  :defer t
+  )
 (use-package org-ql
-:ensure t
-:defer t
+  :ensure t
+  :defer t
+  )
 
-)
+(require 'org-id)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
 (use-package org-super-links
-  :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github :commit "0.3")
-  :bind (("C-c s s" . sl-link)
-	   ("C-c s l" . sl-store-link)
-	   ("C-c s C-l" . sl-insert-link)))
+  :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
+  :after helm
+  :bind (("C-c s s" . org-super-links-link)
+        ("C-c s l" . org-super-links-store-link)
+        ("C-c s C-l" . org-super-links-insert-link)
+        ("C-c s d" . org-super-links-quick-insert-drawer-link)
+        ("C-c s i" . org-super-links-quick-insert-inline-link)
+        ("C-c s C-d" . org-super-links-delete-link))
+  )

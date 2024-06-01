@@ -10,7 +10,9 @@
   :hook (after-init . delete-selection-mode))
 (use-package recentf
   :ensure nil
-  :hook (after-init . recentf-mode))
+  :hook (after-init . recentf-mode)
+  :config
+  (bind-key "C-x C-o" 'recentf-open-files))
 (use-package whitespace
   :ensure nil
   :hook (after-init . global-whitespace-mode) ;; 注意，这里是全局打开

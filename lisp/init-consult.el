@@ -75,19 +75,19 @@
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
-(setq xref-search-program
-      (cond
-       ((or (executable-find "ripgrep")
-            (executable-find "rg"))
-        'ripgrep)
-       ((executable-find "ugrep")
-        'ugrep)
-       (t
-        'grep)))
+  (setq xref-search-program
+	(cond
+	 ((or (executable-find "ripgrep")
+              (executable-find "rg"))
+          'ripgrep)
+	 ((executable-find "ugrep")
+          'ugrep)
+	 (t
+          'grep)))
   ;; Configure other variables and modes in the :config section,
   ;; after lazily loading the package.
   :config
-(setq consult-async-min-input 2)
+  (setq consult-async-min-input 2)
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
   ;; (setq consult-preview-key 'any)
@@ -115,14 +115,16 @@
   ;; By default `consult-project-function' uses `project-root' from project.el.
   ;; Optionally configure a different project root function.
   ;;;; 1. project.el (the default)
-   ;(setq consult-project-function #'consult--default-project--function)
+					;(setq consult-project-function #'consult--default-project--function)
   ;;;; 2. vc.el (vc-root-dir)
   ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
   ;;;; 3. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
   ;;;; 4. projectile.el (projectile-project-root)
-   ;(autoload 'projectile-project-root "projectile")
-   ;(setq consult-project-function (lambda (_) (projectile-project-root)))
+					;(autoload 'projectile-project-root "projectile")
+					;(setq consult-project-function (lambda (_) (projectile-project-root)))
   ;;;; 5. No project support
   ;; (setq consult-project-function nil)
-)
+  )
+
+(global-set-key (kbd "C-s")'consult-line-multi)
