@@ -1,8 +1,8 @@
 (provide 'init-lazy)
 (use-package sort-tab
   :ensure t
-  ;:defer t
-  :after doom-modeline
+  :defer t
+  ;:after doom-modeline
   :vc (sort-tab :url "https://github.com/manateelazycat/sort-tab" :branch "main")
   :config
   (sort-tab-mode 1)
@@ -47,10 +47,11 @@
  "ace-window"
  )
 (use-package awesome-tray
+;;:disabled t
   :ensure t
   :vc (awesome-tray :url "https://github.com/manateelazycat/awesome-tray" :branch "master" )
   :config
   (awesome-tray-mode 1)
   (setq awesome-tray-date-format nil)
-
+  (setq awesome-tray-hide-mode-line nil)
   )

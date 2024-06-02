@@ -20,11 +20,8 @@
   :ensure t
   :defer t
   :config
-  (global-set-key
-   (kbd "M-o")
-   'ace-window)
-  (setq aw-keys
-	'(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (global-set-key (kbd "M-o") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (defvar aw-dispatch-alist
     '((?x aw-delete-window "Delete Window")
       (?m aw-swap-window "Swap Windows")

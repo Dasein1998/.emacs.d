@@ -125,6 +125,8 @@
 					;(setq consult-project-function (lambda (_) (projectile-project-root)))
   ;;;; 5. No project support
   ;; (setq consult-project-function nil)
+    (bind-key "C-x C-o" 'consult-recent-file)
+
   )
 
 (global-set-key (kbd "C-s")'consult-line-multi)

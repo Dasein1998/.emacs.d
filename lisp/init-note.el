@@ -5,20 +5,41 @@
   :config
   (setq org-modules nil)
   (require 'org-tempo)
+  (setq org-src-fontify-natively t);;org内代码自动高亮
+  (setq word-wrap-by-category t) ;;分词折行
+  (require 'org-indent)
+  ;;(setq org-startup-indented t)
+  (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
   :bind
   ("C-i" . cape-elisp-block)
   )
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
-(setq org-blank-before-new-entry '((heading . nil)
-				   (plain-list-item . auto))
+  (setq org-blank-before-new-entry '((heading . nil)
+				   (plain-list-item . auto)) ;;取消新行前的空白
+    ;:hook
+    ;;(org-mode . org-num-mode)
       )
-(use-package org-modern
-  :defer t
-  :after org
-  :config
-  (add-hook 'org-mode-hook #'org-modern-mode)
-  (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
-  )
+(custom-set-faces 
+  '(org-level-1 ((t (:inherit outline-1 :height 1.1)))) 
+  '(org-level-2 ((t (:inherit outline-2 :height 1.08)))) 
+  '(org-level-3 ((t (:inherit outline-3 :height 1.06)))) 
+  '(org-level-4 ((t (:inherit outline-4 :height 1.04)))) 
+  '(org-level-5 ((t (:inherit outline-5 :height 1.02)))) 
+  '(org-level-6 ((t (:inherit outline-6 :height 1.00)))) 
+) ;;heading的字体大小
+(use-package org-contrib
+:ensure t
+:disabled t
+:config
+(require 'org-eldoc)
+(setq org-eldoc-mode 1)
+)
+(use-package org-sticky-header
+:disabled t
+:ensure t
+:hook 
+( org-mode . org-sticky-header-mode)
+)
 
 (use-package denote
   :defer t
@@ -141,14 +162,11 @@
 (use-package consult-notes
   :commands (consult-notes
              consult-notes-search-in-all-notes
-             ;; if using org-roam
-	     ;;consult-notes-org-roam-find-node
-	     ;;consult-notes-org-roam-find-node-relation
              )
   :config
   (setq consult-notes-file-dir-sources '(
-					 ;;("daily"  ?d  "~/org-roam/000-D/")
-					 ;;("note" ?n "~/org-roam/001-pages/")
+					 ;;("daily"  ?d  "~/")
+					 ;;("note" ?n "~/)
 					 )
 	) ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
@@ -164,11 +182,11 @@
   ("M-s f" . consult-notes))
 
 (use-package olivetti
-  ;;:diminish
-  :disabled t
+  :diminish
+  ;;:disabled t
   :bind ("<f8>" . olivetti-mode)
   :init
-  (setq olivetti-body-width 0.618)
+  (setq olivetti-body-width 0.8)
   (defun xs-toggle-olivetti-for-org ()
     "if current buffer is org and only one visible buffer
   enable olivetti mode"
@@ -183,7 +201,7 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
 
   (defun xs-toggle-olivetti-for-md ()
-    "if current buffer is org and only one visible buffer
+    "if current buffer is md and only one visible buffer
   enable olivetti mode"
     (if (and (eq (buffer-local-value 'major-mode (current-buffer)) 'markdown-mode)
 	     (or (eq (length (window-list nil nil nil)) 1)
@@ -196,7 +214,7 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-md)
   )
 
-  ;;emacs中文在orgmode会无法高亮。需要添加相应的空格。
+  ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
   (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
@@ -261,12 +279,14 @@
   :defer t
   )
 
-(require 'org-id)
-(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
 
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
-  :after helm
+  ;:after helm
+  :config
+  (require 'org-id)
+  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
   :bind (("C-c s s" . org-super-links-link)
         ("C-c s l" . org-super-links-store-link)
         ("C-c s C-l" . org-super-links-insert-link)

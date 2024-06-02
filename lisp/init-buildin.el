@@ -11,8 +11,11 @@
 (use-package recentf
   :ensure nil
   :hook (after-init . recentf-mode)
-  :config
-  (bind-key "C-x C-o" 'recentf-open-files))
+  :init
+  (setq recentf-max-menu-items 99)
+  (setq recentf-max-saved-items 99)
+  )
+
 (use-package whitespace
   :ensure nil
   :hook (after-init . global-whitespace-mode) ;; 注意，这里是全局打开
