@@ -19,13 +19,13 @@
     ;:hook
     ;;(org-mode . org-num-mode)
       )
-(custom-set-faces 
-  '(org-level-1 ((t (:inherit outline-1 :height 1.1)))) 
-  '(org-level-2 ((t (:inherit outline-2 :height 1.08)))) 
-  '(org-level-3 ((t (:inherit outline-3 :height 1.06)))) 
-  '(org-level-4 ((t (:inherit outline-4 :height 1.04)))) 
-  '(org-level-5 ((t (:inherit outline-5 :height 1.02)))) 
-  '(org-level-6 ((t (:inherit outline-6 :height 1.00)))) 
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.06))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.04))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.02))))
+  '(org-level-6 ((t (:inherit outline-6 :height 1.00))))
 ) ;;heading的字体大小
 (use-package org-contrib
 :ensure t
@@ -37,7 +37,7 @@
 (use-package org-sticky-header
 :disabled t
 :ensure t
-:hook 
+:hook
 ( org-mode . org-sticky-header-mode)
 )
 
@@ -260,11 +260,12 @@
                :prepend t)
 	     )
 (add-to-list 'org-capture-templates
-  '("j" "Journal Entry"
-         entry (file+datetree "~/org/life.org")
-         "* %?"
-         :empty-lines 1)
-    )
+	     '("j" "Journal Entry" plain
+	       (file+datetree "~/org/life.org")
+               "%<%T> %?"
+               :empty-lines 1
+	       )
+	     )
 
 (setq org-agenda-files '("~/org/flomo.org"
                          "~/org/life.org"
