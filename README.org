@@ -1075,17 +1075,15 @@
 #+END_SRC
 * 优化启动速度
 #+BEGIN_SRC emacs-lisp
-
-
 (use-package on
   :quelpa (on :repo "ajgrf/on.el" :fetcher github )
 )
+
 ;;(require 'init-dired)
 ;;(require 'init-env)
 ;;(require 'init-quelpa)
 ;;(require 'on)
 ;;(require 'init-note)
-
 ;;(require 'init-vertico)
 ;;(require 'init-dashboard)
 ;;(require 'init-fonts)
