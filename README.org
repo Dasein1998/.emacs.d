@@ -1,3 +1,8 @@
+* 依赖
+Tools: rg fd
+Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
+
+
 * 系统判定
 #+BEGIN_SRC emacs-lisp
   (defconst sys/win32p
