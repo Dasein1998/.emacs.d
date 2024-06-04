@@ -4,6 +4,9 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 
 * 系统判定
+判断是否为Windows、Linux、Macos。
+方便后续SIS等包使用。
+以及，windows有编码问题。需要
 #+BEGIN_SRC emacs-lisp
   (defconst sys/win32p
     (eq system-type 'windows-nt)
@@ -18,10 +21,11 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     "Are we running on a Mac system?")
   ;;windows-nt的编码问题
   (when (and (eq system-type 'windows-nt)
-             (eq w32-ansi-code-page 65001))
+	     (eq w32-ansi-code-page 65001))
     (setq w32-system-coding-system 'utf-8)
     (define-coding-system-alias 'cp65001 'utf-8)
     )
+
 #+END_SRC
 * 默认参数修改
 #+BEGIN_SRC emacs-lisp
@@ -836,11 +840,13 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     )
 #+END_SRC
 * 首页
+首页设为consult-recent-file。
 #+BEGIN_SRC emacs-lisp
   (use-package init-open-recentf
     :config
     (setq init-open-recentf-interface 'consult)
     (init-open-recentf))
+  ;;(add-hook 'init-open-recentf-after-hook 'your/init-func)
 #+END_SRC
 
 * 快捷键
@@ -877,6 +883,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
   (use-package undo-tree
     :ensure t
+    :disabled t
     :config
     (require 'undo-tree)
     (global-undo-tree-mode 1)
