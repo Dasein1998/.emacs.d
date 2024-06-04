@@ -1,9 +1,9 @@
 * 依赖
 Tools: rg fd
 Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
-
-
+本配置由多种配置缝合而成。
 * 系统判定
+
 #+BEGIN_SRC emacs-lisp
   (defconst sys/win32p
     (eq system-type 'windows-nt)
@@ -131,7 +131,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 
 * 字体
-从centaur抄来的
+从 [[https://github.com/seagle0128/.emacs.d][Centaur Emacs]]抄来的。
+
 #+BEGIN_SRC emacs-lisp
 
   (defun font-installed-p (font-name)
@@ -271,7 +272,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     )
 #+END_SRC
 
-* 使用Temple自定义补全
+* 使用Tempel自定义补全
 #+BEGIN_SRC emacs-lisp
   (use-package tempel
     ;; Require trigger prefix before template name when completing.
