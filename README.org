@@ -1,7 +1,8 @@
 * 依赖
 Tools: rg fd
 Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
-本配置由多种配置缝合而成。
+本配置由多种配置缝合而成，主要是在解决各种问题时积累出来的。
+很多配置来源于Github、Emacs China 等。
 * 系统判定
 
 判断是否为Windows、Linux、Macos。
@@ -27,6 +28,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     )
 
 #+END_SRC
+
 * 默认参数修改
 #+BEGIN_SRC emacs-lisp
 
@@ -50,12 +52,13 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   ;;当大于两个buffer时，删除前一个。
   (defadvice org-open-at-point (after my-org-open-at-point activate)
     (while (>  (count-windows) 2)
-      (delete-window (cadr (window-list-1)))))
+      (delete-window (cadr (window-list-1))))
 #+END_SRC
+
 * 自定义Emacs生成的文件位置
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist
-        `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
+        `("." . ,(concat user-emacs-directory "backups")));;autosave in one dir
 
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (load custom-file t)
@@ -73,7 +76,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   			 )
         )
   (when (< emacs-major-version 27)
-    (package-initialize))
+    (package-initialize)))
   (setq
    use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
    ;;   use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
@@ -81,6 +84,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
    vc-use-package-deactivate-advice t )
 #+END_SRC
 * quelpa来安装github上的包
+
 #+BEGIN_SRC emacs-lisp
   (use-package quelpa
     :commands quelpa
@@ -99,24 +103,28 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 
 * 引入函数
+
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+  ;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
   (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
   (set-frame-parameter (selected-frame) 'buffer-predicate
   		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 #+END_SRC
+
 * 自动tangle README.org 文件为 README.el
 #+BEGIN_SRC emacs-lisp
   (use-package org-auto-tangle
     :defer t
     :hook (org-mode . org-auto-tangle-mode))
 #+END_SRC
-* 主题
-#+BEGIN_SRC emacs-lisp
 
+* 主题
+目前使用的是doom-theme中的doom-one-light
+
+#+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :ensure t
-    ;;:disabled t
+    :disabled t
     :config
     ;; Global settings (defaults)
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -172,31 +180,34 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
                when (font-installed-p font)
                return (if (< emacs-major-version 27)
                           (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
-                        (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
+                        (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))))
 
-      ;; Emoji
-      (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
-               when (font-installed-p font)
-               return (cond
-                       ((< emacs-major-version 27)
-                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-                       ((< emacs-major-version 28)
-                        (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-                       (t
-                        (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+    ;; Emoji
+    (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
+             when (font-installed-p font)
+             return (cond
+                     ((< emacs-major-version 27)
+                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
+                     ((< emacs-major-version 28)
+                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
+                     (t
+                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
 
-      ;; Specify font for Chinese characters
-      (cl-loop for font in '("Sarasa Term SC Nerd" "LXGW WenKai Screen R" "WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
-               when (font-installed-p font)
-               return (progn
-                        (setq face-font-rescale-alist `((,font . 1.0)))
-                        (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
 
+    ;; Specify font for Chinese characters
+    (cl-loop for font in '("Sarasa Term SC Nerd" "LXGW WenKai Screen R" "WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+             when (font-installed-p font)
+             return (progn
+                      (setq face-font-rescale-alist `((,font . 1.0)))
+                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))
+                      )
+             )
+    )
   (centaur-setup-fonts)
   (add-hook 'window-setup-hook #'centaur-setup-fonts)
   (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
 
-#+END_SRC
+  #+END_SRC
 
 
 * 自动补全
@@ -1018,6 +1029,7 @@ open-init-file 用来快速打开此配置。
         )
 
 #+END_SRC
+
 * windows环境变量
 #+BEGIN_SRC emacs-lisp
         (when (eq system-type 'windows-nt) ;; windows specific settings
