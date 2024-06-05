@@ -1020,7 +1020,8 @@ open-init-file 用来快速打开此配置。
 #+END_SRC
 * windows环境变量
 #+BEGIN_SRC emacs-lisp
-  ;;(setenv "PATH" (concat (getenv "PATH") ";" "C:\\Program Files\\Git\\usr\\bin"))
+        (when (eq system-type 'windows-nt) ;; windows specific settings
+  (setenv "PATH" (concat (getenv "PATH") ";" "C:\\Program Files\\Git\\usr\\bin")))
 
 #+END_SRC
 
