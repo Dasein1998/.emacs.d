@@ -3,6 +3,7 @@ Tools: rg fd
 Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 本配置由多种配置缝合而成，主要是在解决各种问题时积累出来的。
 很多配置来源于 Github、Emacs China 等。
+
 * 系统判定
 
 判断是否为 Windows、Linux、Macos。
@@ -11,8 +12,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 以及，windows 有编码问题。需要
 #+BEGIN_SRC emacs-lisp
   (defconst sys/win32p
-    (eq system-type 'windows-nt)
-    "Are we running on a WinTel system?")
+    (eq system-type 'windows-nt )
+    "Are we running on a WinTel system? yes")
 
   (defconst sys/linuxp
     (eq system-type 'gnu/linux)
@@ -23,7 +24,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     "Are we running on a Mac system?")
   ;;windows-nt的编码问题
   (when (and (eq system-type 'windows-nt)
-	     (eq w32-ansi-code-page 65001))
+  	     (eq w32-ansi-code-page 65001))
     (setq w32-system-coding-system 'utf-8)
     (define-coding-system-alias 'cp65001 'utf-8)
     )
@@ -120,6 +121,7 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
 * 自动 tangle README.org 文件为 README.el
 #+BEGIN_SRC emacs-lisp
   (use-package org-auto-tangle
+    :disabled t
     :defer t
     :hook (org-mode . org-auto-tangle-mode))
 #+END_SRC
