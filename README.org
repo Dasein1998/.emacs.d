@@ -2,12 +2,13 @@
 Tools: rg fd
 Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 本配置由多种配置缝合而成，主要是在解决各种问题时积累出来的。
-很多配置来源于Github、Emacs China 等。
+很多配置来源于 Github、Emacs China 等。
 * 系统判定
 
-判断是否为Windows、Linux、Macos。
-方便后续SIS等包使用。
-以及，windows有编码问题。需要
+判断是否为 Windows、Linux、Macos。
+方便后续 SIS 等包使用。
+号
+以及，windows 有编码问题。需要
 #+BEGIN_SRC emacs-lisp
   (defconst sys/win32p
     (eq system-type 'windows-nt)
@@ -32,22 +33,22 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 * 默认参数修改
 #+BEGIN_SRC emacs-lisp
 
-  ;;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
+  ;;(setq confirm-kill-emacs #'yes-or-no-p)    ; 在关闭 Emacs 前询问是否确认关闭，防止误触
   (electric-pair-mode t)                       ; 自动补全括号
   (add-hook 'prog-mode-hook #'show-paren-mode) ; 编程模式下，光标在括号上时高亮另一个括号
   (column-number-mode t)                       ; 在 Mode line 上显示列号
   (global-auto-revert-mode t)                  ; 当另一程序修改了文件时，让 Emacs 及时刷新 Buffer
-  (delete-selection-mode nil)                    ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
+  (delete-selection-mode nil)                  ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
   (setq make-backup-files nil)                 ; 关闭文件自动备份
   (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
-  ;;(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
-  ;;(savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
-  ;;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
+  ;;(global-display-line-numbers-mode 1)       ; 在 Window 显示行号
+  ;;(savehist-mode 1)                          ; （可选）打开 Buffer 历史记录保存
+  ;;(setq display-line-numbers-type 'relative) ; （可选）显示相对行号
   (setq-default cursor-type 'bar)              ;设置光标为竖线
   (setq inhibit-splash-screen t)               ;关闭首页
   (setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
-  (blink-cursor-mode 0)                       ;避免光标闪烁
-  ;;(setq split-width-threshold 1)               ;强制左右分屏
+  (blink-cursor-mode 0)                        ;避免光标闪烁
+  ;;(setq split-width-threshold 1)             ;强制左右分屏
 
   ;;当大于两个buffer时，删除前一个。
   (defadvice org-open-at-point (after my-org-open-at-point activate)
@@ -55,7 +56,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
       (delete-window (cadr (window-list-1))))
 #+END_SRC
 
-* 自定义Emacs生成的文件位置
+* 自定义 Emacs 生成的文件位置
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist
         `("." . ,(concat user-emacs-directory "backups")));;autosave in one dir
@@ -69,12 +70,13 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (unless (package-installed-p 'vc-use-package)
     (package-vc-install "https://github.com/slotThe/vc-use-package"))
   (require 'package)
-  (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                           ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-  			 ;;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-  			 )
-        )
+  (setq package-archives '(
+			   ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+			   ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+			   ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+			   ;;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+			   )
+	)
   (when (< emacs-major-version 27)
     (package-initialize)))
   (setq
@@ -82,8 +84,11 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
    ;;   use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
    use-package-expand-minimally t
    vc-use-package-deactivate-advice t )
-#+END_SRC
-* quelpa来安装github上的包
+   #+END_SRC
+
+#+RESULTS:
+
+* quelpa 来安装 github 上的包
 
 #+BEGIN_SRC emacs-lisp
   (use-package quelpa
@@ -111,7 +116,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 #+END_SRC
 
-* 自动tangle README.org 文件为 README.el
+* 自动 tangle README.org 文件为 README.el
 #+BEGIN_SRC emacs-lisp
   (use-package org-auto-tangle
     :defer t
@@ -119,7 +124,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 
 * 主题
-目前使用的是doom-theme中的doom-one-light
+目前使用的是 doom-theme 中的 doom-one-light
 
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
@@ -155,7 +160,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     "Setup fonts."
     (when (display-graphic-p)
       ;; Set default font
-      (cl-loop for font in '("Sarasa Term SC Nerd" "Iosevka" "Cascadia Code" "Fira Code" "Jetbrains Mono"
+      (cl-loop for font in '( "Sarasa Term SC Nerd" "Cascadia Code" "Fira Code" "Jetbrains Mono"
                              "SF Mono" "Hack" "Source Code Pro" "Menlo"
                              "Monaco" "DejaVu Sans Mono" "Consolas")
                when (font-installed-p font)
@@ -195,7 +200,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 
     ;; Specify font for Chinese characters
-    (cl-loop for font in '("Sarasa Term SC Nerd" "LXGW WenKai Screen R" "WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
+    (cl-loop for font in '( "LXGW WenKai Screen R" "Sarasa Term SC Nerd" "WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
              when (font-installed-p font)
              return (progn
                       (setq face-font-rescale-alist `((,font . 1.0)))
@@ -209,9 +214,85 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
   #+END_SRC
 
+* 输入时的自动化
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pangu-spacing
+    :config
+    (global-pangu-spacing-mode 1)
+    (add-hook 'org-mode-hook
+            '(lambda ()
+                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)
+          ))
+    (add-hook 'markdown-mode-hook
+            '(lambda ()
+                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+      )
+  (use-package sis
+    ;; :hook
+    ;; enable the /context/ and /inline region/ mode for specific buffers
+    ;; (((text-mode prog-mode) . sis-context-mode)
+    ;;  ((text-mode prog-mode) . sis-inline-mode))
+
+    :init
+    (when (eq system-type 'gnu/linux)
+      (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
+    (when (eq system-type 'darwin)
+      (sis-ism-lazyman-config
+      "com.apple.keylayout.ABC"
+      "im.rime.inputmethod.Squirrel.Hans"
+      )
+
+      ;;(sis-ism-lazyman-config "1" "2" 'fcitx5)
+      )
+    ;;(sis-ism-lazyman-config "1033" "2052" 'im-select)
+    ;; enable the /cursor color/ mode
+    (sis-global-cursor-color-mode t)
+    ;; enable the /respect/ mode
+    (sis-global-respect-mode t)
+    ;; enable the /context/ mode for all buffers
+    (sis-global-context-mode t)
+    ;; enable the /inline english/ mode for all buffers
+    (sis-global-inline-mode t)
+
+    )
+  (use-package pyim
+    :ensure t
+            ;:disabled t
+    :init
+    (setq default-input-method "pyim")
+    :config
+    (require 'pyim-humadict)
+    (pyim-humadict-enable)
+    (pyim-default-scheme 'huma)
+    (require 'pyim-cstring-utils)
+            ;(require 'popup)
+            ;(setq pyim-page-tooltip 'popup)
+            ;(require 'posframe)
+            ;(setq pyim-page-tooltip 'posframe)
+
+    ;; 显示 5 个候选词。
+    (setq pyim-page-length 5)
+    ;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
+    (global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
+    (global-set-key (kbd "C-\\") 'toggle-input-method)
+    ;; 按 "C-<return>" 将光标前的 regexp 转换为可以搜索中文的 regexp.
+    (define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
+    (pyim-isearch-mode 1)
+    (define-key pyim-mode-map ";"
+          (lambda ()
+      (interactive)
+      (pyim-select-word-by-number 2)))
+    :bind
+    ("M-f" . pyim-forward-word)
+    ("M-b" . pyim-backward-word)
+    )
+
+  #+END_SRC
+
 
 * 自动补全
-** confu配置
+** confu 配置
 全局使用 confu
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
@@ -287,7 +368,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     )
 #+END_SRC
 
-* 使用Tempel自定义补全
+* 使用 Tempel 自定义补全
 #+BEGIN_SRC emacs-lisp
   (use-package tempel
     ;; Require trigger prefix before template name when completing.
@@ -326,7 +407,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     :after (tempel))
 #+END_SRC
 
-* 使用Consult加强搜索
+* 使用 Consult 加强搜索
 #+BEGIN_SRC emacs-lisp
   (use-package consult
     :ensure t
@@ -457,7 +538,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (global-set-key (kbd "C-s")'consult-line-multi)
 #+END_SRC
 
-* 使用vertico加强consult
+* 使用 vertico 加强 consult
 #+BEGIN_SRC emacs-lisp
   (use-package vertico
     :ensure t
@@ -507,7 +588,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (setq enable-recursive-minibuffers t))
   ;; Optionally use the `orderless' completion style.
 #+END_SRC
-* Orderless 提供乱序检索，加强vertico
+* Orderless 提供乱序检索，加强 vertico
 
 #+BEGIN_SRC emacs-lisp
 (use-package orderless
@@ -554,7 +635,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 #+END_SRC
 
-* Marginalia加强M-x的体验
+* Marginalia 加强 M-x 的体验
 #+BEGIN_SRC emacs-lisp
   (use-package marginalia
     :defer t
@@ -630,6 +711,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
               (let ((mgs-list '("You are what you do.")))
                 (message (nth (random (length mgs-list)) mgs-list)))))
 #+END_SRC
+
 * Org-mode
 #+BEGIN_SRC emacs-lisp
   (use-package org
@@ -683,6 +765,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
   )
 #+END_SRC
+
 ** 零宽空格
 
 #+BEGIN_SRC emacs-lisp
@@ -734,7 +817,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
    				      ))
 #+END_SRC
 
-** org-super-links双向链接
+** org-super-links 双向链接
 #+BEGIN_SRC emacs-lisp
 
   (use-package org-super-links
@@ -852,7 +935,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     )
 #+END_SRC
 * 首页
-首页设为consult-recent-file。
+首页设为 consult-recent-file。
 #+BEGIN_SRC emacs-lisp
   (use-package init-open-recentf
     :config
@@ -863,7 +946,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 * 快捷键
 open-init-file 用来快速打开此配置。
-*insert* 用来加粗。（类似于markdown中的C-b，给选中的文字加粗）
+*insert* 用来加粗。（类似于 markdown 中的 C-b，给选中的文字加粗）
 
 #+BEGIN_SRC emacs-lisp
    (defun open-init-file()
@@ -1030,7 +1113,7 @@ open-init-file 用来快速打开此配置。
 
 #+END_SRC
 
-* windows环境变量
+* windows 环境变量
 #+BEGIN_SRC emacs-lisp
         (when (eq system-type 'windows-nt) ;; windows specific settings
   (setenv "PATH" (concat (getenv "PATH") ";" "C:\\Program Files\\Git\\usr\\bin")))
@@ -1043,10 +1126,10 @@ open-init-file 用来快速打开此配置。
     :ensure t )
 #+END_SRC
 
-* 方便页内跳转和buffer跳转
+* 方便页内跳转和 buffer 跳转
 ** 使用 set-mark-command 的方法：
-set-mark-command ，C-spc 可以在当前mark
-C-u C-spc 可以跳回上一个mark的地方。
+set-mark-command ，C-spc 可以在当前 mark
+C-u C-spc 可以跳回上一个 mark 的地方。
 [[http://xahlee.info/emacs/emacs/emacs_jump_to_previous_position.html][Emacs: Jump to Previous Position]]
 
 #+BEGIN_SRC emacs-lisp
