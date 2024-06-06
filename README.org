@@ -71,7 +71,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (require 'package)
   (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                            ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                           ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/melpa/")
   			 ;;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
   			 )
         )
@@ -83,6 +83,9 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
    use-package-expand-minimally t
    vc-use-package-deactivate-advice t )
 #+END_SRC
+
+#+RESULTS:
+
 * quelpa来安装github上的包
 
 #+BEGIN_SRC emacs-lisp
