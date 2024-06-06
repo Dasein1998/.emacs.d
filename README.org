@@ -57,14 +57,15 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 
 * 自定义 Emacs 生成的文件位置
+
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist
         `("." . ,(concat user-emacs-directory "backups")));;autosave in one dir
-
   (setq custom-file (concat user-emacs-directory "custom.el"))
   (load custom-file t)
 #+END_SRC
 * Emacs 包管理
+mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mepla的源。在package-install的时候就无法找到melpa的包。
 
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'vc-use-package)
@@ -161,8 +162,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (when (display-graphic-p)
       ;; Set default font
       (cl-loop for font in '( "Sarasa Term SC Nerd" "Cascadia Code" "Fira Code" "Jetbrains Mono"
-                             "SF Mono" "Hack" "Source Code Pro" "Menlo"
-                             "Monaco" "DejaVu Sans Mono" "Consolas")
+                              "SF Mono" "Hack" "Source Code Pro" "Menlo"
+                              "Monaco" "DejaVu Sans Mono" "Consolas")
                when (font-installed-p font)
                return (set-face-attribute 'default nil
                                           :family font
@@ -183,20 +184,26 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
       ;; Specify font for all unicode characters
       (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
                when (font-installed-p font)
-               return (if (< emacs-major-version 27)
-                          (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+               return (if
+  			(< emacs-major-version 27)
+  			(set-fontset-font "fontset-default" 'unicode font nil 'prepend)
                         (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))))
 
     ;; Emoji
     (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
              when (font-installed-p font)
-             return (cond
-                     ((< emacs-major-version 27)
-                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-                     ((< emacs-major-version 28)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-                     (t
-                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
+             return (cond (
+  			 (< emacs-major-version 27)
+  			 (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
+  			 )
+  			(
+  			 (< emacs-major-version 28)
+  			 (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)
+  			 )
+  			(t
+  			 (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))
+        			)
+        	   )
 
 
     ;; Specify font for Chinese characters
@@ -208,6 +215,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
                       )
              )
     )
+
+
   (centaur-setup-fonts)
   (add-hook 'window-setup-hook #'centaur-setup-fonts)
   (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
@@ -218,6 +227,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 #+BEGIN_SRC emacs-lisp
   (use-package pangu-spacing
+    :disabled t
     :config
     (global-pangu-spacing-mode 1)
     (add-hook 'org-mode-hook
@@ -293,7 +303,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 * 自动补全
 ** confu 配置
-全局使用 confu
+全局使用 confu。
+
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
     :ensure t
@@ -713,6 +724,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 
 * Org-mode
+org-mode中，尖括号<>会与()匹配。
+解决方法是把<当成.来解匹配。
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :ensure nil
@@ -722,13 +735,15 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (require 'org-tempo)
     (setq org-src-fontify-natively t);;org内代码自动高亮
     (setq word-wrap-by-category t) ;;分词折行
-    (require 'org-indent)
+    ;;(require 'org-indent)
     ;;(setq org-startup-indented t)
     (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
+    (modify-syntax-entry ?< "." org-mode-syntax-table);; 解决尖括号<>会与()匹配的问题。
+    (modify-syntax-entry ?> "." org-mode-syntax-table)
     :bind
     ("C-i" . cape-elisp-block)
     )
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
+  ;;(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
   (setq org-blank-before-new-entry '((heading . nil)
   				   (plain-list-item . auto)) ;;取消新行前的空白
         ;;:hook
@@ -769,36 +784,44 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 ** 零宽空格
 
 #+BEGIN_SRC emacs-lisp
-  ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
+  ;;emacs 中文会导致 orgmode 无法正常高亮。需要添加相应的空格。
   (font-lock-add-keywords 'org-mode
-                        '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
-                           (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
-                          ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
-                           (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
-                        'append)
+  			'(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
+  			   (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
+  			  ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
+  			   (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
+  			'append)
   (with-eval-after-load 'ox
-  (defun eli-strip-ws-maybe (text _backend _info)
-    (let* ((text (replace-regexp-in-string
-                  "\\(\\cc\\) *\n *\\(\\cc\\)"
-                  "\\1\\2" text));; remove whitespace from line break
-           ;; remove whitespace from `org-emphasis-alist'
-           (text (replace-regexp-in-string "\\(\\cc\\) \\(.*?\\) \\(\\cc\\)"
-                                           "\\1\\2\\3" text))
-           ;; restore whitespace between English words and Chinese words
-           (text (replace-regexp-in-string "\\(\\cc\\)\\(\\(?:<[^>]+>\\)?[a-z0-9A-Z-]+\\(?:<[^>]+>\\)?\\)\\(\\cc\\)"
-                                           "\\1 \\2 \\3" text)))
-      text))
-  (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
+    (defun eli-strip-ws-maybe (text _backend _info)
+      (let* ((text (replace-regexp-in-string
+  		  "\\(\\cc\\) *\n *\\(\\cc\\)"
+  		  "\\1\\2" text));; remove whitespace from line break
+  	   ;; remove whitespace from `org-emphasis-alist'
+  	   (text (replace-regexp-in-string "\\(\\cc\\) \\(.*?\\) \\(\\cc\\)"
+  					   "\\1\\2\\3" text))
+  	   ;; restore whitespace between English words and Chinese words
+  	   (text (replace-regexp-in-string "\\(\\cc\\)\\(\\(?:<[^>]+>\\)?[a-z0-9A-Z-]+\\(?:<[^>]+>\\)?\\)\\(\\cc\\)"
+  					   "\\1 \\2 \\3" text)))
+        text))
+    (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
 
 #+END_SRC
 
-
 * org-capture
+
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c c") 'org-capture)
   (setq org-default-notes-file "~/org/life.org")
   (setq org-capture-templates nil)
-  (add-to-list 'org-capture-templates '("t" "Tasks"))
+  (add-to-list 'org-capture-templates '("t" "Todo" entry (file+headline "~/org/work.org" "Tasks")
+         "* TODO %?\n  %i  %a")
+  	     )
+   (add-to-list 'org-capture-templates '("n" "note"
+        					entry
+      					(file "~/org/flomo.org")
+
+    					)
+  		     )
   (add-to-list 'org-capture-templates
                '("f" "Flomo" entry (file "~/org/flomo.org")
                  "* %U - %^{heading}  \n %?\n"
