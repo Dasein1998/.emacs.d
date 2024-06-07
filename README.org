@@ -128,7 +128,7 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
 
 * 主题
 目前使用的是 doom-theme 中的 doom-one-light
-
+以及ef-theme的ef-day
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :ensure t
@@ -136,7 +136,7 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
     :config
     ;; Global settings (defaults)
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-  	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+	  doom-themes-enable-italic t) ; if nil, italics is universally disabled
     (load-theme 'doom-one-light t)
 
     ;; Enable flashing mode-line on errors
@@ -148,7 +148,12 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
     (doom-themes-treemacs-config)
     ;; Corrects (and improves) org-mode's native fontification.
     (doom-themes-org-config))
-#+END_SRC
+  (use-package ef-themes
+    :ensure t
+    :config
+    (load-theme 'ef-day t)
+    )
+    #+END_SRC
 
 * 字体
 从 [[https://github.com/seagle0128/.emacs.d][Centaur Emacs]]抄来的。
@@ -815,32 +820,35 @@ org-mode中，尖括号<>会与()匹配。
   (global-set-key (kbd "C-c c") 'org-capture)
   (setq org-default-notes-file "~/org/life.org")
   (setq org-capture-templates nil)
-  (add-to-list 'org-capture-templates '("t" "Todo" entry (file+headline "~/org/work.org" "Tasks")
-         "* TODO %?\n  %i  %a")
-  	     )
-   (add-to-list 'org-capture-templates '("n" "note"
-        					entry
-      					(file "~/org/flomo.org")
-
-    					)
-  		     )
   (add-to-list 'org-capture-templates
-               '("f" "Flomo" entry (file "~/org/flomo.org")
-                 "* %U - %^{heading}  \n %?\n"
-                 :prepend t
-  	       ))
-  	     (add-to-list 'org-capture-templates
-   			  '("j" "Journal Entry" plain
-   			    (file+datetree "~/org/life.org")
-  			    "%<%T> %?"
-  			    :empty-lines 1
-   			    )
-   			  )
+	       '("w" "work"
+		 entry
+		 (file+headline    "~/org/work.org" "Tasks"
+				   )
+		 "* TODO %?\n  %i  %a")
+	       )
+  (add-to-list 'org-capture-templates '("n" "note"
+					entry
+					(file "~/org/flomo.org")
+					)
+	       )
+  (add-to-list 'org-capture-templates
+	       '("f" "Flomo" entry (file "~/org/flomo.org")
+		 "* %U - %^{heading}  \n %?\n"
+		 :prepend t
+		 ))
+  (add-to-list 'org-capture-templates
+	       '("j" "Journal" plain
+		 (file+datetree "~/org/life.org")
+		 "%<%T> %?"
+		 :empty-lines 1
+		 )
+	       )
 
-  	     (setq org-agenda-files '("~/org/flomo.org"
-  				      "~/org/life.org"
-   				      ))
-#+END_SRC
+  (setq org-agenda-files '("~/org/flomo.org"
+			   "~/org/life.org"
+			   ))
+			   #+END_SRC
 
 ** org-super-links 双向链接
 #+BEGIN_SRC emacs-lisp
