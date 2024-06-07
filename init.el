@@ -108,4 +108,5 @@ Note the weekly scope of the command's precision.")
 		  (elfile (concat my-user-emacs-directory "README.el")))
 	  (my-tangle-config-org))))
 (add-hook 'after-save-hook 'my-tangle-config-org-hook-func)
-
+(setq custom-file (concat my-user-emacs-directory "custom.el"))
+(load custom-file 'noerror 'nomessage)
