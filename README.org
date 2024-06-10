@@ -782,6 +782,8 @@ org-mode中，尖括号<>会与()匹配。
    '(org-level-5 ((t (:inherit outline-5 :height 1.02))))
    '(org-level-6 ((t (:inherit outline-6 :height 1.00))))
    ) ;;heading的字体大小
+  (global-set-key "\C-ca" 'org-agenda)
+
 #+END_SRC
 ** 使用 olivetti 让两边留白
 #+BEGIN_SRC emacs-lisp
