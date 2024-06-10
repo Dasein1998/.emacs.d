@@ -57,6 +57,9 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
       (delete-window (cadr (window-list-1))))
 #+END_SRC
 
+
+
+
 * 自定义 Emacs 生成的文件位置
 
 #+BEGIN_SRC emacs-lisp
@@ -108,6 +111,16 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
    (require 'quelpa-use-package)
    (quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
 #+END_SRC
+
+* no-littering
+#+begin_src emacs-lisp
+  (use-package no-littering
+    :ensure t
+    :init
+(require 'no-littering)
+
+  )
+#+end_src
 
 * 引入函数
 
@@ -275,7 +288,7 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
     )
   (use-package pyim
     :ensure t
-            ;:disabled t
+            ;;:disabled t
     :init
     (setq default-input-method "pyim")
     :config
@@ -283,10 +296,10 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
     (pyim-humadict-enable)
     (pyim-default-scheme 'huma)
     (require 'pyim-cstring-utils)
-            ;(require 'popup)
-            ;(setq pyim-page-tooltip 'popup)
-            ;(require 'posframe)
-            ;(setq pyim-page-tooltip 'posframe)
+            ;;(require 'popup)
+            ;;(setq pyim-page-tooltip 'popup)
+            ;;(require 'posframe)
+            ;;(setq pyim-page-tooltip 'posframe)
 
     ;; 显示 5 个候选词。
     (setq pyim-page-length 5)
@@ -296,6 +309,10 @@ mepla必须在gnu和nongnu前面，不然package-refresh-contents无法更新mep
     ;; 按 "C-<return>" 将光标前的 regexp 转换为可以搜索中文的 regexp.
     (define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
     (pyim-isearch-mode 1)
+    (setq-default pyim-punctuation-translate-p '(auto)) ;;中文使用全角标点，英文使用半角标点。
+    (setq-default pyim-punctuation-half-width-functions
+              '(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation));; 行首强制输入半角标点,半角标点后强制输入半角标点
+
     (define-key pyim-mode-map ";"
           (lambda ()
       (interactive)
@@ -747,6 +764,7 @@ org-mode中，尖括号<>会与()匹配。
     (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
     (modify-syntax-entry ?< "." org-mode-syntax-table);; 解决尖括号<>会与()匹配的问题。
     (modify-syntax-entry ?> "." org-mode-syntax-table)
+    (setq org-persist-directory "~/.cache/.org-persist")
     :bind
     ("C-i" . cape-elisp-block)
     )
@@ -845,7 +863,7 @@ org-mode中，尖括号<>会与()匹配。
 		 )
 	       )
 
-  (setq org-agenda-files '("~/org/flomo.org"
+  (setq org-agenda-files '("~/org/work.org"
 			   "~/org/life.org"
 			   ))
 			   #+END_SRC
@@ -980,7 +998,7 @@ org-mode中，尖括号<>会与()匹配。
 * 快捷键
 open-init-file 用来快速打开此配置。
 *insert* 用来加粗。（类似于 markdown 中的 C-b，给选中的文字加粗）
-
+Ci
 #+BEGIN_SRC emacs-lisp
    (defun open-init-file()
         (interactive)

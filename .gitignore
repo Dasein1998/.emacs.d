@@ -50,3 +50,4 @@ org-persist/
 pyim/
 diary
 README.el
+.DS_Store
