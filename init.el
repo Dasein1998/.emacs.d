@@ -9,7 +9,7 @@
 (set-selection-coding-system 'utf-8)
 (modify-coding-system-alist 'process "*" 'utf-8)
 ;;(org-babel-load-file "~/.emacs.d/README.org")
-(package-initialize)
+;;(package-initialize)
 ;;this init is from https://github.com/novoid/dot-emacs/blob/master/init.el
 
 (defvar my-init-el-start-time (current-time) "Time when init.el was started")
