@@ -756,8 +756,8 @@ org-mode中，尖括号<>会与()匹配。
     ;;(require 'org-indent)
     ;;(setq org-startup-indented t)
     (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
-    (modify-syntax-entry ?< "." org-mode-syntax-table);; 解决尖括号<>会与()匹配的问题。
-    (modify-syntax-entry ?> "." org-mode-syntax-table)
+    (add-hook 'org-mode-hook (lambda () (modify-syntax-entry ?< "." org-mode-syntax-table)));; 解决尖括号<>会与()匹配的问题。
+    (add-hook 'org-mode-hook (lambda () (modify-syntax-entry ?> "." org-mode-syntax-table)))
     (setq org-persist-directory "~/.cache/.org-persist")
     :bind
     ("C-i" . cape-elisp-block)
