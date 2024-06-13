@@ -33,7 +33,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 * 默认参数修改
 #+BEGIN_SRC emacs-lisp
-
+  (fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
   ;;(setq confirm-kill-emacs #'yes-or-no-p)    ; 在关闭 Emacs 前询问是否确认关闭，防止误触
   (electric-pair-mode t)                       ; 自动补全括号
   (add-hook 'prog-mode-hook #'show-paren-mode) ; 编程模式下，光标在括号上时高亮另一个括号
@@ -43,8 +43,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (setq make-backup-files nil)                 ; 关闭文件自动备份
   (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
   ;;(global-display-line-numbers-mode 1)       ; 在 Window 显示行号
-  ;;(savehist-mode 1)                          ; （可选）打开 Buffer 历史记录保存
-  ;;(setq display-line-numbers-type 'relative) ; （可选）显示相对行号
+  ;;(savehist-mode 1)                          ;（可选）打开 Buffer 历史记录保存
+  ;;(setq display-line-numbers-type 'relative) ;（可选）显示相对行号
   (setq-default cursor-type 'bar)              ;设置光标为竖线
   (setq inhibit-splash-screen t)               ;关闭首页
   (setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
@@ -70,19 +70,19 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 * Emacs 包管理
 #+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'vc-use-package)
-    (package-vc-install "https://github.com/slotThe/vc-use-package"))
-  (require 'package)
-  (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-  (when (< emacs-major-version 27)
-    (package-initialize))
-  (setq
-   use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
-   ;;   use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
-   use-package-expand-minimally t
-   vc-use-package-deactivate-advice t )
+      (unless (package-installed-p 'vc-use-package)
+        (package-vc-install "https://github.com/slotThe/vc-use-package"))
+      (require 'package)
+      (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                             ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                             ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+      (when (< emacs-major-version 27)
+        (package-initialize))
+      (setq
+       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
+       ;;use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
+       use-package-expand-minimally t
+       vc-use-package-deactivate-advice t )
    #+END_SRC
 
 #+RESULTS:
@@ -112,8 +112,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     :ensure t
     :init
 (require 'no-littering)
-
-  )
+)
 #+end_src
 
 * 引入函数
@@ -245,13 +244,13 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     :config
     (global-pangu-spacing-mode 1)
     (add-hook 'org-mode-hook
-            '(lambda ()
-                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)
-          ))
+              '(lambda ()
+                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)
+                 ))
     (add-hook 'markdown-mode-hook
-            '(lambda ()
-                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
-      )
+              '(lambda ()
+                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+    )
   (use-package sis
     ;; :hook
     ;; enable the /context/ and /inline region/ mode for specific buffers
@@ -263,10 +262,9 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
       (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
     (when (eq system-type 'darwin)
       (sis-ism-lazyman-config
-      "com.apple.keylayout.ABC"
-      "im.rime.inputmethod.Squirrel.Hans"
-      )
-
+       "com.apple.keylayout.ABC"
+       "im.rime.inputmethod.Squirrel.Hans"
+       )
       ;;(sis-ism-lazyman-config "1" "2" 'fcitx5)
       )
     ;;(sis-ism-lazyman-config "1033" "2052" 'im-select)
@@ -282,7 +280,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     )
   (use-package pyim
     :ensure t
-            ;;:disabled t
+    ;;:disabled t
     :init
     (setq default-input-method "pyim")
     :config
@@ -290,10 +288,10 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (pyim-humadict-enable)
     (pyim-default-scheme 'huma)
     (require 'pyim-cstring-utils)
-            ;;(require 'popup)
-            ;;(setq pyim-page-tooltip 'popup)
-            ;;(require 'posframe)
-            ;;(setq pyim-page-tooltip 'posframe)
+    ;;(require 'popup)
+    ;;(setq pyim-page-tooltip 'popup)
+    ;;(require 'posframe)
+    ;;(setq pyim-page-tooltip 'posframe)
 
     ;; 显示 5 个候选词。
     (setq pyim-page-length 5)
@@ -305,18 +303,18 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (pyim-isearch-mode 1)
     (setq-default pyim-punctuation-translate-p '(auto)) ;;中文使用全角标点，英文使用半角标点。
     (setq-default pyim-punctuation-half-width-functions
-              '(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation));; 行首强制输入半角标点,半角标点后强制输入半角标点
+  		'(pyim-probe-punctuation-line-beginning pyim-probe-punctuation-after-punctuation));; 行首强制输入半角标点,半角标点后强制输入半角标点
 
     (define-key pyim-mode-map ";"
-          (lambda ()
-      (interactive)
-      (pyim-select-word-by-number 2)))
+                (lambda ()
+  		(interactive)
+  		(pyim-select-word-by-number 2)))
     :bind
     ("M-f" . pyim-forward-word)
     ("M-b" . pyim-backward-word)
     )
 
-  #+END_SRC
+    #+END_SRC
 
 
 * 自动补全
@@ -665,6 +663,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 #+END_SRC
 
 * Marginalia 加强 M-x 的体验
+marginalia 会给函数添加一串说明文字
 #+BEGIN_SRC emacs-lisp
   (use-package marginalia
     :defer t
@@ -986,7 +985,7 @@ org-mode中，尖括号<>会与()匹配。
 #+BEGIN_SRC emacs-lisp
   (use-package init-open-recentf
     :config
-    (setq init-open-recentf-interface 'consult)
+    ;;(setq init-open-recentf-interface 'consult)
     (init-open-recentf))
   ;;(add-hook 'init-open-recentf-after-hook 'your/init-func)
 #+END_SRC
@@ -994,169 +993,160 @@ org-mode中，尖括号<>会与()匹配。
 * 快捷键
 open-init-file 用来快速打开此配置。
 *insert* 用来加粗。（类似于 markdown 中的 C-b，给选中的文字加粗）
-Ci
+
 #+BEGIN_SRC emacs-lisp
-   (defun open-init-file()
-        (interactive)
-        (find-file "~/.emacs.d/README.org"))
+  (defun open-init-file()
+    (interactive)
+    (find-file "~/.emacs.d/README.org"))
 
-    (defun *insert* (beg end)
-      "Insert * begin and the end of a char.
+  (defun *insert* (beg end)
+    "Insert * begin and the end of a char.
   use as bold in markdown"
-      (interactive "r")
-      (goto-char beg)
-      (insert "*")
-      (goto-char (1+ end))
-      (insert "*"))
+    (interactive "r")
+    (goto-char beg)
+    (insert "*")
+    (goto-char (1+ end))
+    (insert "*"))
 
-      (use-package which-key
-        :ensure t
-        :hook
-        (on-first-input . which-key-mode)
-        )
+  (use-package which-key
+    :ensure t
+    :hook
+    (on-first-input . which-key-mode    )
 
-      (use-package hydra
-        :ensure t
-        )
+    (use-package hydra
+      :ensure t
+      )
 
-      (use-package use-package-hydra
-        :ensure t
-        :after hydra)
+    (use-package use-package-hydra
+      :ensure t
+      :after hydra)
 
-      (defhydra hydra-org (global-map "C-c o" :color pink :hint nil )
+    (defhydra hydra-org (global-map "C-c o" :color pink :hint nil )
 
-        ("b" org-backward-heading-same-level "back")
-        ("f" org-forward-heading-same-level "forward")
-        ("c" nil)
-        ("l" consult-line "consult-line")
-        ("s" consult-ripgrep "ripgrep")
+      ("b" org-backward-heading-same-level "back")
+      ("f" org-forward-heading-same-level "forward")
+      ("c" nil)
+      ("l" consult-line "consult-line")
+      ("s" consult-ripgrep "ripgrep")
 
-        )
-      ;;(global-set-key (kbd "C-z") nil)
+      )
+    ;;(global-set-key (kbd "C-z") nil)
 
-      (use-package undo-tree
-        :ensure t
-        :disabled t
-        :config
-        (require 'undo-tree)
-        (global-undo-tree-mode 1)
-        (setq undo-tree-history-directory-alist `(("." . "~/.cache/"))))
+    (use-package meow
+      :defer 2
+      :ensure t
+      :disabled t
+      :config
+      (defun meow-setup ()
+        (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+        (meow-motion-overwrite-define-key
+         '("j" . meow-next)
+         '("k" . meow-prev)
+         '("<escape>" . ignore))
+        (meow-leader-define-key
+         ;; SPC j/k will run the original command in MOTION state.
+         '("j" . "H-j")
+         '("k" . "H-k")
+         ;; Use SPC (0-9) for digit arguments.
+         '("1" . meow-digit-argument)
+         '("2" . meow-digit-argument)
+         '("3" . meow-digit-argument)
+         '("4" . meow-digit-argument)
+         '("5" . meow-digit-argument)
+         '("6" . meow-digit-argument)
+         '("7" . meow-digit-argument)
+         '("8" . meow-digit-argument)
+         '("9" . meow-digit-argument)
+         '("0" . meow-digit-argument)
+         '("/" . meow-keypad-describe-key)
+         '("?" . meow-cheatsheet))
+        (meow-normal-define-key
+         '("0" . meow-expand-0)
+         '("9" . meow-expand-9)
+         '("8" . meow-expand-8)
+         '("7" . meow-expand-7)
+         '("6" . meow-expand-6)
+         '("5" . meow-expand-5)
+         '("4" . meow-expand-4)
+         '("3" . meow-expand-3)
+         '("2" . meow-expand-2)
+         '("1" . meow-expand-1)
+         '("-" . negative-argument)
+         '(";" . meow-reverse)
+         '("," . meow-inner-of-thing)
+         '("." . meow-bounds-of-thing)
+         '("[" . meow-beginning-of-thing)
+         '("]" . meow-end-of-thing)
+         '("a" . meow-append)
+         '("A" . meow-open-below)
+         '("b" . meow-back-word)
+         '("B" . meow-back-symbol)
+         '("c" . meow-change)
+         '("d" . meow-delete)
+         '("D" . meow-backward-delete)
+         '("e" . meow-next-word)
+         '("E" . meow-next-symbol)
+         '("f" . meow-find)
+         '("g" . meow-cancel-selection)
+         '("G" . meow-grab)
+         '("h" . meow-left)
+         '("H" . meow-left-expand)
+         '("i" . meow-insert)
+         '("I" . meow-open-above)
+         '("j" . meow-next)
+         '("J" . meow-next-expand)
+         '("k" . meow-prev)
+         '("K" . meow-prev-expand)
+         '("l" . meow-right)
+         '("L" . meow-right-expand)
+         '("m" . meow-join)
+         '("n" . meow-search)
+         '("o" . meow-block)
+         '("O" . meow-to-block)
+         '("p" . meow-yank)
+         '("q" . meow-quit)
+         '("Q" . meow-goto-line)
+         '("r" . meow-replace)
+         '("R" . meow-swap-grab)
+         '("s" . meow-kill)
+         '("t" . meow-till)
+         '("u" . meow-undo)
+         '("U" . meow-undo-in-selection)
+         '("v" . meow-visit)
+         '("w" . meow-mark-word)
+         '("W" . meow-mark-symbol)
+         '("x" . meow-line)
+         '("X" . meow-goto-line)
+         '("y" . meow-save)
+         '("Y" . meow-sync-grab)
+         '("z" . meow-pop-selection)
+         '("'" . repeat)
+         '("<escape>" . ignore)))
+      (meow-setup)
+      (meow-global-mode 1))
+    ;;meow配合sis，实现自动切换
+    (defvar meow-leaving-insert-mode-hook nil
+      "Hook to run when leaving meow insert mode.")
+    (defvar meow-entering-insert-mode-hook nil
+      "Hook to run when entering meow insert mode.")
+    (add-hook 'meow-insert-mode-hook
+              (lambda ()
+                (if meow-insert-mode
+                    (run-hooks 'meow-entering-insert-mode-hook)
+  		(run-hooks 'meow-leaving-insert-mode-hook))))
+    (with-eval-after-load 'sis
+      (add-hook 'meow-leaving-insert-mode-hook #'sis-set-english)
+      (add-to-list 'sis-context-hooks 'meow-entering-insert-mode-hook))
 
-      (use-package meow
-        :defer 2
-        :ensure t
-        :disabled t
-        :config
-        (defun meow-setup ()
-          (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-          (meow-motion-overwrite-define-key
-           '("j" . meow-next)
-           '("k" . meow-prev)
-           '("<escape>" . ignore))
-          (meow-leader-define-key
-           ;; SPC j/k will run the original command in MOTION state.
-           '("j" . "H-j")
-           '("k" . "H-k")
-           ;; Use SPC (0-9) for digit arguments.
-           '("1" . meow-digit-argument)
-           '("2" . meow-digit-argument)
-           '("3" . meow-digit-argument)
-           '("4" . meow-digit-argument)
-           '("5" . meow-digit-argument)
-           '("6" . meow-digit-argument)
-           '("7" . meow-digit-argument)
-           '("8" . meow-digit-argument)
-           '("9" . meow-digit-argument)
-           '("0" . meow-digit-argument)
-           '("/" . meow-keypad-describe-key)
-           '("?" . meow-cheatsheet))
-          (meow-normal-define-key
-           '("0" . meow-expand-0)
-           '("9" . meow-expand-9)
-           '("8" . meow-expand-8)
-           '("7" . meow-expand-7)
-           '("6" . meow-expand-6)
-           '("5" . meow-expand-5)
-           '("4" . meow-expand-4)
-           '("3" . meow-expand-3)
-           '("2" . meow-expand-2)
-           '("1" . meow-expand-1)
-           '("-" . negative-argument)
-           '(";" . meow-reverse)
-           '("," . meow-inner-of-thing)
-           '("." . meow-bounds-of-thing)
-           '("[" . meow-beginning-of-thing)
-           '("]" . meow-end-of-thing)
-           '("a" . meow-append)
-           '("A" . meow-open-below)
-           '("b" . meow-back-word)
-           '("B" . meow-back-symbol)
-           '("c" . meow-change)
-           '("d" . meow-delete)
-           '("D" . meow-backward-delete)
-           '("e" . meow-next-word)
-           '("E" . meow-next-symbol)
-           '("f" . meow-find)
-           '("g" . meow-cancel-selection)
-           '("G" . meow-grab)
-           '("h" . meow-left)
-           '("H" . meow-left-expand)
-           '("i" . meow-insert)
-           '("I" . meow-open-above)
-           '("j" . meow-next)
-           '("J" . meow-next-expand)
-           '("k" . meow-prev)
-           '("K" . meow-prev-expand)
-           '("l" . meow-right)
-           '("L" . meow-right-expand)
-           '("m" . meow-join)
-           '("n" . meow-search)
-           '("o" . meow-block)
-           '("O" . meow-to-block)
-           '("p" . meow-yank)
-           '("q" . meow-quit)
-           '("Q" . meow-goto-line)
-           '("r" . meow-replace)
-           '("R" . meow-swap-grab)
-           '("s" . meow-kill)
-           '("t" . meow-till)
-           '("u" . meow-undo)
-           '("U" . meow-undo-in-selection)
-           '("v" . meow-visit)
-           '("w" . meow-mark-word)
-           '("W" . meow-mark-symbol)
-           '("x" . meow-line)
-           '("X" . meow-goto-line)
-           '("y" . meow-save)
-           '("Y" . meow-sync-grab)
-           '("z" . meow-pop-selection)
-           '("'" . repeat)
-           '("<escape>" . ignore)))
-        (meow-setup)
-        (meow-global-mode 1))
-      ;;meow配合sis，实现自动切换
-      (defvar meow-leaving-insert-mode-hook nil
-        "Hook to run when leaving meow insert mode.")
-      (defvar meow-entering-insert-mode-hook nil
-        "Hook to run when entering meow insert mode.")
-      (add-hook 'meow-insert-mode-hook
-                (lambda ()
-                  (if meow-insert-mode
-                      (run-hooks 'meow-entering-insert-mode-hook)
-                    (run-hooks 'meow-leaving-insert-mode-hook))))
-      (with-eval-after-load 'sis
-        (add-hook 'meow-leaving-insert-mode-hook #'sis-set-english)
-        (add-to-list 'sis-context-hooks 'meow-entering-insert-mode-hook))
+    (use-package expand-region
+      :bind ("C-=" . er/expand-region))
 
-      (use-package expand-region
-        :bind ("C-=" . er/expand-region))
-
-      ;; key bindings
-      (when (eq system-type 'darwin) ;; mac specific settings
-        (setq mac-option-modifier 'alt)
-        (setq mac-command-modifier 'meta)
-        (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
-        )
+    ;; key bindings
+    (when (eq system-type 'darwin) ;; mac specific settings
+      (setq mac-option-modifier 'alt)
+      (setq mac-command-modifier 'meta)
+      (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
+      )
 
 #+END_SRC
 
