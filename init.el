@@ -1,4 +1,5 @@
 ;;(require 'org)
+      (benchmark-init/activate)
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
@@ -14,10 +15,10 @@
 
 (defvar my-init-el-start-time (current-time) "Time when init.el was started")
 (setq my-user-emacs-directory "~/.emacs.d/")
-
+;;(setq org-modules nil)
 ;; set paths to manually installed Org-mode (from git; instead of built-in Org-mode)
-(require 'org)
-(require 'org-element)
+;(require 'org)
+;(require 'org-element)
 ;(require 'org-eldoc)
 
 ;; =======================================================================================

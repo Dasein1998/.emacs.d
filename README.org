@@ -3,7 +3,6 @@ Tools: rg fd
 Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 本配置由多种配置缝合而成，主要是在解决各种问题时积累出来的。
 很多配置来源于 Github、Emacs China 等。
-
 * 系统判定
 
 判断是否为 Windows、Linux、Macos。
@@ -478,6 +477,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
            ("M-s L" . consult-line-multi)
            ("M-s k" . consult-keep-lines)
            ("M-s u" . consult-focus-lines)
+           ("M-s o" . consult-recent-file)
            ;; Isearch integration
            ("M-s e" . consult-isearch-history)
            :map isearch-mode-map
@@ -488,8 +488,8 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
            ;; Minibuffer history
            :map minibuffer-local-map
            ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-           ("M-r" . consult-history))                ;; orig. previous-matching-history-element
-
+           ("M-r" . consult-history)                ;; orig. previous-matching-history-element
+           )
     ;; Enable automatic preview at point in the *Completions* buffer. This is
     ;; relevant when you use the default completion UI.
     :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -560,7 +560,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     ;;(setq consult-project-function (lambda (_) (projectile-project-root)))
     ;;;; 5. No project support
     ;; (setq consult-project-function nil)
-    (bind-key "C-x C-o" 'consult-recent-file)
+    
     )
   (global-set-key (kbd "C-s")'consult-line-multi)
 #+END_SRC
@@ -932,11 +932,13 @@ org-mode中，尖括号<>会与()匹配。
   (use-package awesome-tray
     ;;:disabled t
     :ensure t
+    :defer t
     :vc (awesome-tray :url "https://github.com/manateelazycat/awesome-tray" :branch "master" )
     :config
-    (awesome-tray-mode 1)
     (setq awesome-tray-date-format nil)
     (setq awesome-tray-hide-mode-line nil)
+    :hook
+    (on-first-input . awesome-tray-mode)
     )
 #+END_SRC
 * 语音
@@ -984,10 +986,17 @@ org-mode中，尖括号<>会与()匹配。
 首页设为 consult-recent-file。
 #+BEGIN_SRC emacs-lisp
   (use-package init-open-recentf
+    :disabled t
     :config
     ;;(setq init-open-recentf-interface 'consult)
     (init-open-recentf))
   ;;(add-hook 'init-open-recentf-after-hook 'your/init-func)
+  (use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate)
+  )
 #+END_SRC
 
 * 快捷键
@@ -1160,7 +1169,8 @@ open-init-file 用来快速打开此配置。
 * dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired-preview
-    :ensure t )
+    :ensure t 
+    :defer t)
 #+END_SRC
 
 * 方便页内跳转和 buffer 跳转
