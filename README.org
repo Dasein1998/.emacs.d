@@ -1011,7 +1011,7 @@ open-init-file 用来快速打开此配置。
   (use-package which-key
     :ensure t
     :hook
-    (on-first-input . which-key-mode    )
+    (on-first-input . which-key-mode    ))
 
     (use-package hydra
       :ensure t
