@@ -636,12 +636,15 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 (use-package embark
   :ensure t
-  :disabled t
+  ;;:disabled t
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :custom
+  (embark-help-key "?")
   :init
+
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
   ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
@@ -718,7 +721,7 @@ marginalia 会给函数添加一串说明文字
     (face-spec-set 'whitespace-space-before-tab
                    '((((background light))
                       :background "#d8d8d8" :foreground "#de4da1")
-                     (t
+                     (th
                       :inherit warning
                       :background "#404040" :foreground "#ee6aa7")))
 
@@ -1033,13 +1036,13 @@ open-init-file 用来快速打开此配置。
     )
 
   (defhydra hydra-org (global-map "C-c o" :color pink :hint nil )
-
-    ("b" org-backward-heading-same-level "back")
-    ("f" org-forward-heading-same-level "forward")
+    ("b" org-backward-heading-same-level "Back")
+    ("f" org-forward-heading-same-level "Forward")
     ("c" nil)
-    ("l" consult-line "consult-line")
-    ("s" consult-ripgrep "ripgrep")
-
+    ("s" consult-line "conSult-Line")
+    ("l" org-super-links-link "link org tree")
+    ("d" org-super-links-delete-link "link org tree")
+    ("a" org-archive-subtree "Archive Org subtree")
     )
   ;;(global-set-key (kbd "C-z") nil)
 
@@ -1175,6 +1178,7 @@ open-init-file 用来快速打开此配置。
     :defer t)
 #+END_SRC
 
+
 * 方便页内跳转和 buffer 跳转
 ** 使用 set-mark-command 的方法：
 set-mark-command ，C-spc 可以在当前 mark
@@ -1221,6 +1225,22 @@ C-u C-spc 可以跳回上一个 mark 的地方。
         (?? aw-show-dispatch-help))
       "List of actions for `aw-dispatch-default'.")
     )
+  (use-package popper
+  :ensure t ;; or :straight t
+  :bind (("C-`"   . popper-toggle)
+         ("M-`"   . popper-cycle)
+         ("C-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          ;;org-capture-mode
+          help-mode
+          compilation-mode
+          "Capture"))
+  (popper-mode +1)
+  (popper-echo-mode +1))                ;; For echo area hints
 #+END_SRC
 
 * project

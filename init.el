@@ -1,5 +1,5 @@
 ;;(require 'org)
-      (benchmark-init/activate)
+;;(benchmark-init/activate)
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
