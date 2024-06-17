@@ -1,7 +1,9 @@
 * 依赖
 Tools: rg fd
 Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
+
 本配置由多种配置缝合而成，主要是在解决各种问题时积累出来的。
+
 很多配置来源于 Github、Emacs China 等。
 * 系统判定
 
@@ -45,7 +47,6 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   ;;(savehist-mode 1)                          ;（可选）打开 Buffer 历史记录保存
   ;;(setq display-line-numbers-type 'relative) ;（可选）显示相对行号
   (setq-default cursor-type 'bar)              ;设置光标为竖线
-  (setq inhibit-splash-screen t)               ;关闭首页
   (setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
   (blink-cursor-mode 0)                        ;避免光标闪烁
   ;;(setq split-width-threshold 1)             ;强制左右分屏
