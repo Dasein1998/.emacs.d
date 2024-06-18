@@ -20,3 +20,4 @@
             (setq-default inhibit-redisplay nil
                           inhibit-message nil)
             (redisplay)))
+(setq initial-scratch-message ";;You are what you do! \n")
