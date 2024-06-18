@@ -55,9 +55,13 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (defadvice org-open-at-point (after my-org-open-at-point activate)
     (while (>  (count-windows) 2)
       (delete-window (cadr (window-list-1)))))
+        ;; key bindings
+  (when (eq system-type 'darwin) ;; mac specific settings
+    (setq mac-option-modifier 'alt)
+    (setq mac-command-modifier 'meta)
+    (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
+    )
 #+END_SRC
-
-
 
 
 * 自定义 Emacs 生成的文件位置
@@ -86,81 +90,6 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
    #+END_SRC
 
 #+RESULTS:
-
-* quelpa 来安装 github 上的包
-
-#+BEGIN_SRC emacs-lisp
-  (use-package quelpa
-    :commands quelpa
-     :custom
-     (quelpa-git-clone-depth 1)
-     (quelpa-self-upgrade-p nil)
-     (quelpa-update-melpa-p nil)
-     (quelpa-checkout-melpa-p nil)
-     )
-   (quelpa
-    '(quelpa-use-package
-      :fetcher git
-      :url "https://github.com/quelpa/quelpa-use-package.git"))
-   (require 'quelpa-use-package)
-   (quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
-#+END_SRC
-
-* no-littering
-#+begin_src emacs-lisp
-  (use-package no-littering
-    :ensure t
-    :init
-(require 'no-littering)
-)
-#+end_src
-
-* 引入函数
-
-#+BEGIN_SRC emacs-lisp
-  ;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-  (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
-  (set-frame-parameter (selected-frame) 'buffer-predicate
-  		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
-#+END_SRC
-
-* 自动 tangle README.org 文件为 README.el
-#+BEGIN_SRC emacs-lisp
-  (use-package org-auto-tangle
-    :disabled t
-    :defer t
-    :hook (org-mode . org-auto-tangle-mode))
-#+END_SRC
-
-* 主题
-目前使用的是 doom-theme 中的 doom-one-light
-以及ef-theme的ef-day
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :disabled t
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	  doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-one-light t)
-
-    ;; Enable flashing mode-line on errors
-    (doom-themes-visual-bell-config)
-    ;; Enable custom neotree theme (all-the-icons must be installed!)
-    (doom-themes-neotree-config)
-    ;; or for treemacs users
-    (setq doom-themes-treemacs-theme "doom-atom") ; USE "doom-colors" for less minimal icon theme
-    (doom-themes-treemacs-config)
-    ;; Corrects (and improves) org-mode's native fontification.
-    (doom-themes-org-config))
-  (use-package ef-themes
-    :ensure t
-    :config
-    (load-theme 'ef-day t)
-    )
-    #+END_SRC
-
 * 字体
 从 [[https://github.com/seagle0128/.emacs.d][Centaur Emacs]]抄来的。
 
@@ -235,6 +164,62 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
 
   #+END_SRC
+
+* quelpa 来安装 github 上的包
+
+#+BEGIN_SRC emacs-lisp
+  (use-package quelpa
+    :commands quelpa
+     :custom
+     (quelpa-git-clone-depth 1)
+     (quelpa-self-upgrade-p nil)
+     (quelpa-update-melpa-p nil)
+     (quelpa-checkout-melpa-p nil)
+     )
+   (quelpa
+    '(quelpa-use-package
+      :fetcher git
+      :url "https://github.com/quelpa/quelpa-use-package.git"))
+   (require 'quelpa-use-package)
+   (quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
+#+END_SRC
+
+* no-littering
+#+begin_src emacs-lisp
+  (use-package no-littering
+    :ensure t
+    :init
+(require 'no-littering)
+)
+#+end_src
+
+* 引入函数
+
+#+BEGIN_SRC emacs-lisp
+  ;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+  (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
+  (set-frame-parameter (selected-frame) 'buffer-predicate
+  		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
+#+END_SRC
+
+* 自动 tangle README.org 文件为 README.el
+#+BEGIN_SRC emacs-lisp
+  (use-package org-auto-tangle
+    :disabled t
+    :defer t
+    :hook (org-mode . org-auto-tangle-mode))
+#+END_SRC
+
+* 主题
+目前使用的是ef-theme的ef-day
+#+BEGIN_SRC emacs-lisp
+  (use-package ef-themes
+    :ensure t
+    :config
+    (load-theme 'ef-day t)
+    )
+    #+END_SRC
+
 
 * 输入时的自动化
 
@@ -561,7 +546,6 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     ;;(setq consult-project-function (lambda (_) (projectile-project-root)))
     ;;;; 5. No project support
     ;; (setq consult-project-function nil)
-
     )
   (global-set-key (kbd "C-s")'consult-line-multi)
 #+END_SRC
@@ -889,7 +873,6 @@ org-mode中，尖括号<>会与()匹配。
   (use-package sort-tab
     :ensure t
     :defer t
-    ;;:after doom-modeline
     :vc (sort-tab :url "https://github.com/manateelazycat/sort-tab" :branch "main")
     :config
     (sort-tab-mode 1)
@@ -945,7 +928,7 @@ org-mode中，尖括号<>会与()匹配。
     (on-first-input . awesome-tray-mode)
     )
 #+END_SRC
-* 语音
+* 语言
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
     :defer 2
@@ -986,6 +969,7 @@ org-mode中，尖括号<>会与()匹配。
     (css-mode . aggressive-indent-mode)
     )
 #+END_SRC
+
 * 首页
 首页设为 consult-recent-file。
 #+BEGIN_SRC emacs-lisp
@@ -1047,122 +1031,8 @@ open-init-file 用来快速打开此配置。
     )
   ;;(global-set-key (kbd "C-z") nil)
 
-  (use-package meow
-    :defer 2
-    :ensure t
-    :disabled t
-    :config
-    (defun meow-setup ()
-      (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-      (meow-motion-overwrite-define-key
-       '("j" . meow-next)
-       '("k" . meow-prev)
-       '("<escape>" . ignore))
-      (meow-leader-define-key
-       ;; SPC j/k will run the original command in MOTION state.
-       '("j" . "H-j")
-       '("k" . "H-k")
-       ;; Use SPC (0-9) for digit arguments.
-       '("1" . meow-digit-argument)
-       '("2" . meow-digit-argument)
-       '("3" . meow-digit-argument)
-       '("4" . meow-digit-argument)
-       '("5" . meow-digit-argument)
-       '("6" . meow-digit-argument)
-       '("7" . meow-digit-argument)
-       '("8" . meow-digit-argument)
-       '("9" . meow-digit-argument)
-       '("0" . meow-digit-argument)
-       '("/" . meow-keypad-describe-key)
-       '("?" . meow-cheatsheet))
-      (meow-normal-define-key
-       '("0" . meow-expand-0)
-       '("9" . meow-expand-9)
-       '("8" . meow-expand-8)
-       '("7" . meow-expand-7)
-       '("6" . meow-expand-6)
-       '("5" . meow-expand-5)
-       '("4" . meow-expand-4)
-       '("3" . meow-expand-3)
-       '("2" . meow-expand-2)
-       '("1" . meow-expand-1)
-       '("-" . negative-argument)
-       '(";" . meow-reverse)
-       '("," . meow-inner-of-thing)
-       '("." . meow-bounds-of-thing)
-       '("[" . meow-beginning-of-thing)
-       '("]" . meow-end-of-thing)
-       '("a" . meow-append)
-       '("A" . meow-open-below)
-       '("b" . meow-back-word)
-       '("B" . meow-back-symbol)
-       '("c" . meow-change)
-       '("d" . meow-delete)
-       '("D" . meow-backward-delete)
-       '("e" . meow-next-word)
-       '("E" . meow-next-symbol)
-       '("f" . meow-find)
-       '("g" . meow-cancel-selection)
-       '("G" . meow-grab)
-       '("h" . meow-left)
-       '("H" . meow-left-expand)
-       '("i" . meow-insert)
-       '("I" . meow-open-above)
-       '("j" . meow-next)
-       '("J" . meow-next-expand)
-       '("k" . meow-prev)
-       '("K" . meow-prev-expand)
-       '("l" . meow-right)
-       '("L" . meow-right-expand)
-       '("m" . meow-join)
-       '("n" . meow-search)
-       '("o" . meow-block)
-       '("O" . meow-to-block)
-       '("p" . meow-yank)
-       '("q" . meow-quit)
-       '("Q" . meow-goto-line)
-       '("r" . meow-replace)
-       '("R" . meow-swap-grab)
-       '("s" . meow-kill)
-       '("t" . meow-till)
-       '("u" . meow-undo)
-       '("U" . meow-undo-in-selection)
-       '("v" . meow-visit)
-       '("w" . meow-mark-word)
-       '("W" . meow-mark-symbol)
-       '("x" . meow-line)
-       '("X" . meow-goto-line)
-       '("y" . meow-save)
-       '("Y" . meow-sync-grab)
-       '("z" . meow-pop-selection)
-       '("'" . repeat)
-       '("<escape>" . ignore)))
-    (meow-setup)
-    (meow-global-mode 1))
-  ;;meow配合sis，实现自动切换
-  (defvar meow-leaving-insert-mode-hook nil
-    "Hook to run when leaving meow insert mode.")
-  (defvar meow-entering-insert-mode-hook nil
-    "Hook to run when entering meow insert mode.")
-  (add-hook 'meow-insert-mode-hook
-	    (lambda ()
-	      (if meow-insert-mode
-		  (run-hooks 'meow-entering-insert-mode-hook)
-		(run-hooks 'meow-leaving-insert-mode-hook))))
-  (with-eval-after-load 'sis
-    (add-hook 'meow-leaving-insert-mode-hook #'sis-set-english)
-    (add-to-list 'sis-context-hooks 'meow-entering-insert-mode-hook))
-
   (use-package expand-region
     :bind ("C-=" . er/expand-region))
-
-  ;; key bindings
-  (when (eq system-type 'darwin) ;; mac specific settings
-    (setq mac-option-modifier 'alt)
-    (setq mac-command-modifier 'meta)
-    (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
-    )
-
 #+END_SRC
 
 * windows 环境变量
