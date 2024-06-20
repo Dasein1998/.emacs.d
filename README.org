@@ -906,7 +906,7 @@ org-mode中，尖括号<>会与()匹配。
      ("M-8" . sort-tab-select-next-tab)    ;选择后一个标签
      ("M-s-7" . sort-tab-select-first-tab) ;选择第一个标签
      ("M-s-8" . sort-tab-select-last-tab)  ;选择最后一个标签
-     ("C-;" . sort-tab-close-current-tab)  ;关闭当前标签
+     ;;("C-;" . sort-tab-close-current-tab)  ;关闭当前标签
      ("s-q" . sort-tab-close-other-tabs)   ;关闭后台标签
      ("s-Q" . sort-tab-close-all-tabs)     ;关闭所有标签
      )
