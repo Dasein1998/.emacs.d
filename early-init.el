@@ -20,4 +20,8 @@
             (setq-default inhibit-redisplay nil
                           inhibit-message nil)
             (redisplay)))
-(setq initial-scratch-message ";;You are what you do! \n")
+(setq initial-scratch-message 
+";;You are what you do!
+;;C-c a Agenda
+;;C-c c org-Capture
+")

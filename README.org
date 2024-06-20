@@ -61,6 +61,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
     (setq mac-command-modifier 'meta)
     (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
     )
+  (global-set-key (kbd "C-' ") 'comment-or-uncomment-region)
 #+END_SRC
 
 
@@ -200,6 +201,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
   (set-frame-parameter (selected-frame) 'buffer-predicate
   		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
+
 #+END_SRC
 
 * 自动 tangle README.org 文件为 README.el
