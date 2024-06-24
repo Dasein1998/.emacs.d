@@ -22,6 +22,7 @@
             (redisplay)))
 (setq initial-scratch-message 
 ";;You are what you do!
-;;C-c a Agenda
 ;;C-c c org-Capture
+;;C-c a Agenda
+;;C-c , org-Priority
 ")
