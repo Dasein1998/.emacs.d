@@ -1023,13 +1023,13 @@ open-init-file 用来快速打开此配置。
     )
 
   (defhydra hydra-org (global-map "C-c o" :color pink :hint nil )
-    ("b" org-backward-heading-same-level "Back")
-    ("f" org-forward-heading-same-level "Forward")
+    ("k" org-backward-heading-same-level "Back")
+    ("j" org-forward-heading-same-level "Forward")
     ("c" nil)
     ("s" consult-line "conSult-Line")
-    ("l" org-super-links-link "link org tree")
-    ("d" org-super-links-delete-link "link org tree")
-    ("a" org-archive-subtree "Archive Org subtree")
+    ("l" org-super-links-link "Link org tree")
+    ("d" org-super-links-delete-link "Delete link")
+    ("a" org-archive-subtree "Archive org subtree")
     )
   ;;(global-set-key (kbd "C-z") nil)
 
