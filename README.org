@@ -1133,7 +1133,7 @@ C-u C-spc 可以跳回上一个 mark 的地方。
   (use-package citar
   :custom
   (citar-bibliography '("~/notes/assets/zotero.bib"))
-  (citar-open-entry-function 'citar-open-entry-in-zotero)
+  (citar-open-entry-function #'citar-open-entry-in-zotero)
   ;; optional: org-cite-insert is also bound to C-c C-x C-@
   :hook
   (LaTeX-mode . citar-capf-setup)
