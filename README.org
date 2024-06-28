@@ -164,14 +164,14 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   (add-hook 'window-setup-hook #'centaur-setup-fonts)
   (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
 
-  #+END_SRC
+#+END_SRC
 
 * quelpa 来安装 github 上的包
 
 #+BEGIN_SRC emacs-lisp
   (use-package quelpa
     :commands quelpa
-     :custom
+    :custom
      (quelpa-git-clone-depth 1)
      (quelpa-self-upgrade-p nil)
      (quelpa-update-melpa-p nil)
@@ -1039,8 +1039,8 @@ open-init-file 用来快速打开此配置。
 
 * windows 环境变量
 #+BEGIN_SRC emacs-lisp
-        (when (eq system-type 'windows-nt) ;; windows specific settings
-  (setenv "PATH" (concat (getenv "PATH") ";" "C:\\Program Files\\Git\\usr\\bin")))
+  (when (eq system-type 'windows-nt) ;; windows specific settings
+    (setenv "PATH" (concat (getenv "PATH") ";" "C:\\Program Files\\Git\\usr\\bin")))
 
 #+END_SRC
 
@@ -1114,6 +1114,41 @@ C-u C-spc 可以跳回上一个 mark 的地方。
           "Capture"))
   (popper-mode +1)
   (popper-echo-mode +1))                ;; For echo area hints
+#+END_SRC
+* 文献管理
+#+BEGIN_SRC emacs-lisp
+
+(use-package bibtex-completion
+ :ensure t
+ :defer t
+ :config
+ (when (eq system-type 'windows-nt)
+      (setq bibtex-completion-bibliography
+      '("~/notes/assets/zotero.bib"
+        ;;"/path/to/bibtex-file-2.bib"
+        ))
+        )
+ 
+    )
+  (use-package citar
+  :custom
+  (citar-bibliography '("~/notes/assets/zotero.bib"))
+  (citar-open-entry-function 'citar-open-entry-in-zotero)
+  ;; optional: org-cite-insert is also bound to C-c C-x C-@
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
+  :bind
+  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
+  )
+  (use-package citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
+(use-package consult-bibtex
+    :quelpa (consult-bibtex :repo "mohkale/consult-bibtex" :fetcher github )
+    :after bibtex-completion
+    )
 #+END_SRC
 
 * project
