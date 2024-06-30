@@ -28,8 +28,10 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
   	     (eq w32-ansi-code-page 65001))
     (setq w32-system-coding-system 'utf-8)
     (define-coding-system-alias 'cp65001 'utf-8)
+    (set-default-coding-systems 'utf-8-unix)
+    (set-buffer-file-coding-system 'utf-8-unix)
     )
-
+(add-to-list 'file-coding-system-alist '("\\.org\\'" . utf-8))
 #+END_SRC
 
 * 默认参数修改
@@ -826,22 +828,29 @@ org-mode中，尖括号<>会与()匹配。
   (setq org-default-notes-file "~/org/life.org")
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
-	       '("w" "work"
+	       '("t" "Work-task"
 		 entry
-		 (file+headline    "~/org/work.org" "Tasks"
-				   )
+		 (file+headline    "~/org/work.org" "Tasks")
 		 "* TODO %?\n  %i  %a")
 	       )
-  (add-to-list 'org-capture-templates '("n" "note"
-					entry
-					(file "~/org/flomo.org")
-					)
+  (add-to-list 'org-capture-templates
+	       '("w" "Work journal" plain
+		 (file+datetree "~/org/work.org")
+		 "%<%T> %?"
+		 :empty-lines 1)
+	       )
+  (add-to-list 'org-capture-templates
+	       '("n" "Note"
+		 entry
+		 (file "~/org/flomo.org")
+		 )
 	       )
   (add-to-list 'org-capture-templates
 	       '("f" "Flomo" entry (file "~/org/flomo.org")
 		 "* %U - %^{heading}  \n %?\n"
 		 :prepend t
-		 ))
+		 )
+	       )
   (add-to-list 'org-capture-templates
 	       '("j" "Journal" plain
 		 (file+datetree "~/org/life.org")
@@ -955,13 +964,13 @@ org-mode中，尖括号<>会与()匹配。
     :defer t
     :custom
     (fanyi-providers '(;; 海词
-                       fanyi-haici-provider
-                       ;; 有道同义词词典
-                       fanyi-youdao-thesaurus-provider
-                       ;; Etymonline
-                       fanyi-etymon-provider
-                       ;; Longman
-                       fanyi-longman-provider))
+		       fanyi-haici-provider
+		       ;; 有道同义词词典
+		       fanyi-youdao-thesaurus-provider
+		       ;; Etymonline
+		       fanyi-etymon-provider
+		       ;; Longman
+		       fanyi-longman-provider))
     :bind
     (("C-c C-t" . fanyi-dwim2))
     )
@@ -973,7 +982,6 @@ org-mode中，尖括号<>会与()匹配。
     (css-mode . aggressive-indent-mode)
     )
 #+END_SRC
-
 * 首页
 首页设为 consult-recent-file。
 #+BEGIN_SRC emacs-lisp
@@ -992,11 +1000,11 @@ org-mode中，尖括号<>会与()匹配。
 #+END_SRC
 
 * 快捷键
-open-init-file 用来快速打开此配置。
+my-open-init-file 用来快速打开此配置。
 *insert* 用来加粗。（类似于 markdown 中的 C-b，给选中的文字加粗）
 
 #+BEGIN_SRC emacs-lisp
-  (defun open-init-file()
+  (defun my-open-init-file()
     (interactive)
     (find-file "~/.emacs.d/README.org"))
 
@@ -1121,17 +1129,6 @@ C-u C-spc 可以跳回上一个 mark 的地方。
 
 #+BEGIN_SRC emacs-lisp
 
-  (use-package bibtex-completion
-    :ensure t
-    :defer t
-    :config
-    (when (eq system-type 'windows-nt)
-      (setq bibtex-completion-bibliography
-  	  '("~/notes/assets/zotero.bib"
-              ;;"/path/to/bibtex-file-2.bib"
-              ))
-      )
-    )
   (use-package citar
     :demand t
     :custom
@@ -1145,14 +1142,20 @@ C-u C-spc 可以跳回上一个 mark 的地方。
     (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
     :init
     (setq org-cite-insert-processor 'citar
-          org-cite-follow-processor 'citar
-          org-cite-activate-processor 'citar)
+	  org-cite-follow-processor 'citar
+	  org-cite-activate-processor 'citar)
     :config
-    (citar-embark-mode)
+    (citar-embark-mode 1)    
     )
-  (use-package consult-bibtex
-    :quelpa (consult-bibtex :repo "mohkale/consult-bibtex" :fetcher github )
-    :after bibtex-completion
+(setq citar-templates
+      '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
+        (suffix . " ${=key= id:15} ${=type=:12} ${tags keywords:*}")
+        (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+        (note . "Notes on ${author editor:%etal}, ${title}")))
+  (defun my-citar-open-entry-by-citekey ()
+    "open citekey at point"
+    (interactive)
+    (citar-open-entry (thing-at-point 'word))
     )
 #+END_SRC
 
@@ -1178,7 +1181,6 @@ C-u C-spc 可以跳回上一个 mark 的地方。
   (use-package on
     :quelpa (on :repo "ajgrf/on.el" :fetcher github )
     )
-
   ;;(require 'init-dired)
   ;;(require 'init-env)
   ;;(require 'init-quelpa)
@@ -1197,4 +1199,8 @@ C-u C-spc 可以跳回上一个 mark 的地方。
   ;;(require 'init-buildin)
   ;;(require 'init-elfeed)
   ;;(require 'init-embark)
+
+ 
+
+
 #+END_SRC

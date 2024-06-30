@@ -20,9 +20,14 @@
             (setq-default inhibit-redisplay nil
                           inhibit-message nil)
             (redisplay)))
-(setq initial-scratch-message 
-";;You are what you do!
-;;C-c c org-Capture
-;;C-c a Agenda
-;;C-c , org-Priority
+(setq initial-scratch-message
+"
+;;   ____    __     ___ ____  ____   _  _
+;;  (  _ \\  /__\\   /__)( ___)(_  _) (\\ ( )
+;;   )(_) )/(__)\\  \\__\\ )__)  _)(_   )\\(
+;;  (____/(__)(__)(___/(____)(____)(_)_\\_)
+;;           You are what you do!
+;;             C-c c org-Capture
+;;                C-c a Agenda
+;;             C-c , org-Priority
 ")
