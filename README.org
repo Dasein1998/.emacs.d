@@ -1145,8 +1145,13 @@ C-u C-spc 可以跳回上一个 mark 的地方。
 	  org-cite-follow-processor 'citar
 	  org-cite-activate-processor 'citar)
     :config
-    (citar-embark-mode 1)
     (setq citar-open-resources '(:files :links))
+    )
+    (use-package citar-embark
+    :ensure t 
+    :after citar embark
+    :no-require t
+    :config (citar-embark-mode)
     )
 (setq citar-templates
       '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
