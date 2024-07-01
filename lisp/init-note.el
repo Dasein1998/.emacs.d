@@ -27,136 +27,6 @@
   '(org-level-5 ((t (:inherit outline-5 :height 1.02))))
   '(org-level-6 ((t (:inherit outline-6 :height 1.00))))
 ) ;;heading的字体大小
-(use-package org-contrib
-:ensure t
-:disabled t
-:config
-(require 'org-eldoc)
-(setq org-eldoc-mode 1)
-)
-(use-package org-sticky-header
-:disabled t
-:ensure t
-:hook
-( org-mode . org-sticky-header-mode)
-)
-
-(use-package denote
-  :defer t
-  :config
-  ;; Remember to check the doc strings of those variables.
-  (setq denote-directory (expand-file-name "~/org-roam/")
-	denote-journal-home (expand-file-name "000-D" denote-directory)
-	denote-note-home (expand-file-name "pages/" denote-directory)
-	denote-known-keywords '("daily" "temp")
-	denote-infer-keywords t
-	denote-sort-keywords t
-	denote-file-type nil ; Org is the default, set others here
-	denote-prompts '(title keywords)
-	denote-excluded-directories-regexp nil
-	denote-excluded-keywords-regexp nil
-	;; Pick dates, where relevant, with Org's advanced interface:
-	denote-date-prompt-use-org-read-date t
-	;; Read this manual for how to specify `denote-templates'.  We do not
-	;; include an example here to avoid potential confusion.
-	denote-date-format nil; read doc string
-	;; By default, we do not show the context of links.  We just display
-	;; file names.  This provides a more informative view.
-	denote-backlinks-show-context t
-	)
-  ;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
-  ;; advanced.
-  ;; If you use Markdown or plain text files (Org renders links as buttons
-  ;; right away)
-  (add-hook 'find-file-hook #'denote-link-buttonize-buffer)
-  ;; We use different ways to specify a path for demo purposes.
-  (setq denote-dired-directories
-	(list denote-directory
-              (thread-last denote-directory (expand-file-name "assets"))
-              (expand-file-name "~/org-roam/assets"))
-        )
-
-  (setq denote-templates
-	`((daily . "* 9-11\n\n* 11-13\n\n* 13-17\n\n* 17-21")
-          (memo . ,(concat "* Some heading"
-                           "\n\n"
-                           "* Another heading"
-                           "\n\n")))
-	)
-
-  ;; Generic (great if you rename files Denote-style in lots of places):
-  (add-hook 'dired-mode-hook #'denote-dired-mode)
-  ;; OR if only want it in `denote-dired-directories':
-  ;;(add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
-
-
-  ;; Automatically rename Denote buffers using the `denote-rename-buffer-format'.
-  (denote-rename-buffer-mode 1)
-
-  ;; Denote DOES NOT define any key bindings.  This is for the user to
-  ;; decide.  For example:
-  (let ((map global-map))
-    (define-key map (kbd "C-c n n") #'denote)
-    (define-key map (kbd "C-c n c") #'denote-region) ; "contents" mnemonic
-    (define-key map (kbd "C-c n N") #'denote-type)
-    (define-key map (kbd "C-c n d") #'denote-date)
-    (define-key map (kbd "C-c n z") #'denote-signature) ; "zettelkasten" mnemonic
-    (define-key map (kbd "C-c n s") #'denote-subdirectory)
-    (define-key map (kbd "C-c n t") #'denote-template)
-    ;; If you intend to use Denote with a variety of file types, it is
-    ;; easier to bind the link-related commands to the `global-map', as
-    ;; shown here.  Otherwise follow the same pattern for `org-mode-map',
-    ;; `markdown-mode-map', and/or `text-mode-map'.
-    (define-key map (kbd "C-c n i") #'denote-link) ; "insert" mnemonic
-    (define-key map (kbd "C-c n I") #'denote-add-links)
-    (define-key map (kbd "C-c n b") #'denote-backlinks)
-    (define-key map (kbd "C-c n f f") #'denote-find-link)
-    (define-key map (kbd "C-c n f b") #'denote-find-backlink)
-    ;; Note that `denote-rename-file' can work from any context, not just
-    ;; Dired bufffers.  That is why we bind it here to the `global-map'.
-    (define-key map (kbd "C-c n r") #'denote-rename-file)
-    (define-key map (kbd "C-c n R") #'denote-rename-file-using-front-matter))
-
-  ;; Key bindings specifically for Dired.
-  (let ((map dired-mode-map))
-    (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
-    (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-files)
-    (define-key map (kbd "C-c C-d C-k") #'denote-dired-rename-marked-files-with-keywords)
-    (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
-
-  ;; (with-eval-after-load 'org-capture
-  ;; (setq denote-org-capture-specifiers "%l\n%i\n%?")
-  ;; (add-to-list 'org-capture-templates
-  ;;              '("n" "New note (with denote.el)" plain
-  ;;                (file denote-last-path)
-  ;;                #'denote-org-capture
-  ;;                :no-save t
-  ;;                :immediate-finish nil
-  ;;                :kill-buffer t
-  ;;                :jump-to-captured t)))
-
-  ;; Also check the commands `denote-link-after-creating',
-  ;; `denote-link-or-create'.  You may want to bind them to keys as well.
-
-
-  ;; If you want to have Denote commands available via a right click
-  ;; context menu, use the following and then enable
-  ;; `context-menu-mode'.
-  (add-hook 'context-menu-functions #'denote-context-menu)
-
-  (require 'denote-journal-extras)
-  (setq denote-journal-extras-directory denote-journal-home
-	denote-journal-extras-title-format "%Y-%m-%d"
-	denote-journal-extras-keyword "daily")
-
-  (defun my-denote-note ()
-    "Create a note to pages, need to provide a subdirectory title and tag"
-    (interactive)
-    (let ((denote-prompts '(subdirectory title keywords))
-          )
-      (call-interactively #'denote)))
-  )
-(advice-add 'denote-journal-extras-new-entry :filter-return #'my-increase)
 
 
 (use-package consult-notes
@@ -235,52 +105,6 @@
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
 
-(use-package org-download
-  :config
-  (setq-default org-download-heading-lvl nil)
-  (setq org-download-screenshot-method "irfanview /clippaste /convert=\"%s\"")
-  (setq-default org-download-image-dir "~/org/assets/")
-        (add-hook 'dired-mode-hook 'org-download-enable)
-  (add-hook 'org-mode-hook 'org-download-enable)
-  (defun dummy-org-download-annotate-function (link)
-    "")
-    (setq org-download-annotate-function
-      #'dummy-org-download-annotate-function)
-  :bind
-  ("C-c v" . org-download-screenshot)
-  )
-
-(global-set-key (kbd "C-c c") 'org-capture)
-(setq org-default-notes-file "~/org/life.org")
-(setq org-capture-templates nil)
-(add-to-list 'org-capture-templates '("t" "Tasks"))
-(add-to-list 'org-capture-templates
-             '("f" "Flomo" entry (file "~/org/flomo.org")
-               "* %U - %^{heading}  \n %?\n"
-               :prepend t)
-	     )
-(add-to-list 'org-capture-templates
-	     '("j" "Journal Entry" plain
-	       (file+datetree "~/org/life.org")
-               "%<%T> %?"
-               :empty-lines 1
-	       )
-	     )
-
-(setq org-agenda-files '("~/org/flomo.org"
-                         "~/org/life.org"
-			 ))
-
-(use-package helm-org-rifle
-  :ensure t
-  :defer t
-  )
-(use-package org-ql
-  :ensure t
-  :defer t
-  )
-
-
 
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
@@ -295,3 +119,81 @@
         ("C-c s i" . org-super-links-quick-insert-inline-link)
         ("C-c s C-d" . org-super-links-delete-link))
   )
+
+
+  (use-package citar
+    :demand t
+    :custom
+    (citar-bibliography '("~/bib/note.bib"))
+    (citar-open-entry-function #'citar-open-entry-in-zotero)
+    ;; optional: org-cite-insert is also bound to C-c C-x C-@
+    :hook
+    (LaTeX-mode . citar-capf-setup)
+    (org-mode . citar-capf-setup)
+    :bind
+    (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
+    :init
+    (setq org-cite-insert-processor 'citar
+	  org-cite-follow-processor 'citar
+	  org-cite-activate-processor 'citar)
+    :config
+    (setq citar-open-resources '(:files :links))
+    )
+    (use-package citar-embark
+    :ensure t 
+    :after citar embark
+    :no-require t
+    :config (citar-embark-mode)
+    )
+(setq citar-templates
+      '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
+        (suffix . " ${=key= id:15} ${=type=:12} ${tags keywords:*}")
+        (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+        (note . "Notes on ${author editor:%etal}, ${title}")))
+  (defun my-citar-open-entry-by-citekey ()
+    "open citekey at point"
+    (interactive)
+    (citar-open-entry (thing-at-point 'word))
+    )
+
+
+
+
+      (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-default-notes-file "~/org/life.org")
+  (setq org-capture-templates nil)
+  (add-to-list 'org-capture-templates
+	       '("t" "Work-task"
+		 entry
+		 (file+headline    "~/org/work.org" "Tasks")
+		 "* TODO %?\n  %i  %a")
+	       )
+  (add-to-list 'org-capture-templates
+	       '("w" "Work journal" plain
+		 (file+datetree "~/org/work.org")
+		 "%<%T> %?"
+		 :empty-lines 1)
+	       )
+  (add-to-list 'org-capture-templates
+	       '("n" "Note"
+		 entry
+		 (file "~/org/flomo.org")
+		 )
+	       )
+  (add-to-list 'org-capture-templates
+	       '("f" "Flomo" entry (file "~/org/flomo.org")
+		 "* %U - %^{heading}  \n %?\n"
+		 :prepend t
+		 )
+	       )
+  (add-to-list 'org-capture-templates
+	       '("j" "Journal" plain
+		 (file+datetree "~/org/life.org")
+		 "%<%T> %?"
+		 :empty-lines 1
+		 )
+	       )
+
+  (setq org-agenda-files '("~/org/work.org"
+			   "~/org/life.org"
+			   ))

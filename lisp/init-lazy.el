@@ -55,3 +55,9 @@
   (setq awesome-tray-date-format nil)
   (setq awesome-tray-hide-mode-line nil)
   )
+
+  (use-package no-littering
+    :ensure t
+    :init
+(require 'no-littering)
+)

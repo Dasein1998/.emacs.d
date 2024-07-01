@@ -1,108 +1,80 @@
-;;(require 'org)
-;;(benchmark-init/activate)
-(when (eq system-type 'windows-nt)
-  (set-next-selection-coding-system 'utf-16-le)  
-  (set-selection-coding-system 'utf-16-le)  
-  (set-clipboard-coding-system 'utf-16-le))
-;;(org-babel-load-file "~/.emacs.d/README.org")
-;;(package-initialize)
-;;this init is from https://github.com/novoid/dot-emacs/blob/master/init.el
+(defconst IS-WINDOWS (eq system-type 'windows-nt))
+(defconst IS-LINUX (eq system-type 'gnu/linux))
+					;windows-nt的编码问题
+(when (and (eq system-type 'windows-nt)
+           (eq w32-ansi-code-page 65001))
+  (setq w32-system-coding-system 'utf-8)
+  (define-coding-system-alias 'cp65001 'utf-8))
 
-(defvar my-init-el-start-time (current-time) "Time when init.el was started")
-(setq my-user-emacs-directory "~/.emacs.d/")
-;;(setq org-modules nil)
-;; set paths to manually installed Org-mode (from git; instead of built-in Org-mode)
-;(require 'org)
-;(require 'org-element)
-;(require 'org-eldoc)
+;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
+(electric-pair-mode t)                       ; 自动补全括号
+(add-hook 'prog-mode-hook #'show-paren-mode) ; 编程模式下，光标在括号上时高亮另一个括号
+(column-number-mode t)                       ; 在 Mode line 上显示列号
+(global-auto-revert-mode t)                  ; 当另一程序修改了文件时，让 Emacs 及时刷新 Buffer
+(delete-selection-mode t)                    ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
+(setq make-backup-files nil)                 ; 关闭文件自动备份
+(add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
+;(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
+;(savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
+;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
+(setq-default cursor-type 'bar)              ;设置光标为竖线
+(setq inhibit-splash-screen t)               ;关闭首页
+(setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
+(blink-cursor-mode 0)                       ;避免光标闪烁
+;(setq split-width-threshold 1)               ;强制左右分屏
+;当大于两个buffer时，删除前一个。
+(defadvice org-open-at-point (after my-org-open-at-point activate)
+  (while (>  (count-windows) 2)
+    (delete-window (cadr (window-list-1)))))
 
-;; =======================================================================================
-;; The init.el file looks for "config.org" and tangles its elisp blocks (matching
-;; the criteria described below) to "config.el" which is loaded as Emacs configuration.
-;; Inspired and copied from: http://www.holgerschurig.de/en/emacs-init-tangle/
-;; As of 2021-02-05, the Domain "holgerschurig.de" doesn't exist any more.
-;; Visit archived page on https://archive.org/search.php?query=http%3A%2F%2Fwww.holgerschurig.de%2Fen%2Femacs-init-tangle%2F
-;; =======================================================================================
+(setq backup-directory-alist
+      `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file t)
+(unless (package-installed-p 'vc-use-package)
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
+(require 'package)
+(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+			)
+      )
+(when (< emacs-major-version 27)
+  (package-initialize))
+(setq
+      use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
+ ;     use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
+      use-package-expand-minimally t
+      vc-use-package-deactivate-advice t )
 
-;; from: http://stackoverflow.com/questions/251908/how-can-i-insert-current-date-and-time-into-a-file-using-emacs
-(defvar current-date-time-format "%a %b %d %Y-%m-%dT%H:%M:%S "
-  "Format of date to insert with `insert-current-date-time' func
-See help of `format-time-string' for possible replacements")
-
-;; from: http://stackoverflow.com/questions/251908/how-can-i-insert-current-date-and-time-into-a-file-using-emacs
-(defvar current-time-format "%a %H:%M:%S"
-  "Format of date to insert with `insert-current-time' func.
-Note the weekly scope of the command's precision.")
-
-
-(defun my-tangle-config-org ()
-  "This function will write all source blocks from =config.org= into =config.el= that are ...
-
-- not marked as =tangle: no=
-- doesn't have the TODO state =DISABLED=
-- have a source-code of =emacs-lisp="
-  (require 'org)
-  (let* ((body-list ())
-         (output-file (concat my-user-emacs-directory "README.el"))
-         (org-babel-default-header-args (org-babel-merge-params org-babel-default-header-args
-                                                                (list (cons :tangle output-file)))))
-    (message "—————• Re-generating %s …" output-file)
-    (save-restriction
-      (save-excursion
-        (org-babel-map-src-blocks (concat my-user-emacs-directory "README.org")
-	  (let* (
-		 (org_block_info (org-babel-get-src-block-info 'light))
-		 ;;(block_name (nth 4 org_block_info))
-		 (tfile (cdr (assq :tangle (nth 2 org_block_info))))
-		 (match_for_TODO_keyword)
-		 )
-	    (save-excursion
-	      (catch 'exit
-		;;(when (string= "" block_name)
-		;;  (message "Going to write block name: " block_name)
-		;;  (add-to-list 'body-list (concat "message(\"" block_name "\")"));; adding a debug statement for named blocks
-		;;  )
-		(org-back-to-heading t)
-		(when (looking-at org-outline-regexp)
-		  (goto-char (1- (match-end 0))))
-		(when (looking-at (concat " +" org-todo-regexp "\\( +\\|[ \t]*$\\)"))
-		  (setq match_for_TODO_keyword (match-string 1)))))
-	    (unless (or (string= "no" tfile)
-			(string= "DISABLED" match_for_TODO_keyword)
-			(not (string= "emacs-lisp" lang)))
-	      (add-to-list 'body-list (concat "\n\n;; #####################################################################################\n"
-					      "(message \"README • " (org-get-heading) " …\")\n\n")
-			   )
-	      (add-to-list 'body-list body)
-	      ))))
-      (with-temp-file output-file
-        (insert ";; ============================================================\n")
-        (insert ";; Don't edit this file, edit README.org' instead ...\n")
-        (insert ";; Auto-generated at " (format-time-string current-date-time-format (current-time)) " on host " system-name "\n")
-        (insert ";; ============================================================\n\n")
-        (insert (apply 'concat (reverse body-list))))
-      (message "—————• Wrote %s" output-file))))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
+(set-frame-parameter (selected-frame) 'buffer-predicate
+		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 
 
-;; following lines are executed only when my-tangle-config-org-hook-func()
-;; was not invoked when saving config.org which is the normal case:
-(let ((orgfile (concat my-user-emacs-directory "README.org"))
-      (elfile (concat my-user-emacs-directory "README.el"))
-      (gc-cons-threshold most-positive-fixnum))
-  (when (or (not (file-exists-p elfile))
-            (file-newer-than-file-p orgfile elfile))
-    (my-tangle-config-org)
-    ;;(save-buffers-kill-emacs);; TEST: kill Emacs when config has been re-generated due to many issues when loading newly generated config.el
-    )
-  (load-file elfile))
 
-;; when README.org is saved, re-generate README.el:
-(defun my-tangle-config-org-hook-func ()
-  (when (string= "README.org" (buffer-name))
-	(let ((orgfile (concat my-user-emacs-directory "README.org"))
-		  (elfile (concat my-user-emacs-directory "README.el")))
-	  (my-tangle-config-org))))
-(add-hook 'after-save-hook 'my-tangle-config-org-hook-func)
-(setq custom-file (concat my-user-emacs-directory "custom.el"))
-(load custom-file 'noerror 'nomessage)
+;(require 'init-dired)
+(require 'init-env)
+(require 'init-quelpa)
+(require 'on)
+
+(require 'init-vertico)
+;;(require 'init-dashboard)
+(require 'init-fonts)
+;;(require 'init-md)
+;;(require 'init-key)
+(require 'init-company)
+;(require 'init-project)
+(require 'init-consult)
+(require 'init-lazy)
+(require 'init-lan)
+(require 'init-note)
+(require 'init-avy)
+(require 'init-buildin)
+;(require 'init-elfeed)
+;(require 'init-hyperbole)
+(require 'init-embark)
+(provide 'init)

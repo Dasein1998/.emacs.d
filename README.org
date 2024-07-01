@@ -206,14 +206,6 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 #+END_SRC
 
-* 自动 tangle README.org 文件为 README.el
-#+BEGIN_SRC emacs-lisp
-  (use-package org-auto-tangle
-    :disabled t
-    :defer t
-    :hook (org-mode . org-auto-tangle-mode))
-#+END_SRC
-
 * 主题
 目前使用的是ef-theme的ef-day
 #+BEGIN_SRC emacs-lisp
@@ -228,18 +220,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 * 输入时的自动化
 
 #+BEGIN_SRC emacs-lisp
-  (use-package pangu-spacing
-    :disabled t
-    :config
-    (global-pangu-spacing-mode 1)
-    (add-hook 'org-mode-hook
-              '(lambda ()
-                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)
-                 ))
-    (add-hook 'markdown-mode-hook
-              '(lambda ()
-                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
-    )
+
   (use-package sis
     ;; :hook
     ;; enable the /context/ and /inline region/ mode for specific buffers
@@ -312,76 +293,52 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
-    :ensure t
-    ;; Optional customizations
-    :custom
-    ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-    (corfu-auto t)                 ;; Enable auto completion
-    (corfu-separator ?\s)          ;; Orderless field separator
-    ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
-    ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-    ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-    ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
-    ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-    ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-    :init
-    (global-corfu-mode)
-    )
-  ;; A few more useful configurations...
-  (use-package emacs
-    :config
-    ;; TAB cycle if there are only few candidates
-    (setq completion-cycle-threshold 3)
+  ;; Optional customizations
+  :custom
+  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+   (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
-    ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
-    ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
-    ;; (setq read-extended-command-predicate
-    ;;       #'command-completion-default-include-p)
+  ;; Enable Corfu only for certain modes.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
 
-    ;; Enable indentation+completion using the TAB key.
-    ;; `completion-at-point' is often bound to M-TAB.
-    (setq tab-always-indent 'complete))
+  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
+  ;; be used globally (M-/).  See also the customization variable
+  ;; `global-corfu-modes' to exclude certain modes.
+  :init
+  (global-corfu-mode))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  ;; (setq completion-cycle-threshold 3)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete)
+
+  ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative,
+  ;; try `cape-dict'.
+  (setq text-mode-ispell-word-completion nil)
+
+  ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current
+  ;; mode.  Corfu commands are hidden, since they are not used via M-x. This
+  ;; setting is useful beyond Corfu.
+  (setq read-extended-command-predicate #'command-completion-default-include-p))
 
   ;; Enable Corfu completion UI
   ;; See the Corfu README for more configuration tips.
   ;; Add extensions
-  (use-package cape
-    :ensure t
-    :after corfu
-    ;; Bind dedicated completion commands
-    ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-    :bind (("C-c p p" . completion-at-point) ;; capf
-           ("C-c p t" . complete-tag)        ;; etags
-           ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-           ("C-c p h" . cape-history)
-           ("C-c p f" . cape-file)
-           ("C-c p k" . cape-keyword)
-           ("C-c p s" . cape-symbol)
-           ("C-c p a" . cape-abbrev)
-           ("C-c p i" . cape-ispell)
-           ("C-c p l" . cape-line)
-           ("C-c p w" . cape-dict)
-           ("C-c p \\" . cape-tex)
-           ("C-c p _" . cape-tex)
-           ("C-c p ^" . cape-tex)
-           ("C-c p &" . cape-sgml)
-           ("C-c p r" . cape-rfc1345))
-    :config
-    ;; Add `completion-at-point-functions', used by `completion-at-point'.
 
-    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-    (add-to-list 'completion-at-point-functions #'cape-file)
-    ;;(add-to-list 'completion-at-point-functions #'cape-history)
-    ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
-    ;;(add-to-list 'completion-at-point-functions #'cape-tex)
-    ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
-    ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
-    ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
-    ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
-    ;;(add-to-list 'completion-at-point-functions #'cape-dict)
-    ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
-    ;;(add-to-list 'completion-at-point-functions #'cape-line)
-    )
 #+END_SRC
 
 * 使用 Tempel 自定义补全
@@ -625,7 +582,7 @@ Fonts：Sarasa Term SC Nerd , LXGW WenKai Screen R
 
 (use-package embark
   :ensure t
-  ;;:disabled t
+  :disabled t
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -746,6 +703,7 @@ org-mode中，尖括号<>会与()匹配。
     (require 'org-tempo)
     (setq org-src-fontify-natively t);;org内代码自动高亮
     (setq word-wrap-by-category t) ;;分词折行
+    (add-hook 'org-mode-hook #'turn-on-org-cdlatex);;latex 公式
     ;;(require 'org-indent)
     ;;(setq org-startup-indented t)
     (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
@@ -771,6 +729,16 @@ org-mode中，尖括号<>会与()匹配。
    ) ;;heading的字体大小
   (global-set-key "\C-ca" 'org-agenda)
 
+(use-package org-fragtog
+:ensure t
+:hook
+(org-mode . org-fragtog-mode)
+)
+(use-package cdlatex
+:ensure t
+:hook
+(org-mode . org-cdlatex-mode)
+)
 #+END_SRC
 ** 使用 olivetti 让两边留白
 #+BEGIN_SRC emacs-lisp
@@ -862,7 +830,9 @@ org-mode中，尖括号<>会与()匹配。
   (setq org-agenda-files '("~/org/work.org"
 			   "~/org/life.org"
 			   ))
-			   #+END_SRC
+	
+  
+  #+END_SRC
 
 ** org-super-links 双向链接
 #+BEGIN_SRC emacs-lisp
