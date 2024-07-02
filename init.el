@@ -5,7 +5,7 @@
            (eq w32-ansi-code-page 65001))
   (setq w32-system-coding-system 'utf-8)
   (define-coding-system-alias 'cp65001 'utf-8))
-
+(fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
 (add-hook 'prog-mode-hook #'show-paren-mode) ; 编程模式下，光标在括号上时高亮另一个括号
@@ -19,9 +19,10 @@
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
 (setq inhibit-splash-screen t)               ;关闭首页
-(setq mouse-yank-at-point t)                 ;避免Emacs在出错时发出声音
-(blink-cursor-mode 0)                       ;避免光标闪烁
-;(setq split-width-threshold 1)               ;强制左右分屏
+(setq visible-bell t)                        ;避免Emacs在出错时发出声音
+(setq mouse-yank-at-point t)                 
+(blink-cursor-mode 0)                        ;避免光标闪烁
+;(setq split-width-threshold 1)              ;强制左右分屏
 ;当大于两个buffer时，删除前一个。
 (defadvice org-open-at-point (after my-org-open-at-point activate)
   (while (>  (count-windows) 2)

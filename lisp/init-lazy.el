@@ -1,6 +1,7 @@
 (provide 'init-lazy)
 (use-package sort-tab
   :ensure t
+  :disabled t
   :defer t
   ;:after doom-modeline
   :vc (sort-tab :url "https://github.com/manateelazycat/sort-tab" :branch "main")
@@ -59,5 +60,5 @@
   (use-package no-littering
     :ensure t
     :init
-(require 'no-littering)
+    (require 'no-littering)
 )

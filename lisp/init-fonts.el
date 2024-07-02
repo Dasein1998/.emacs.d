@@ -151,7 +151,7 @@
   )
 (use-package pyim
   :ensure t
-					;:disabled t
+	;;:disabled t
   :init
   (setq default-input-method "pyim")
   :config
@@ -180,3 +180,9 @@
   ("M-f" . pyim-forward-word)
   ("M-b" . pyim-backward-word)
   )
+  (when (eq system-type 'darwin) ;; mac specific settings
+    (setq mac-option-modifier 'alt)
+    (setq mac-command-modifier 'meta)
+    (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
+    )
+  (global-set-key (kbd "C-' ") 'comment-or-uncomment-region)
