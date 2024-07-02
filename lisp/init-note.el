@@ -108,92 +108,116 @@
 
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
-  ;:after helm
+					;:after helm
   :config
   (require 'org-id)
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
   :bind (("C-c s s" . org-super-links-link)
-        ("C-c s l" . org-super-links-store-link)
-        ("C-c s C-l" . org-super-links-insert-link)
-        ("C-c s d" . org-super-links-quick-insert-drawer-link)
-        ("C-c s i" . org-super-links-quick-insert-inline-link)
-        ("C-c s C-d" . org-super-links-delete-link))
+         ("C-c s l" . org-super-links-store-link)
+         ("C-c s C-l" . org-super-links-insert-link)
+         ("C-c s d" . org-super-links-quick-insert-drawer-link)
+         ("C-c s i" . org-super-links-quick-insert-inline-link)
+         ("C-c s C-d" . org-super-links-delete-link))
   )
 
 
-  (use-package citar
-    :demand t
-    :custom
-    (citar-bibliography '("~/bib/note.bib"))
-    (citar-open-entry-function #'citar-open-entry-in-zotero)
-    ;; optional: org-cite-insert is also bound to C-c C-x C-@
-    :hook
-    (LaTeX-mode . citar-capf-setup)
-    (org-mode . citar-capf-setup)
-    :bind
-    (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
-    :init
-    (setq org-cite-insert-processor 'citar
-	  org-cite-follow-processor 'citar
-	  org-cite-activate-processor 'citar)
-    :config
-    (setq citar-open-resources '(:files :links))
-    )
-    (use-package citar-embark
-    :ensure t 
-    :after citar embark
-    :no-require t
-    :config (citar-embark-mode)
-    )
+(use-package citar
+  :demand t
+  :custom
+  (citar-bibliography '("~/bib/note.bib"))
+  (citar-open-entry-function #'citar-open-entry-in-zotero)
+  ;; optional: org-cite-insert is also bound to C-c C-x C-@
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
+  :bind
+  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
+  :init
+  (setq org-cite-insert-processor 'citar
+	org-cite-follow-processor 'citar
+	org-cite-activate-processor 'citar)
+  :config
+  (setq citar-open-resources '(:files :links))
+  )
+(use-package citar-embark
+  :ensure t
+  :after citar embark
+  :no-require t
+  :config (citar-embark-mode)
+  )
 (setq citar-templates
       '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
         (suffix . " ${=key= id:15} ${=type=:12} ${tags keywords:*}")
         (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
         (note . "Notes on ${author editor:%etal}, ${title}")))
-  (defun my-citar-open-entry-by-citekey ()
-    "open citekey at point"
-    (interactive)
-    (citar-open-entry (thing-at-point 'word))
+(defun my-citar-open-entry-by-citekey ()
+  "open citekey at point"
+  (interactive)
+  (citar-open-entry (thing-at-point 'word))
+  )
+
+
+
+
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-default-notes-file "~/org/life.org")
+(setq org-capture-templates nil)
+(add-to-list 'org-capture-templates
+	     '("t" "Work-task"
+	       entry
+	       (file+headline    "~/org/work.org" "Tasks")
+	       "* TODO %?\n  %i  %a")
+	     )
+(add-to-list 'org-capture-templates
+	     '("w" "Work journal" plain
+	       (file+datetree "~/org/work.org")
+	       "%<%T> %?"
+	       :empty-lines 1)
+	     )
+(add-to-list 'org-capture-templates
+	     '("n" "Note"
+	       entry
+	       (file "~/org/flomo.org")
+	       )
+	     )
+(add-to-list 'org-capture-templates
+	     '("f" "Flomo" entry (file "~/org/flomo.org")
+	       "* %U - %^{heading}  \n %?\n"
+	       :prepend t
+	       )
+	     )
+(add-to-list 'org-capture-templates
+	     '("j" "Journal" plain
+	       (file+datetree "~/org/life.org")
+	       "%<%T> %?"
+	       :empty-lines 1
+	       )
+	     )
+
+(setq org-agenda-files '("~/org/work.org"
+			 "~/org/life.org"
+			 ))
+
+
+(defun org-insert-image-from-clipboard ()
+  "Insert an image from the clipboard into the current org buffer."
+  (interactive)
+  (let* ((current-dir (file-name-directory buffer-file-name))
+	 (file-name-base (file-name-base buffer-file-name))
+	 ;;(attach-dir (concat current-dir "assets/" file-name-base "/"))
+	 (attach-dir (concat "assets/" file-name-base "/"))
+	 (image-file (concat attach-dir (format-time-string "%Y%m%d%H%M%S") ".png")))
+    ;; Ensure attach directory exists
+    (unless (file-exists-p attach-dir)
+      (make-directory attach-dir t))
+    ;; Save the clipboard image to the attach directory
+    (if (eq system-type 'windows-nt)
+	(shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Clipboard]::GetImage().Save('" image-file "', [System.Drawing.Imaging.ImageFormat]::Png)\""))
+      (error "Unsupported OS")
+      )
+    ;; Insert the link to the image in the org file
+    (insert (concat "[[file:" image-file "]]"))
+    ;;(org-display-inline-images)
     )
-
-
-
-
-      (global-set-key (kbd "C-c c") 'org-capture)
-  (setq org-default-notes-file "~/org/life.org")
-  (setq org-capture-templates nil)
-  (add-to-list 'org-capture-templates
-	       '("t" "Work-task"
-		 entry
-		 (file+headline    "~/org/work.org" "Tasks")
-		 "* TODO %?\n  %i  %a")
-	       )
-  (add-to-list 'org-capture-templates
-	       '("w" "Work journal" plain
-		 (file+datetree "~/org/work.org")
-		 "%<%T> %?"
-		 :empty-lines 1)
-	       )
-  (add-to-list 'org-capture-templates
-	       '("n" "Note"
-		 entry
-		 (file "~/org/flomo.org")
-		 )
-	       )
-  (add-to-list 'org-capture-templates
-	       '("f" "Flomo" entry (file "~/org/flomo.org")
-		 "* %U - %^{heading}  \n %?\n"
-		 :prepend t
-		 )
-	       )
-  (add-to-list 'org-capture-templates
-	       '("j" "Journal" plain
-		 (file+datetree "~/org/life.org")
-		 "%<%T> %?"
-		 :empty-lines 1
-		 )
-	       )
-
-  (setq org-agenda-files '("~/org/work.org"
-			   "~/org/life.org"
-			   ))
+  )
+(global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
