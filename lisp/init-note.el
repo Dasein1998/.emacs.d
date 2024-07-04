@@ -170,7 +170,7 @@
 	     )
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
-	       (file+datetree "~/org/work.org")
+	       (file+weektree "~/org/work.org")
 	       "%<%T> %?"
 	       :empty-lines 1)
 	     )
