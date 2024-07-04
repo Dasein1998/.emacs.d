@@ -193,7 +193,7 @@
 	       :empty-lines 1
 	       )
 	     )
-
+(global-set-key "\C-ca" 'org-agenda)
 (setq org-agenda-files '("~/org/work.org"
 			 "~/org/life.org"
 			 ))
