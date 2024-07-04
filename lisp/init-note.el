@@ -13,11 +13,10 @@
   :bind
   ("C-i" . cape-elisp-block)
   )
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
-  (setq org-blank-before-new-entry '((heading . nil)
+
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
+(setq org-blank-before-new-entry '((heading . nil)
 				   (plain-list-item . auto)) ;;取消新行前的空白
-    ;:hook
-    ;;(org-mode . org-num-mode)
       )
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
@@ -84,7 +83,7 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-md)
   )
 
-  ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
+  ;;;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
   (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
@@ -105,7 +104,7 @@
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
 
-
+;;; org-super-links
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
 					;:after helm
@@ -120,7 +119,7 @@
          ("C-c s C-d" . org-super-links-delete-link))
   )
 
-
+;;;citar in org-mode
 (use-package citar
   :demand t
   :custom
@@ -166,19 +165,13 @@
 	     '("t" "Work-task"
 	       entry
 	       (file+headline    "~/org/work.org" "Tasks")
-	       "* TODO %?\n  %i  %a")
+	       "*** TODO %?\n  %i  %a")
 	     )
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
 	       (file+weektree "~/org/work.org")
 	       "%<%T> %?"
 	       :empty-lines 1)
-	     )
-(add-to-list 'org-capture-templates
-	     '("n" "Note"
-	       entry
-	       (file "~/org/flomo.org")
-	       )
 	     )
 (add-to-list 'org-capture-templates
 	     '("f" "Flomo" entry (file "~/org/flomo.org")
@@ -197,6 +190,9 @@
 (setq org-agenda-files '("~/org/work.org"
 			 "~/org/life.org"
 			 ))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+
 
 
 (defun org-insert-image-from-clipboard ()
