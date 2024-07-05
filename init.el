@@ -5,6 +5,11 @@
            (eq w32-ansi-code-page 65001))
   (setq w32-system-coding-system 'utf-8)
   (define-coding-system-alias 'cp65001 'utf-8))
+(when (eq system-type 'darwin) ;; mac specific settings
+    (setq mac-option-modifier 'alt)
+    (setq mac-command-modifier 'meta)
+    (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
+)  
 (fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
@@ -55,18 +60,14 @@
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 
-
-
 ;(require 'init-dired)
 (require 'init-env)
 (require 'init-quelpa)
 (require 'on)
-
 (require 'init-vertico)
-;;(require 'init-dashboard)
+(require 'init-dashboard)
 (require 'init-fonts)
-;;(require 'init-md)
-;;(require 'init-key)
+(require 'init-key)
 (require 'init-company)
 ;(require 'init-project)
 (require 'init-consult)

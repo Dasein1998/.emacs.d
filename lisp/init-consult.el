@@ -1,6 +1,6 @@
 (provide 'init-consult)
 ;; Example configuration for Consult
-  (use-package consult
+(use-package consult
     :ensure t
     :bind (;; C-c bindings (mode-specific-map)
            ("C-c M-x" . consult-mode-command)

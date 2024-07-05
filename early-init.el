@@ -8,7 +8,7 @@
 (setq frame-inhibit-implied-resize t)        ;禁止frame缩放
 (setq native-comp-jit-compilation nil)
 (setq inhibit-splash-screen t)               ;关闭首页
-(setq-default mode-line-format nil)          ; Prevent flashing of unstyled modeline at startup
+;;(setq-default mode-line-format nil)          ; Prevent flashing of unstyled modeline at startup
 ;; Inhibit resizing Puremacs frame
 (setq frame-inhibit-implied-resize t)
 

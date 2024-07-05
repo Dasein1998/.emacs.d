@@ -1,6 +1,5 @@
 (provide 'init-embark)
 (use-package marginalia
-  :defer t
   :ensure t
   :hook
   (on-first-input . marginalia-mode)

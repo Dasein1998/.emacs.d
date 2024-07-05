@@ -1,7 +1,6 @@
 (provide 'init-note)
 (use-package org
   :ensure nil
-  ;;:after hydra
   :config
   (setq org-modules nil)
   (require 'org-tempo)
@@ -13,12 +12,10 @@
   :bind
   ("C-i" . cape-elisp-block)
   )
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
-  (setq org-blank-before-new-entry '((heading . nil)
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
+(setq org-blank-before-new-entry '((heading . nil)
 				   (plain-list-item . auto)) ;;取消新行前的空白
-    ;:hook
-    ;;(org-mode . org-num-mode)
-      )
+  )
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
@@ -52,7 +49,7 @@
   ("M-s f" . consult-notes))
 
 (use-package olivetti
-  :diminish
+  ;; :diminish
   ;;:disabled t
   :bind ("<f8>" . olivetti-mode)
   :init
@@ -69,29 +66,16 @@
 	(visual-line-mode 1))))
   (add-hook 'org-mode-hook #'xs-toggle-olivetti-for-org)
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
-
-  (defun xs-toggle-olivetti-for-md ()
-    "if current buffer is md and only one visible buffer
-  enable olivetti mode"
-    (if (and (eq (buffer-local-value 'major-mode (current-buffer)) 'markdown-mode)
-	     (or (eq (length (window-list nil nil nil)) 1)
-		 (window-at-side-p (frame-first-window) 'right))) ;; frame-first-window 的 mode 是 org-mode 并且没有右边 window
-	(olivetti-mode 1)
-      (olivetti-mode 0)
-      (when (eq (buffer-local-value 'major-mode (current-buffer)) 'markdown-mode)
-	(visual-line-mode 1))))
-  (add-hook 'markdown-mode-hook #'xs-toggle-olivetti-for-md)
-  (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-md)
   )
 
   ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
-  (font-lock-add-keywords 'org-mode
+(font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
                           ("\\cc?\\( \\)?[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)\\cc"
                            (2 (prog1 () (compose-region (match-beginning 2) (match-end 2) "")))))
                         'append)
-  (with-eval-after-load 'ox
+(with-eval-after-load 'ox
   (defun eli-strip-ws-maybe (text _backend _info)
     (let* ((text (replace-regexp-in-string
                   "\\(\\cc\\) *\n *\\(\\cc\\)"
@@ -123,6 +107,7 @@
 
 (use-package citar
   :demand t
+  :defer t
   :custom
   (citar-bibliography '("~/bib/note.bib"))
   (citar-open-entry-function #'citar-open-entry-in-zotero)
@@ -155,10 +140,7 @@
   (interactive)
   (citar-open-entry (thing-at-point 'word))
   )
-
-
-
-
+;;;Org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-default-notes-file "~/org/life.org")
 (setq org-capture-templates nil)
@@ -198,7 +180,7 @@
 			 "~/org/life.org"
 			 ))
 
-
+;;;从剪贴板插入图片
 (defun org-insert-image-from-clipboard ()
   "Insert an image from the clipboard into the current org buffer."
   (interactive)

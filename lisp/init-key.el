@@ -16,6 +16,17 @@
 (use-package use-package-hydra
   :ensure t
   :after hydra)
+
+(defhydra my-hydra-org (global-map "C-c o" :color pink :hint nil )
+    ("k" org-backward-heading-same-level "Back")
+    ("j" org-forward-heading-same-level "Forward")
+    ("c" nil)
+    ("s" consult-line "conSult-Line")
+    ("l" org-super-links-link "Link org tree")
+    ("d" org-super-links-delete-link "Delete link")
+    ("a" org-archive-subtree "Archive org subtree")
+)
+
 (use-package keyfreq
   :ensure t
   :defer t

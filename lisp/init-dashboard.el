@@ -1,6 +1,6 @@
 (provide 'init-dashboard)
 (use-package dashboard
-:disabled t
+  :disabled t
   :ensure t
   :config
   (setq dashboard-banner-logo-title "You are what you do!") ;; 个性签名，随读者喜好设置
@@ -17,9 +17,9 @@
   :config
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
+)
+(use-package doom-modeline
+  :ensure t
+  :hook
+  (on-first-input . doom-modeline-mode)
   )
-
-  (use-package init-open-recentf
-  :config
-  (setq init-open-recentf-interface 'consult)
-  (init-open-recentf))
