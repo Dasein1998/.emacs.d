@@ -89,7 +89,7 @@
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
 
-
+;;; org-super-links
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
 					;:after helm
@@ -104,7 +104,7 @@
          ("C-c s C-d" . org-super-links-delete-link))
   )
 
-
+;;;citar in org-mode
 (use-package citar
   :demand t
   :defer t
@@ -148,19 +148,13 @@
 	     '("t" "Work-task"
 	       entry
 	       (file+headline    "~/org/work.org" "Tasks")
-	       "* TODO %?\n  %i  %a")
+	       "*** TODO %?\n  %i  %a")
 	     )
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
 	       (file+weektree "~/org/work.org")
 	       "%<%T> %?"
 	       :empty-lines 1)
-	     )
-(add-to-list 'org-capture-templates
-	     '("n" "Note"
-	       entry
-	       (file "~/org/flomo.org")
-	       )
 	     )
 (add-to-list 'org-capture-templates
 	     '("f" "Flomo" entry (file "~/org/flomo.org")
