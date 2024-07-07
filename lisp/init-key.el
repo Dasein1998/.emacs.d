@@ -17,14 +17,19 @@
   :ensure t
   :after hydra)
 
-(defhydra my-hydra-org (global-map "C-c o" :color pink :hint nil )
-    ("k" org-backward-heading-same-level "Back")
-    ("j" org-forward-heading-same-level "Forward")
+(defhydra my-org-hydra (global-map "C-c o" :color pink :hint nil )
+    ("k" org-previous-visible-heading "Back")
+    ("j" org-next-visible-heading "Forward")
+    ("h" org-do-promote "Promote or demote current heading")
+    ("l" org-do-demote "Demote current heading")
     ("c" nil)
     ("s" consult-line "conSult-Line")
-    ("l" org-super-links-link "Link org tree")
+    ("L" org-super-links-link "Link org tree")
     ("d" org-super-links-delete-link "Delete link")
     ("a" org-archive-subtree "Archive org subtree")
+    ("w" widen "Widen buffer")
+    ("S" org-narrow-to-subtree "narrow buffer to current Subtree")
+    ("H" org-toggle-heading "plain list transfer Headline")
 )
 
 (use-package keyfreq
