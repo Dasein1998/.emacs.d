@@ -30,6 +30,7 @@
     ("w" widen "Widen buffer")
     ("S" org-narrow-to-subtree "narrow buffer to current Subtree")
     ("H" org-toggle-heading "plain list transfer Headline")
+    ("r" org-refile "Refile entry to a different location")
 )
 
 (use-package keyfreq
