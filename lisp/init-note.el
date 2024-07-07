@@ -25,7 +25,16 @@
   '(org-level-6 ((t (:inherit outline-6 :height 1.00))))
 ) ;;heading的字体大小
 
+(setq org-tag-alist '(        ;;orgmode中快速给标题加标签
+		      ("长" . ?c)
+		      ("短" . ?d)
+		      ("快" . ?k)
+		      ("慢" . ?m)
+		      ("问题" . ?w)
 
+		      )
+      )
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 (use-package consult-notes
   :commands (consult-notes
              consult-notes-search-in-all-notes

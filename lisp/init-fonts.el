@@ -122,7 +122,7 @@
   ;; enable the /context/ and /inline region/ mode for specific buffers
   ;; (((text-mode prog-mode) . sis-context-mode)
   ;;  ((text-mode prog-mode) . sis-inline-mode))
-
+  :disabled t
   :init
   (when (eq system-type 'gnu/linux)
     (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
