@@ -2,6 +2,11 @@
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/lisp/"))
+(use-package mwim
+  :ensure t
+  :bind
+  ("C-a" . mwim-beginning-of-code-or-line)
+  ("C-e" . mwim-end-of-code-or-line))
 
 (use-package which-key
   :ensure t
