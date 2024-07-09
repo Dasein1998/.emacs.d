@@ -28,14 +28,16 @@
     ("h" org-do-promote "Promote or demote current heading")
     ("l" org-do-demote "Demote current heading")
     ("c" nil)
-    ("s" consult-line "conSult-Line")
+    ("s" consult-line "conSult-line")
     ("L" org-super-links-link "Link org tree")
     ("d" org-super-links-delete-link "Delete link")
     ("a" org-archive-subtree "Archive org subtree")
     ("w" widen "Widen buffer")
-    ("S" org-narrow-to-subtree "narrow buffer to current Subtree")
+    ("i" org-narrow-to-subtree "go Into narrow buffer to current subtree")
     ("H" org-toggle-heading "plain list transfer Headline")
     ("r" org-refile "Refile entry to a different location")
+    ("u" undo "undo")
+    ("G" end-of-buffer "Go to end of buffer")
 )
 
 (use-package keyfreq
