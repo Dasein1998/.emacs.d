@@ -1,4 +1,6 @@
 (provide 'init-key)
+;; (global-set-key (kbd "M-f") 'forward-char)
+;; (global-set-key (kbd "M-b") 'backward-char)
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/lisp/"))
@@ -55,6 +57,25 @@
         next-line))
 (global-set-key (kbd "C-z") nil)
 
+(use-package burly
+  :quelpa (burly :fetcher github :repo "alphapapa/burly.el"))
+
+(use-package tabspaces
+  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup. 
+  :commands (tabspaces-switch-or-create-workspace
+             tabspaces-open-or-create-project-and-workspace)
+  :custom
+  (tabspaces-use-filtered-buffers-as-default t)
+  (tabspaces-default-tab "Default")
+  (tabspaces-remove-to-default t)
+  (tabspaces-include-buffers '("*scratch*"))
+  (tabspaces-initialize-project-with-todo t)
+  ;;(tabspaces-todo-file-name "project-todo.org")
+  ;; sessions
+  (tabspaces-session t)
+  ;(tabspaces-session-auto-restore t)
+  )
+    
 (use-package meow
   :defer 2
   :ensure t

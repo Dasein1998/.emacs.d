@@ -122,7 +122,7 @@
   ;; enable the /context/ and /inline region/ mode for specific buffers
   ;; (((text-mode prog-mode) . sis-context-mode)
   ;;  ((text-mode prog-mode) . sis-inline-mode))
-  :disabled t
+  ;;:disabled t
   :init
   (when (eq system-type 'gnu/linux)
     (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
@@ -159,6 +159,9 @@
   (pyim-humadict-enable)
   (pyim-default-scheme 'huma)
   (require 'pyim-cstring-utils)
+  (global-set-key (kbd "M-f") 'pyim-forward-word)
+  (global-set-key (kbd "M-b") 'pyim-backward-word)
+  (setq prefer-short-word t)
 					;(require 'popup)
 					;(setq pyim-page-tooltip 'popup)
 					;(require 'posframe)

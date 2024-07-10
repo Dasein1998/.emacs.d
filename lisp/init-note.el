@@ -31,10 +31,11 @@
 		      ("快" . ?k)
 		      ("慢" . ?m)
 		      ("问题" . ?w)
-
 		      )
       )
-(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+;; 任务的状态
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "DOING(o)" "|" "DONE(d)" "CANCELLED(c)")))
+
 (use-package consult-notes
   :commands (consult-notes
              consult-notes-search-in-all-notes
@@ -42,18 +43,15 @@
   :config
   (setq consult-notes-file-dir-sources '(
 					 ;;("daily"  ?d  "~/")
-					 ;;("note" ?n "~/)
+					 ("note" ?n "~/org") 
 					 )
 	) ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
   ;;If you have org files with many headings (say some subset of your agenda files, for example) that you would like to include in a consult-notes search, you can enable consult-notes-org-headings-mode and the headings for files you specify in consult-notes-org-headings-files will be included in consult-notes.
   ;;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
   ;;"~/path/to/file2.org"))
-  ;;(consult-notes-org-headings-mode)
-  (when (locate-library "denote")
-    (consult-notes-denote-mode))
+  (consult-notes-org-headings-mode)
   ;; search only for text files in denote dir
-  (setq consult-notes-denote-files-function (function denote-directory-text-only-files))
   :bind
   ("M-s f" . consult-notes))
 
