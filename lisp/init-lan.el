@@ -37,3 +37,10 @@
   (emacs-lisp-mode . aggressive-indent-mode)
   (css-mode . aggressive-indent-mode)
   )
+(use-package eglot
+  :config
+(add-to-list 'eglot-server-programs
+	     '(python-mode . ("pyright-langserver" "--stdio")))
+(add-hook 'python-mode 'eglot-ensure)
+
+  )
