@@ -38,6 +38,7 @@
   (css-mode . aggressive-indent-mode)
   )
 (use-package eglot
+  :defer t
   :config
   (add-to-list 'eglot-server-programs
 	     '(python-mode . ("pyright-langserver" "--stdio"));; python -m pip install pyright 安装 Pyright

@@ -19,7 +19,6 @@
 ;; https://github.com/abo-abo/ace-window
 (use-package ace-window
   :ensure t
-  :defer t
   :config
   (global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))

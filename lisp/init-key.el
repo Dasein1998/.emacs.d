@@ -58,6 +58,7 @@
 (global-set-key (kbd "C-z") nil)
 
 (use-package burly
+  :defer t
   :quelpa (burly :fetcher github :repo "alphapapa/burly.el"))
 
 (use-package tabspaces
