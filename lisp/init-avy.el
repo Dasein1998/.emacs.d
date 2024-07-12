@@ -1,9 +1,11 @@
 (provide 'init-avy)
+(quelpa '(avy-huma :repo "Dasein1998/avy-huma" :fetcher github))
 (use-package ace-pinyin
   :ensure t
   ;; :defer t
   ;; :after avy
   :config
+  (require 'avy-huma)
   (ace-pinyin-global-mode 1)
 )
 (use-package avy
