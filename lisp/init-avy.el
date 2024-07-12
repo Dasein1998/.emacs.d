@@ -1,10 +1,10 @@
 (provide 'init-avy)
 (use-package ace-pinyin
   :ensure t
-  :defer t
-  :after avy
+  ;; :defer t
+  ;; :after avy
   :config
-(ace-pinyin-global-mode 1)
+  (ace-pinyin-global-mode 1)
 )
 (use-package avy
   :ensure t

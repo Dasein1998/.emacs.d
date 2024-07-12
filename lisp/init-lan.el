@@ -39,8 +39,8 @@
   )
 (use-package eglot
   :config
-(add-to-list 'eglot-server-programs
-	     '(python-mode . ("pyright-langserver" "--stdio")))
-(add-hook 'python-mode 'eglot-ensure)
-
+  (add-to-list 'eglot-server-programs
+	     '(python-mode . ("pyright-langserver" "--stdio"));; python -m pip install pyright 安装 Pyright
+       )
+  (add-hook 'python-mode 'eglot-ensure)
   )
