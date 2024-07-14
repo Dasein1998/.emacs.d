@@ -9,7 +9,7 @@
     (setq mac-option-modifier 'alt)
     (setq mac-command-modifier 'meta)
     (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
-)  
+)
 (fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
@@ -25,7 +25,7 @@
 (setq-default cursor-type 'bar)              ;设置光标为竖线
 (setq inhibit-splash-screen t)               ;关闭首页
 (setq visible-bell t)                        ;避免Emacs在出错时发出声音
-(setq mouse-yank-at-point t)                 
+(setq mouse-yank-at-point t)
 (blink-cursor-mode 0)                        ;避免光标闪烁
 ;(setq split-width-threshold 1)              ;强制左右分屏
 ;当大于两个buffer时，删除前一个。
@@ -60,7 +60,7 @@
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 
-;; (require 'init-dired)
+(require 'init-dired)
 (require 'init-env)
 (require 'init-quelpa)
 ;; (require 'on)
@@ -79,4 +79,5 @@
 ;; (require 'init-elfeed)
 ;; (require 'init-hyperbole)
 (require 'init-embark)
+(require 'init-my-mode)
 (provide 'init)

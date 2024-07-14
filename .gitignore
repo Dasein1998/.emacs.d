@@ -51,3 +51,5 @@ pyim/
 diary
 README.el
 .DS_Store
+lisp/api-to-jwt.py
+lisp/init-my-mode.el
