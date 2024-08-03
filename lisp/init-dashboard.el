@@ -1,6 +1,6 @@
 (provide 'init-dashboard)
 (use-package dashboard
-  :disabled t
+  ;;∂:disabled t
   :ensure t
   :config
   (setq dashboard-banner-logo-title "You are what you do!") ;; 个性签名，随读者喜好设置

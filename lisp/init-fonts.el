@@ -89,7 +89,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one-light t)
+  (load-theme 'doom-one t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -151,7 +151,7 @@
   )
 (use-package pyim
   :ensure t
-	:defer t
+  :defer t
   :init
   (setq default-input-method "pyim")
   :config
@@ -182,4 +182,4 @@
   )
 
 
-  (global-set-key (kbd "C-' ") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-' ") 'comment-or-uncomment-region)
