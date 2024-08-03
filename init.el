@@ -17,6 +17,7 @@
 (column-number-mode t)                       ; 在 Mode line 上显示列号
 (global-auto-revert-mode t)                  ; 当另一程序修改了文件时，让 Emacs 及时刷新 Buffer
 (delete-selection-mode t)                    ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
+
 (setq make-backup-files nil)                 ; 关闭文件自动备份
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
 ;(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
@@ -59,7 +60,10 @@
 (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
-
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
 (require 'init-dired)
 (require 'init-env)
 (require 'init-quelpa)
