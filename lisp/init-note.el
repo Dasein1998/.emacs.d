@@ -24,6 +24,13 @@
   '(org-level-5 ((t (:inherit outline-5 :height 1.02))))
   '(org-level-6 ((t (:inherit outline-6 :height 1.00))))
 ) ;;heading的字体大小
+  (setq org-file-apps
+    '(("\\.docx\\'" . default)
+      ("\\.mm\\'" . default)
+      ("\\.x?html?\\'" . default)
+      ("\\.pdf\\'" . default)
+      ("\\.png\\'" . default)
+      (auto-mode . emacs)))
 
 (setq org-tag-alist '(        ;;orgmode中快速给标题加标签
 		      ("长" . ?c)
