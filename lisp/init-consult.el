@@ -26,7 +26,6 @@
            ("M-g e" . consult-compile-error)
            ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
            ("M-g g" . consult-goto-line)             ;; orig. goto-line
-           ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
            ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
            ("M-g m" . consult-mark)
            ("M-g k" . consult-global-mark)
@@ -42,7 +41,7 @@
            ("M-s L" . consult-line-multi)
            ("M-s k" . consult-keep-lines)
            ("M-s u" . consult-focus-lines)
-           ("M-s o" . consult-recent-file)
+           ("M-s M-o" . consult-recent-file)
            ;; Isearch integration
            ("M-s e" . consult-isearch-history)
            :map isearch-mode-map
