@@ -69,7 +69,12 @@
 (centaur-setup-fonts)
 (add-hook 'window-setup-hook #'centaur-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
-
+  (set-charset-priority 'unicode)
+  (prefer-coding-system 'utf-8)
+  (setq system-time-locale "C")
+  (when (eq system-type 'windows-nt)
+    (setq file-name-coding-system 'gbk))
+(load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
   :ensure t
@@ -77,34 +82,6 @@
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
   )
-
-(use-package gcmh  ;gc优化
-  :init
-  (gcmh-mode))
-(load-theme 'modus-operandi)
-(use-package doom-themes
-  :ensure t
-  :disabled t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-atom") ; USE "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-  (set-charset-priority 'unicode)
-  (prefer-coding-system 'utf-8)
-  (setq system-time-locale "C")
-  (when (eq system-type 'windows-nt)
-    (setq file-name-coding-system 'gbk))
-
 (use-package pangu-spacing
   :config
   (global-pangu-spacing-mode 1)
@@ -116,38 +93,6 @@
            '(lambda ()
               (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
     )
-(use-package sis
-  ;; :hook
-  ;; enable the /context/ and /inline region/ mode for specific buffers
-  ;; (((text-mode prog-mode) . sis-context-mode)
-  ;;  ((text-mode prog-mode) . sis-inline-mode))
-  ;;:disabled t
-  :init
-  (when (eq system-type 'gnu/linux)
-    (setq sis-ism-lazyman-config "1" "2" 'fcitx5))
-  (when (eq system-type 'darwin)
-    (sis-ism-lazyman-config
-     "com.apple.keylayout.ABC"
-     "im.rime.inputmethod.Squirrel.Hans"
-     )
-
-    ;;(sis-ism-lazyman-config "1" "2" 'fcitx5)
-    )
-  ;;(sis-ism-lazyman-config "1033" "2052" 'im-select)
-  ;; enable the /cursor color/ mode
-  (sis-global-cursor-color-mode t)
-  ;; enable the /respect/ mode
-  (sis-global-respect-mode t)
-  ;; enable the /context/ mode for all buffers
-  (sis-global-context-mode t)
-  ;; enable the /inline english/ mode for all buffers
-  (sis-global-inline-mode t)
-
-  )
-(use-package posframe
-  :ensure t
-  :disabled t
-  )
 (use-package pyim
   :ensure t
   :defer t
@@ -179,6 +124,4 @@
 		(interactive)
 		(pyim-select-word-by-number 2)))
   )
-
-
 (global-set-key (kbd "C-' ") 'comment-or-uncomment-region)

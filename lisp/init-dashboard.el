@@ -18,15 +18,5 @@
   ;; To disable collection of benchmark data after init is done.
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
 )
-(use-package doom-modeline
-  :ensure t
-  :hook
-  (on-first-input . doom-modeline-mode)
-  )
-(use-package nyan-mode
-  :ensure t
-  :hook
-  (on-first-input . nyan-mode)
-  :config
-  (setq nyan-animate-nyancat 1)
-  )
+
+
