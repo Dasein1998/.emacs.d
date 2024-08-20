@@ -42,8 +42,11 @@
 
   ;; Enable indentation+completion using the TAB key.
   ;; `completion-at-point' is often bound to M-TAB.
-  (setq tab-always-indent 'complete))
-
+  (setq tab-always-indent 'complete)
+  :custom
+  (text-mode-ispell-word-completion nil)
+  )
+  
   ;; Enable Corfu completion UI
   ;; See the Corfu README for more configuration tips.
   ;; Add extensions
