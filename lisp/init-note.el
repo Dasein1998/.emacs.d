@@ -178,6 +178,12 @@
 	       )
 	     )
 (add-to-list 'org-capture-templates
+  '("n" "Note" entry (file+headline "~/org/life.org" "note")
+  "* %^{heading}  \n %?\n"
+  :prepend t
+  )
+)
+(add-to-list 'org-capture-templates
 	     '("j" "Journal" plain
 	       (file+datetree "~/org/life.org")
 	       "%<%T> %?"
