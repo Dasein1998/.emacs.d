@@ -181,6 +181,7 @@
   '("n" "Note" entry (file+headline "~/org/life.org" "note")
   "* %^{heading}  \n %?\n"
   :prepend t
+  :jump-to-captured t
   )
 )
 (add-to-list 'org-capture-templates
@@ -194,6 +195,12 @@
 (setq org-agenda-files '("~/org/work.org"
 			 "~/org/life.org"
 			 ))
+(defun open-new-project-file ()
+   (let ((fpath (read-file-name "Project file name: "
+                               (org-subdir "/projects")
+                               nil nil nil)))
+    (find-file fpath)
+    (goto-char (point-min))))
 
 ;;;从剪贴板插入图片
 (defun org-insert-image-from-clipboard ()
