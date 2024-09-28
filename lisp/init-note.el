@@ -225,3 +225,15 @@
     )
   )
 (global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
+;;hide properties
+(defun org-hide-properties ()
+  "Hide org headline's properties using overlay."
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward
+            "^ *:PROPERTIES:\n\\( *:.+?:.*\n\\)+ *:END:\n" nil t)
+      (overlay-put (make-overlay
+                    (match-beginning 0) (match-end 0))
+                   'display ""))))
+
+(add-hook 'org-mode-hook #'org-hide-properties)

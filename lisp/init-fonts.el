@@ -28,8 +28,8 @@
              return (set-face-attribute 'default nil
                                         :family font
                                         :height (cond (sys/macp 140)
-                                                      (sys/win32p 110)
-                                                      (t 100))
+                                                      (sys/win32p 130)
+                                                      (t 110))
                                         ))
 
     ;; Set mode-line font
@@ -69,11 +69,11 @@
 (centaur-setup-fonts)
 (add-hook 'window-setup-hook #'centaur-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
-  (set-charset-priority 'unicode)
-  (prefer-coding-system 'utf-8)
-  (setq system-time-locale "C")
-  (when (eq system-type 'windows-nt)
-    (setq file-name-coding-system 'gbk))
+(set-charset-priority 'unicode)
+(prefer-coding-system 'utf-8)
+(setq system-time-locale "C")
+(when (eq system-type 'windows-nt)
+  (setq file-name-coding-system 'gbk))
 (load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
