@@ -178,7 +178,7 @@
 	       )
 	     )
 (add-to-list 'org-capture-templates
-  '("n" "Note" entry (file+headline "~/org/life.org" "note")
+  '("n" "Note" entry (file "~/org/note.org")
   "* %^{heading}  \n %?\n"
   :prepend t
   :jump-to-captured t
