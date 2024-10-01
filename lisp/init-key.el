@@ -24,7 +24,7 @@
   :ensure t
   :after hydra)
 
-(defhydra my-org-hydra (global-map "C-c o" :color pink :hint nil )
+(defhydra my/org-hydra (global-map "C-c o" :color pink :hint nil )
     ("k" org-previous-visible-heading "Back")
     ("j" org-next-visible-heading "Forward")
     ("h" org-do-promote "Promote or demote current heading")
@@ -45,7 +45,8 @@
 
 (use-package burly
   :defer t
-  :quelpa (burly :fetcher github :repo "alphapapa/burly.el"))
+  :quelpa (burly :fetcher github :repo "alphapapa/burly.el")
+  )
 
 (use-package tabspaces
   :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup. 
