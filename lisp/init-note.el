@@ -118,42 +118,6 @@
          ("C-c s C-d" . org-super-links-delete-link))
   )
 
-;;;citar in org-mode
-(use-package citar
-  :demand t
-  :defer t
-  :custom
-  (citar-bibliography '("~/bib/note.bib"))
-  (citar-open-entry-function #'citar-open-entry-in-zotero)
-  ;; optional: org-cite-insert is also bound to C-c C-x C-@
-  :hook
-  (LaTeX-mode . citar-capf-setup)
-  (org-mode . citar-capf-setup)
-  :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
-  :init
-  (setq org-cite-insert-processor 'citar
-	org-cite-follow-processor 'citar
-	org-cite-activate-processor 'citar)
-  :config
-  (setq citar-open-resources '(:files :links))
-  )
-(use-package citar-embark
-  :ensure t
-  :after citar embark
-  :no-require t
-  :config (citar-embark-mode)
-  )
-(setq citar-templates
-      '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
-        (suffix . " ${=key= id:15} ${=type=:12} ${tags keywords:*}")
-        (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
-        (note . "Notes on ${author editor:%etal}, ${title}")))
-(defun my/citar-open-entry-by-citekey ()
-  "open citekey at point"
-  (interactive)
-  (citar-open-entry (thing-at-point 'word))
-  )
 ;;;Org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-default-notes-file "~/org/life.org")
