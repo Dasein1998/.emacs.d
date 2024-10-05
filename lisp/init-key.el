@@ -12,6 +12,7 @@
 
 (use-package which-key
   :ensure t
+  :diminish
   :hook
   (on-first-input . which-key-mode)
   )
@@ -49,7 +50,7 @@
   )
 
 (use-package tabspaces
-  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup. 
+  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
   :commands (tabspaces-switch-or-create-workspace
              tabspaces-open-or-create-project-and-workspace)
   :custom

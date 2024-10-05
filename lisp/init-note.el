@@ -49,8 +49,7 @@
              )
   :config
   (setq consult-notes-file-dir-sources '(
-					 ;;("daily"  ?d  "~/")
-					 ("note" ?n "~/org") 
+					 ("note" ?n "~/org")
 					 )
 	) ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
@@ -106,7 +105,6 @@
 ;;; org-super-links
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
-					;:after helm
   :config
   (require 'org-id)
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
@@ -135,19 +133,12 @@
 	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
-	     '("f" "Flomo" entry (file+headline "~/org/life.org" "flomo")
-	      ;;  "* %U - %^{heading}  \n %?\n"
-       "* %U \n %?\n"
+	     '("f" "Flomo" entry (file+headline "~/org/flomo.org" "flomo")
+	       ;;  "* %U - %^{heading}  \n %?\n"
+	       "* %U \n %?\n"
 	       :prepend t
 	       )
 	     )
-(add-to-list 'org-capture-templates
-  '("n" "Note" entry (file "~/org/note.org")
-  "* %^{heading}  \n %?\n"
-  :prepend t
-  :jump-to-captured t
-  )
-)
 (add-to-list 'org-capture-templates
 	     '("j" "Journal" plain
 	       (file+datetree "~/org/life.org")
@@ -166,7 +157,7 @@
     (find-file fpath)
     (goto-char (point-min))))
 
-;;;从剪贴板插入图片
+;;;从windows剪贴板插入图片
 (defun org-insert-image-from-clipboard ()
   "Insert an image from the clipboard into the current org buffer."
   (interactive)
@@ -203,7 +194,7 @@
 (add-hook 'org-mode-hook #'org-hide-properties)
 
 ;;; some function
-;;move headline to a single file 
+;;move headline to a single file
 ;;https://emacs.stackexchange.com/questions/22078/how-to-split-a-long-org-file-into-separate-org-files
 (defun my/org-move-tree (buffer-file-name)
   "move the sub-tree which contains the point to a file,
@@ -252,4 +243,3 @@ and replace it with a link to the newly created file"
               (message "Deleted file %s." filename)
               (kill-buffer)))
       (message "Not a file visiting buffer!"))))
-

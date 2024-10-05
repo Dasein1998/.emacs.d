@@ -4,12 +4,14 @@
   :ensure t
   ;; :defer t
   ;; :after avy
+  :diminish
   :config
   (require 'avy-huma)
   (ace-pinyin-global-mode 1)
-)
+  )
 (use-package avy
   :ensure t
+  :diminish
   :bind
   ;;(("M-j C-SPC" 、. avy-goto-char-timer))
   ("C-;" . avy-goto-char)

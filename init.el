@@ -84,5 +84,5 @@
 ;; (require 'init-hyperbole)
 (require 'init-embark)
 (require 'init-my-mode)
-(require 'init-read-pdf)
+(require 'init-org-roam)
 (provide 'init)

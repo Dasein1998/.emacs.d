@@ -1,4 +1,4 @@
-(provide 'init-read-pdf)
+(provide 'init-org-roam)
 ;;https://gitee.com/mickey991/emacs-latex/blob/master/main.org
 ;;pacman -S mingw-w64-x86_64-emacs-pdf-tools-server
 ;;https://github.com/vedang/pdf-tools?tab=readme-ov-file#installing-pdf-tools
@@ -176,6 +176,7 @@
 
 
 (use-package citar-org-roam
+  :diminish
   :after (citar org-roam)
   :config (citar-org-roam-mode)
   (setq citar-org-roam-subdir '("~/org-roam/reference/"))
