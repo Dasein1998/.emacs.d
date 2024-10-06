@@ -2,7 +2,7 @@
 
 (use-package auto-save
 :ensure t
-:vc (auto-save :url "https://github.com/manateelazycat/auto-save" :branch "master")
+:quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save")
 :config
 (auto-save-enable)
 (setq auto-save-silent t)   ; quietly save

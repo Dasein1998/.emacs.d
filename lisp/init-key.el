@@ -6,6 +6,7 @@
   (find-file "~/.emacs.d/lisp/"))
 (use-package mwim
   :ensure t
+  :defer t
   :bind
   ("C-a" . mwim-beginning-of-code-or-line)
   ("C-e" . mwim-end-of-code-or-line))
@@ -19,13 +20,9 @@
 
 (use-package hydra
   :ensure t
-  )
-
-(use-package use-package-hydra
-  :ensure t
-  :after hydra)
-
-(defhydra my/org-hydra (global-map "C-c o" :color pink :hint nil )
+  :defer t
+  :config
+  (defhydra my/org-hydra (global-map "C-c o" :color pink :hint nil )
     ("k" org-previous-visible-heading "Back")
     ("j" org-next-visible-heading "Forward")
     ("h" org-do-promote "Promote or demote current heading")
@@ -41,7 +38,14 @@
     ("r" org-refile "Refile entry to a different location")
     ("u" undo "undo")
     ("G" end-of-buffer "Go to end of buffer")
-)
+    )
+  )
+
+(use-package use-package-hydra
+  :ensure t
+  :after hydra)
+
+
 
 
 (use-package burly
@@ -50,7 +54,8 @@
   )
 
 (use-package tabspaces
-  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
+  :defer t
+  ;;:hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
   :commands (tabspaces-switch-or-create-workspace
              tabspaces-open-or-create-project-and-workspace)
   :custom
@@ -62,7 +67,7 @@
   ;;(tabspaces-todo-file-name "project-todo.org")
   ;; sessions
   (tabspaces-session t)
-  ;(tabspaces-session-auto-restore t)
+					;(tabspaces-session-auto-restore t)
   )
 
 (use-package expand-region

@@ -4,6 +4,7 @@
 ;;https://github.com/vedang/pdf-tools?tab=readme-ov-file#installing-pdf-tools
 (use-package pdf-tools
   :ensure t
+  :defer t
   :config
   (pdf-loader-install))
 

@@ -49,9 +49,10 @@
              )
   :config
   (setq consult-notes-file-dir-sources '(
-					 ("note" ?n "~/org")
+					 ("note" ?n "~/org-roam")
 					 )
-	) ;; Set notes dir(s), see below
+	)
+  ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
   ;;If you have org files with many headings (say some subset of your agenda files, for example) that you would like to include in a consult-notes search, you can enable consult-notes-org-headings-mode and the headings for files you specify in consult-notes-org-headings-files will be included in consult-notes.
   ;;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
@@ -59,7 +60,7 @@
   (consult-notes-org-headings-mode)
   ;; search only for text files in denote dir
   :bind
-  ("M-s f" . consult-notes))
+  ("M-s n" . consult-notes))
 
 (use-package olivetti
   ;; :diminish
@@ -81,7 +82,7 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
   )
 
-  ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
+;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
 (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
@@ -121,10 +122,10 @@
 (setq org-default-notes-file "~/org/life.org")
 (setq org-capture-templates nil)
 (add-to-list 'org-capture-templates
-	     '("t" "Work-task"
+	     '("t" "Task"
 	       entry
-	       (file+headline    "~/org/work.org" "Tasks")
-	       "*** TODO %?\n  %i  %a")
+	       (file "~/org/inbox.org")
+	       "* TODO [#B] %? %^g \n  %i  %a")
 	     )
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
@@ -147,15 +148,24 @@
 	       )
 	     )
 (global-set-key "\C-ca" 'org-agenda)
-(setq org-agenda-files '("~/org/work.org"
-			 "~/org/life.org"
-			 ))
-(defun open-new-project-file ()
-   (let ((fpath (read-file-name "Project file name: "
-                               (org-subdir "/projects")
-                               nil nil nil)))
-    (find-file fpath)
-    (goto-char (point-min))))
+(setq org-agenda-files '("~/org/inbox.org"
+			 ;;"~/org/life.org"
+			 )
+      )
+
+;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
+(setq org-agenda-custom-commands
+      '(
+	("w" tags "Work"
+         ((org-agenda-filter-by-tag "Work")))
+	("f" tags "Life"
+         ((org-agenda-filter-by-tag "Life")))
+	("d" tags "Deal"
+         ((org-agenda-filter-by-tag "Deal")))
+	)
+      )
+
+
 
 ;;;从windows剪贴板插入图片
 (defun org-insert-image-from-clipboard ()
@@ -180,6 +190,8 @@
     )
   )
 (global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
+
+
 ;;hide properties
 (defun org-hide-properties ()
   "Hide org headline's properties using overlay."

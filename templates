@@ -25,4 +25,4 @@ org-mode
 (inlsrc "src_" p "{" q "}")
 (title "#+title: " p n "#+author: Daniel Mendler" n "#+language: en")
 (daily "* 9-11" n n "* 11-13" n n "* 13-17" n n "* 17-21" n n)
-(date (format-time-string "%T"))
+(date (format-time-string "%T") " ")
