@@ -9,6 +9,9 @@
   (require 'org-indent)
   ;;(setq org-startup-indented t)
   (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
+  (add-to-list 'org-emphasis-alist
+               '("*" (:foreground "red")
+		 ))
   :bind
   ("C-i" . cape-elisp-block)
   )

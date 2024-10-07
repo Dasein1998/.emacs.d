@@ -47,7 +47,7 @@
     (save-excursion (insert "}" )))
   (define-key org-cdlatex-mode-map (kbd "$") 'my/insert-inline-OCDL)
   (define-key org-cdlatex-mode-map (kbd "(") 'my/insert-bra-OCDL)
-  (define-key org-cdlatex-mode-map (kbd "[") 'my/insert-square-bra-OCDL)
+  (define-key org-cdlatex-mode-map (kbd "[") 'my/insert-sq-bra-OCDL)
   (define-key org-cdlatex-mode-map (kbd "{") 'my/insert-curly-bra-OCDL)
   )
 

@@ -74,7 +74,7 @@
 (setq system-time-locale "C")
 (when (eq system-type 'windows-nt)
   (setq file-name-coding-system 'gbk))
-(load-theme 'modus-operandi)
+;;(load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
   :ensure t
