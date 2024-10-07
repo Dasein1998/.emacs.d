@@ -94,7 +94,10 @@
 ;;(setq org-latex-packages-alist '(("" "mysymbol" t)))
 
 (use-package org-fragtog
-  :hook (org-mode . org-fragtog-mode))
+  :hook (org-mode . org-fragtog-mode)
+  :config
+  (defalias #'org-latex-preview #'math-preview-at-point)
+  (defalias #'org-clear-latex-preview #'math-preview-clear-region))
 
 ;; 快速编译数学公式, 测试版
 (use-package org-preview

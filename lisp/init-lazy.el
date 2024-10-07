@@ -2,7 +2,7 @@
 
 (use-package auto-save
 :ensure t
-:quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save")
+:quelpa (auto-save :fetcher github :repo "manateelazycat/auto-save")
 :config
 (auto-save-enable)
 (setq auto-save-silent t)   ; quietly save

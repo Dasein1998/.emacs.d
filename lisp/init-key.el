@@ -45,9 +45,6 @@
   :ensure t
   :after hydra)
 
-
-
-
 (use-package burly
   :defer t
   :quelpa (burly :fetcher github :repo "alphapapa/burly.el")

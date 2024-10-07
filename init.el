@@ -10,6 +10,18 @@
     (setq mac-command-modifier 'meta)
     (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
 )
+(if (display-graphic-p)
+    ;; GUI mode
+    (progn
+      (tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+(menu-bar-mode -1)                        ;; 关闭菜单栏
+      )
+    ;; Terminal mode
+    (progn
+    (menu-bar-mode 1)
+    (tool-bar-mode 1) 
+    )   
+    )
 (fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
@@ -39,8 +51,6 @@
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file t)
-(unless (package-installed-p 'vc-use-package)
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
 (require 'package)
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
