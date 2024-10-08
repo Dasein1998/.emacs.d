@@ -68,7 +68,8 @@
 (use-package olivetti
   ;; :diminish
   ;;:disabled t
-  :bind ("<f8>" . olivetti-mode)
+  :delight
+  ;;:bind ("<f8>" . olivetti-mode)
   :init
   (setq olivetti-body-width 0.8)
   (defun xs-toggle-olivetti-for-org ()

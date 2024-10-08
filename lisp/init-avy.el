@@ -2,6 +2,7 @@
 (quelpa '(avy-huma :repo "Dasein1998/avy-huma" :fetcher github))
 (use-package ace-pinyin
   :ensure t
+  :delight
   ;;:defer t
   :after avy
   :diminish
@@ -10,6 +11,7 @@
   (ace-pinyin-global-mode 1)
   )
 (use-package avy
+  :delight
   :ensure t
   :diminish
   :bind

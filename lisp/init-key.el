@@ -13,6 +13,7 @@
 
 (use-package which-key
   :ensure t
+  :delight
   :diminish
   :hook
   (on-first-input . which-key-mode)
@@ -69,3 +70,18 @@
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
+
+;;(global-set-key (kbd "<f8>") 'consult-buffer)
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-buffer-state-icon nil)
+  (setq doom-modeline-buffer-modification-icon nil)
+  )
+
+(use-package workgroups2
+:ensure t 
+:config 
+(workgroups-mode 1)
+  )

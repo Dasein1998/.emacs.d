@@ -94,6 +94,7 @@
 ;;(setq org-latex-packages-alist '(("" "mysymbol" t)))
 
 (use-package org-fragtog
+  :delight
   :hook (org-mode . org-fragtog-mode)
   :config
   (defalias #'org-latex-preview #'math-preview-at-point)
@@ -101,6 +102,7 @@
 
 ;; 快速编译数学公式, 测试版
 (use-package org-preview
+  :delight
   :quelpa (org-preview :fetcher github :repo "karthink/org-preview")
   :hook (org-mode . org-preview-mode)
   )
