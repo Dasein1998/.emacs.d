@@ -45,3 +45,18 @@
        )
   (add-hook 'python-mode 'eglot-ensure)
   )
+(use-package tree-sitter-langs
+:ensure t
+)
+(use-package tree-sitter
+:ensure t
+:config
+(global-tree-sitter-mode)
+)
+(use-package ts-fold
+  :after tree-sitter tree-sitter-langs 
+  :quelpa (ts-fold  :repo "emacs-tree-sitter/ts-fold" :fetcher github)
+  :config
+  (setq global-ts-fold-mode 1)
+)
+
