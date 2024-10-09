@@ -19,6 +19,28 @@
 (setq org-blank-before-new-entry '((heading . nil)
 				   (plain-list-item . auto)) ;;取消新行前的空白
   )
+
+(setq org-fontify-todo-headline nil)
+(setq org-fontify-done-headline nil)
+(defadvice org-schedule (after refresh-agenda activate)
+  "Refresh org-agenda."
+  (org-agenda-refresh))
+;; Log time a task was set to DONE.
+(setq org-log-done (quote time))
+
+;; Don't log the time a task was rescheduled or redeadlined.
+(setq org-log-redeadline nil)
+(setq org-log-reschedule nil)
+(setq org-read-date-prefer-future 'time)
+;; use refile to help archive note just in one file
+(setq org-refile-files
+      '("~/org/note.org_archive"))
+(setq org-refile-targets
+      '((nil :maxlevel . 1)
+        (org-refile-files :maxlevel . 1)))
+
+;; Archive in one file
+(setq org-archive-location "~/org/done.org_archive::datetree/")
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
@@ -69,7 +91,7 @@
   ;; :diminish
   ;;:disabled t
   :delight
-  ;;:bind ("<f8>" . olivetti-mode)
+  :bind ("<f8>" . olivetti-mode)
   :init
   (setq olivetti-body-width 0.85)
   (defun xs-toggle-olivetti-for-org ()

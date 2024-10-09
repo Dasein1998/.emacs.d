@@ -28,7 +28,9 @@
                      ;; Longman
                      fanyi-longman-provider))
   :bind
-  (("C-c C-t" . fanyi-dwim2))
+  (("M-g d" . fanyi-dwim2))
+  :config
+  (setq fanyi-auto-select nil)
   )
 
 (use-package aggressive-indent
@@ -47,11 +49,13 @@
   )
 
 (use-package treesit-fold
+:defer t
 :quelpa (treesit-fold  :repo "emacs-tree-sitter/treesit-fold" :fetcher github)
 )
 
 ;; pacman -S mingw-w64-ucrt-x86_64-gcc
 (use-package treesit-auto
+  :defer t
   :pin melpa
   :demand t
   :config

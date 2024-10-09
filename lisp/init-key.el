@@ -44,6 +44,7 @@
 
 (use-package use-package-hydra
   :ensure t
+  :defer t
   :after hydra)
 
 (use-package burly
@@ -74,7 +75,7 @@
 ;;(global-set-key (kbd "<f8>") 'consult-buffer)
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode)
+  :hook (on-first-file . doom-modeline-mode)
   :config
   (setq doom-modeline-buffer-state-icon nil)
   (setq doom-modeline-buffer-modification-icon nil)
@@ -82,6 +83,8 @@
 
 (use-package workgroups2
 :ensure t
+:hook
+(on-first-input . workgroups-mode)
 :config
 (workgroups-mode 1)
 )
@@ -101,4 +104,16 @@
           (call-interactively 'comment-dwim)
         (comment-or-uncomment-region (line-beginning-position) (line-end-position)))))
   :custom
-  (comment-auto-fill-only-comments t))
+  (comment-auto-fill-only-comments t)
+  )
+
+(use-package helpful
+:ensure t 
+:bind
+("C-h f" . helpful-callable)
+("C-h v" . helpful-variable)
+("C-h k" . helpful-key)
+("C-h x" . helpful-command)
+("C-c C-d" . helpful-at-point)
+("C-h F" . helpful-function)
+)
