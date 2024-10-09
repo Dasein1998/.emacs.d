@@ -71,7 +71,7 @@
   :delight
   ;;:bind ("<f8>" . olivetti-mode)
   :init
-  (setq olivetti-body-width 0.8)
+  (setq olivetti-body-width 0.85)
   (defun xs-toggle-olivetti-for-org ()
     "if current buffer is org and only one visible buffer
   enable olivetti mode"

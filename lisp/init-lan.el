@@ -45,18 +45,15 @@
        )
   (add-hook 'python-mode 'eglot-ensure)
   )
-(use-package tree-sitter-langs
-:ensure t
-)
-(use-package tree-sitter
-:ensure t
-:config
-(global-tree-sitter-mode)
-)
-(use-package ts-fold
-  :after tree-sitter tree-sitter-langs 
-  :quelpa (ts-fold  :repo "emacs-tree-sitter/ts-fold" :fetcher github)
-  :config
-  (setq global-ts-fold-mode 1)
+
+(use-package treesit-fold
+:quelpa (treesit-fold  :repo "emacs-tree-sitter/treesit-fold" :fetcher github)
 )
 
+;; pacman -S mingw-w64-ucrt-x86_64-gcc
+(use-package treesit-auto
+  :pin melpa
+  :demand t
+  :config
+  (setq treesit-auto-install 'prompt)
+  (global-treesit-auto-mode))

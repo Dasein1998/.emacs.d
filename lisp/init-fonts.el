@@ -116,4 +116,3 @@
 		(interactive)
 		(pyim-select-word-by-number 2)))
   )
-(global-set-key (kbd "C-' ") 'comment-or-uncomment-region)
