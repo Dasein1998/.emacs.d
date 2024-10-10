@@ -1,5 +1,5 @@
 (provide 'init-avy)
-;;(quelpa '(avy-huma :repo "Dasein1998/avy-huma" :fetcher github))
+(elpaca '(avy-huma :repo "Dasein1998/avy-huma" :host github))
 
 (use-package ace-pinyin
   :ensure t

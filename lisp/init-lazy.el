@@ -21,7 +21,7 @@
     (require 'no-littering)
 )
 
-;;(quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
+(elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
 (use-package on
 :ensure(:repo "ajgrf/on.el" :host github )
 )
