@@ -2,14 +2,18 @@
 (quelpa '(avy-huma :repo "Dasein1998/avy-huma" :fetcher github))
 (use-package ace-pinyin
   :ensure t
-  ;; :defer t
-  ;; :after avy
+  :delight
+  ;;:defer t
+  :after avy
+  :diminish
   :config
   (require 'avy-huma)
   (ace-pinyin-global-mode 1)
-)
+  )
 (use-package avy
+  :delight
   :ensure t
+  :diminish
   :bind
   ;;(("M-j C-SPC" 、. avy-goto-char-timer))
   ("C-;" . avy-goto-char)
@@ -23,8 +27,10 @@
 ;; https://github.com/abo-abo/ace-window
 (use-package ace-window
   :ensure t
+  :bind
+  ("M-o" . ace-window)
   :config
-  (global-set-key (kbd "M-o") 'ace-window)
+  ;;(global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (defvar aw-dispatch-alist
     '((?x aw-delete-window "Delete Window")

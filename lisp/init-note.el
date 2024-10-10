@@ -9,6 +9,9 @@
   (require 'org-indent)
   ;;(setq org-startup-indented t)
   (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
+  (add-to-list 'org-emphasis-alist
+               '("*" (:foreground "red")
+		 ))
   :bind
   ("C-i" . cape-elisp-block)
   )
@@ -16,6 +19,28 @@
 (setq org-blank-before-new-entry '((heading . nil)
 				   (plain-list-item . auto)) ;;取消新行前的空白
   )
+
+(setq org-fontify-todo-headline nil)
+(setq org-fontify-done-headline nil)
+(defadvice org-schedule (after refresh-agenda activate)
+  "Refresh org-agenda."
+  (org-agenda-refresh))
+;; Log time a task was set to DONE.
+(setq org-log-done (quote time))
+
+;; Don't log the time a task was rescheduled or redeadlined.
+(setq org-log-redeadline nil)
+(setq org-log-reschedule nil)
+(setq org-read-date-prefer-future 'time)
+;; use refile to help archive note just in one file
+(setq org-refile-files
+      '("~/org/note.org_archive"))
+(setq org-refile-targets
+      '((nil :maxlevel . 1)
+        (org-refile-files :maxlevel . 1)))
+
+;; Archive in one file
+(setq org-archive-location "~/org/done.org_archive::datetree/")
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
@@ -49,10 +74,10 @@
              )
   :config
   (setq consult-notes-file-dir-sources '(
-					 ;;("daily"  ?d  "~/")
-					 ("note" ?n "~/org") 
+					 ("note" ?n "~/org-roam")
 					 )
-	) ;; Set notes dir(s), see below
+	)
+  ;; Set notes dir(s), see below
   ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
   ;;If you have org files with many headings (say some subset of your agenda files, for example) that you would like to include in a consult-notes search, you can enable consult-notes-org-headings-mode and the headings for files you specify in consult-notes-org-headings-files will be included in consult-notes.
   ;;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
@@ -60,14 +85,15 @@
   (consult-notes-org-headings-mode)
   ;; search only for text files in denote dir
   :bind
-  ("M-s f" . consult-notes))
+  ("M-s n" . consult-notes))
 
 (use-package olivetti
   ;; :diminish
   ;;:disabled t
+  :delight
   :bind ("<f8>" . olivetti-mode)
   :init
-  (setq olivetti-body-width 0.8)
+  (setq olivetti-body-width 0.85)
   (defun xs-toggle-olivetti-for-org ()
     "if current buffer is org and only one visible buffer
   enable olivetti mode"
@@ -82,7 +108,7 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
   )
 
-  ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
+;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
 (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
                            (1 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))
@@ -106,7 +132,6 @@
 ;;; org-super-links
 (use-package org-super-links
   :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
-					;:after helm
   :config
   (require 'org-id)
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
@@ -118,51 +143,15 @@
          ("C-c s C-d" . org-super-links-delete-link))
   )
 
-;;;citar in org-mode
-(use-package citar
-  :demand t
-  :defer t
-  :custom
-  (citar-bibliography '("~/bib/note.bib"))
-  (citar-open-entry-function #'citar-open-entry-in-zotero)
-  ;; optional: org-cite-insert is also bound to C-c C-x C-@
-  :hook
-  (LaTeX-mode . citar-capf-setup)
-  (org-mode . citar-capf-setup)
-  :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
-  :init
-  (setq org-cite-insert-processor 'citar
-	org-cite-follow-processor 'citar
-	org-cite-activate-processor 'citar)
-  :config
-  (setq citar-open-resources '(:files :links))
-  )
-(use-package citar-embark
-  :ensure t
-  :after citar embark
-  :no-require t
-  :config (citar-embark-mode)
-  )
-(setq citar-templates
-      '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
-        (suffix . " ${=key= id:15} ${=type=:12} ${tags keywords:*}")
-        (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
-        (note . "Notes on ${author editor:%etal}, ${title}")))
-(defun my-citar-open-entry-by-citekey ()
-  "open citekey at point"
-  (interactive)
-  (citar-open-entry (thing-at-point 'word))
-  )
 ;;;Org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
 (setq org-default-notes-file "~/org/life.org")
 (setq org-capture-templates nil)
 (add-to-list 'org-capture-templates
-	     '("t" "Work-task"
+	     '("t" "Task"
 	       entry
-	       (file+headline    "~/org/work.org" "Tasks")
-	       "*** TODO %?\n  %i  %a")
+	       (file "~/org/inbox.org")
+	       "* TODO [#B] %? %^g \n  %i  %a")
 	     )
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
@@ -171,10 +160,9 @@
 	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
-	     ;;'("f" "Flomo" entry (file+headline "~/org/life.org" "flomo")
-	      ;;  "* %U - %^{heading}  \n %?\n"
-        '("f" "Flomo" entry (file "~/org/flomo.org")
-       "* %U \n %?\n"
+	     '("f" "Flomo" entry (file+headline "~/org/flomo.org" "flomo")
+	       ;;  "* %U - %^{heading}  \n %?\n"
+	       "* %U \n %?\n"
 	       :prepend t
 	       )
 	     )
@@ -186,11 +174,26 @@
 	       )
 	     )
 (global-set-key "\C-ca" 'org-agenda)
-(setq org-agenda-files '("~/org/work.org"
-			 "~/org/life.org"
-			 ))
+(setq org-agenda-files '("~/org/inbox.org"
+			 ;;"~/org/life.org"
+			 )
+      )
 
-;;;从剪贴板插入图片
+;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
+(setq org-agenda-custom-commands
+      '(
+	("w" tags "Work"
+         ((org-agenda-filter-by-tag "Work")))
+	("f" tags "Life"
+         ((org-agenda-filter-by-tag "Life")))
+	("d" tags "Deal"
+         ((org-agenda-filter-by-tag "Deal")))
+	)
+      )
+
+
+
+;;;从windows剪贴板插入图片
 (defun org-insert-image-from-clipboard ()
   "Insert an image from the clipboard into the current org buffer."
   (interactive)
@@ -213,3 +216,68 @@
     )
   )
 (global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
+
+
+;;hide properties
+(defun org-hide-properties ()
+  "Hide org headline's properties using overlay."
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward
+            "^ *:PROPERTIES:\n\\( *:.+?:.*\n\\)+ *:END:\n" nil t)
+      (overlay-put (make-overlay
+                    (match-beginning 0) (match-end 0))
+                   'display ""))))
+
+(add-hook 'org-mode-hook #'org-hide-properties)
+
+;;; some function
+;;move headline to a single file
+;;https://emacs.stackexchange.com/questions/22078/how-to-split-a-long-org-file-into-separate-org-files
+(defun my/org-move-tree (buffer-file-name)
+  "move the sub-tree which contains the point to a file,
+and replace it with a link to the newly created file"
+  (interactive "F")
+  (org-mark-subtree)
+  (let*
+      ((title    (car (last (org-get-outline-path t))))
+       (dir      (file-name-directory buffer-file-name))
+       (filename (concat dir title ".org"))
+       (content  (buffer-substring (region-beginning) (region-end))))
+    (delete-region (region-beginning) (region-end))
+    (insert (format "** [[file:%s][%s]]\n" filename title))
+    (with-temp-buffer
+      (insert content)
+      (write-file filename))))
+
+;;split one big org file to multi single org file by first headline
+;;https://emacs.stackexchange.com/questions/66828/split-org-file-into-smaller-ones
+(defun my/org-export-each-level-1-headline-to-org (&optional scope)
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (let* ((title (car (last (org-get-outline-path t))))
+            (dir (file-name-directory buffer-file-name))
+            (filename (concat dir title ".org"))
+            content)
+       (org-narrow-to-subtree)
+       (setq content (buffer-substring-no-properties (point-min) (point-max)))
+       (with-temp-buffer
+         (insert content)
+         (write-file filename))
+       (widen)))
+   "LEVEL=1" scope))
+
+;;delete current buffer and
+;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
+(defun my/delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if filename
+        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
+            (progn
+              (delete-file filename)
+              (message "Deleted file %s." filename)
+              (kill-buffer)))
+      (message "Not a file visiting buffer!"))))

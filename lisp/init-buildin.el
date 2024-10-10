@@ -18,6 +18,7 @@
 
 (use-package whitespace
   :ensure nil
+  :delight
   :hook (after-init . global-whitespace-mode) ;; 注意，这里是全局打开
   :config
   ;; Don't use different background for tabs.

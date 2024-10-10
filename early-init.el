@@ -4,12 +4,12 @@
       (file-name-handler-alist nil))
 
       )
-(tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
-(menu-bar-mode -1)                        ;; 关闭菜单栏
+;;(tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+;;(menu-bar-mode -1)                        ;; 关闭菜单栏
 (setq frame-inhibit-implied-resize t)        ;禁止frame缩放
 (setq native-comp-jit-compilation nil)
 (setq inhibit-splash-screen t)               ;关闭首页
-(set-scroll-bar-mode nil)
+;;(set-scroll-bar-mode nil)
 ;;(setq-default mode-line-format nil)          ; Prevent flashing of unstyled modeline at startup
 ;; Inhibit resizing Puremacs frame
 (setq frame-inhibit-implied-resize t)
