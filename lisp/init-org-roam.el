@@ -22,7 +22,7 @@
 (use-package cdlatex
   :after tex ; cdlatex 需要 auctex 中的 texmathp.el
   :defer t
-  :quelpa (cdlatex :fetcher github :repo "cdominik/cdlatex")
+  :ensure (:host github :repo "cdominik/cdlatex")
   :config
   ;; org-cdlatex-mode 中使用 cdlatex 的自动匹配括号, 并把 $...$ 换成 \( ... \)
   (defun my/insert-inline-OCDL ()
@@ -103,7 +103,7 @@
 ;; 快速编译数学公式, 测试版
 (use-package org-preview
   :delight
-  :quelpa (org-preview :fetcher github :repo "karthink/org-preview")
+  :ensure(:host github :repo "karthink/org-preview")
   :hook (org-mode . org-preview-mode)
   )
 (use-package org-roam
@@ -143,7 +143,7 @@
 
 ;;;citar in org-mode
 (use-package citar
-  :demand t
+  :demand T
   :defer t
   :custom
   (citar-bibliography zot_bib)

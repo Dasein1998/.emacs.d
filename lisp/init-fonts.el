@@ -77,7 +77,7 @@
 ;;(load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
-  :ensure t
+  :ensure (:wait t)
   :delight
   :config
   (rainbow-delimiters-mode)
@@ -85,7 +85,7 @@
   )
 
 (use-package pyim
-  :ensure t
+  :ensure (:wait t)
   :delight
   :defer t
   :init

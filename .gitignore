@@ -29,6 +29,7 @@ org-roam.db
 
 elpa/
 quelpa/
+elpaca/
 var/
 etc/
 eln-cache/

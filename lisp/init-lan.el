@@ -40,7 +40,9 @@
   (css-mode . aggressive-indent-mode)
   )
 (use-package eglot
+  :ensure nil
   :defer t
+  :demand t
   :config
   (add-to-list 'eglot-server-programs
 	     '(python-mode . ("pyright-langserver" "--stdio"));; python -m pip install pyright 安装 Pyright
@@ -50,7 +52,7 @@
 
 (use-package treesit-fold
 :defer t
-:quelpa (treesit-fold  :repo "emacs-tree-sitter/treesit-fold" :fetcher github)
+:ensure (:repo "emacs-tree-sitter/treesit-fold" :host github)
 )
 
 ;; pacman -S mingw-w64-ucrt-x86_64-gcc

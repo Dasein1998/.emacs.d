@@ -1,8 +1,7 @@
 (provide 'init-lazy)
 
 (use-package auto-save
-:ensure t
-:quelpa (auto-save :fetcher github :repo "manateelazycat/auto-save")
+:ensure (:host github :repo "manateelazycat/auto-save")
 :config
 (auto-save-enable)
 (setq auto-save-silent t)   ; quietly save
@@ -20,4 +19,9 @@
     :ensure t
     :init
     (require 'no-littering)
+)
+
+;;(quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
+(use-package on
+:ensure(:repo "ajgrf/on.el" :host github )
 )

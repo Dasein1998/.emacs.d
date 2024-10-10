@@ -5,14 +5,14 @@
   (interactive)
   (find-file "~/.emacs.d/lisp/"))
 (use-package mwim
-  :ensure t
+  :ensure (:wait t)
   :defer t
   :bind
   ("C-a" . mwim-beginning-of-code-or-line)
   ("C-e" . mwim-end-of-code-or-line))
 
 (use-package which-key
-  :ensure t
+  :ensure (:wait t)
   :delight
   :diminish
   :hook
@@ -20,7 +20,7 @@
   )
 
 (use-package hydra
-  :ensure t
+  :ensure (:wait t)
   :defer t
   :config
   (defhydra my/org-hydra (global-map "C-c o" :color pink :hint nil )
@@ -43,31 +43,9 @@
   )
 
 (use-package use-package-hydra
-  :ensure t
+  :ensure (:wait t)
   :defer t
   :after hydra)
-
-(use-package burly
-  :defer t
-  :quelpa (burly :fetcher github :repo "alphapapa/burly.el")
-  )
-
-(use-package tabspaces
-  :defer t
-  ;;:hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
-  :commands (tabspaces-switch-or-create-workspace
-             tabspaces-open-or-create-project-and-workspace)
-  :custom
-  (tabspaces-use-filtered-buffers-as-default t)
-  (tabspaces-default-tab "Default")
-  (tabspaces-remove-to-default t)
-  (tabspaces-include-buffers '("*scratch*"))
-  (tabspaces-initialize-project-with-todo t)
-  ;;(tabspaces-todo-file-name "project-todo.org")
-  ;; sessions
-  (tabspaces-session t)
-					;(tabspaces-session-auto-restore t)
-  )
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))

@@ -93,4 +93,4 @@
 (advice-add #'display-startup-screen :override #'ignore)
 
 
-
+(setq package-enable-at-startup nil)

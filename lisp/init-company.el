@@ -31,6 +31,7 @@
   )
   ;; A few more useful configurations...
 (use-package emacs
+:ensure nil
   :config
   ;; TAB cycle if there are only few candidates
   (setq completion-cycle-threshold 3)

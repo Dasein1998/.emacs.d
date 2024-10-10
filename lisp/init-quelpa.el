@@ -12,7 +12,4 @@
    :fetcher git
    :url "https://github.com/quelpa/quelpa-use-package.git"))
 (require 'quelpa-use-package)
-(quelpa '(pyim-humadict :fetcher github :repo "Dasein1998/huma_pyim"))
-(use-package on
-    :quelpa (on :repo "ajgrf/on.el" :fetcher github )
-)
+

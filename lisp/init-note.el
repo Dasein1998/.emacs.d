@@ -131,7 +131,7 @@
 
 ;;; org-super-links
 (use-package org-super-links
-  :quelpa (org-super-links :repo "toshism/org-super-links" :fetcher github )
+:ensure (:repo "toshism/org-super-links" :host github )
   :config
   (require 'org-id)
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
