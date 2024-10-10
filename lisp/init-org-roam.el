@@ -76,6 +76,7 @@
 
 
 (use-package org
+  :ensure nil
   :after tex
   :config
   (setq org-highlight-latex-and-related '(native latex entities)) ;; LaTeX 高亮设置
