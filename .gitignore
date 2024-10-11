@@ -1,57 +1,10 @@
-# Compiled
-*.elc
-
-# Packaging
-.cask
-
-# Backup files
-*~
-
-# Undo-tree save-files
-*.~undo-tree
-.cache/
-# flycheck temp file
-.flycheck*
-
-# The quickstart file
-package-quickstart.el
-
-# shell startfile
-init_bash.sh
-init_zsh.sh
-
-# project
-projects
-projectile.cache
-projectile-bookmarks.eld
-# org
-org-roam.db
-
-elpa/
-quelpa/
 elpaca/
 var/
 etc/
-eln-cache/
-tree-sitter/
-server/
-auto-save-list/
-history
-*.eld
-rime/
-recentf
-triples.db
-elgrep-data.el
-/transient/
-places
-custom.el
-bookmarks
-.org-id-locations
-org-persist/
 pyim/
-diary
-README.el
+tree-sitter/
+rime/
+custom.el
+.org-id-locations
 .DS_Store
-lisp/api-to-jwt.py
 lisp/init-my-mode.el
-tabsession.el

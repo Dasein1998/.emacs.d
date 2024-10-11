@@ -160,7 +160,7 @@
 	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
-	     '("f" "Flomo" entry (file+headline "~/org/flomo.org" "flomo")
+	     '("f" "Flomo" entry (file "~/org/flomo.org")
 	       ;;  "* %U - %^{heading}  \n %?\n"
 	       "* %U \n %?\n"
 	       :prepend t
