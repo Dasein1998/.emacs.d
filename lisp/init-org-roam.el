@@ -132,7 +132,9 @@
 		 :unnarrowed t))
   (setq citar-org-roam-capture-template-key "c")
   )
-
+(use-package org-node
+  :after org
+  :config (org-node-cache-mode))
 
 
 ;; 第一步: 告诉 Emacs 从哪里读取 Zotero 的信息
