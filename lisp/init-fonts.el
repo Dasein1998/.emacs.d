@@ -78,7 +78,6 @@
 
 (use-package rainbow-delimiters
   :ensure (:wait t)
-  :delight
   :config
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
@@ -86,7 +85,6 @@
 
 (use-package pyim
   :ensure (:wait t)
-  :delight
   :defer t
   :init
   (setq default-input-method "pyim")

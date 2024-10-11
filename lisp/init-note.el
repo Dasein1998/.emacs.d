@@ -18,7 +18,7 @@
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil))) ;;自动折行
 (setq org-blank-before-new-entry '((heading . nil)
 				   (plain-list-item . auto)) ;;取消新行前的空白
-  )
+      )
 
 (setq org-fontify-todo-headline nil)
 (setq org-fontify-done-headline nil)
@@ -88,9 +88,7 @@
   ("M-s n" . consult-notes))
 
 (use-package olivetti
-  ;; :diminish
   ;;:disabled t
-  :delight
   :bind ("<f8>" . olivetti-mode)
   :init
   (setq olivetti-body-width 0.85)
@@ -167,6 +165,13 @@
 	       )
 	     )
 (add-to-list 'org-capture-templates
+	     '("d" "Deal" entry (file "~/org/deal.org")
+	       ;;  "* %U - %^{heading}  \n %?\n"
+	       "* %U \n %?\n"
+	       :prepend t
+	       )
+	     )
+(add-to-list 'org-capture-templates
 	     '("j" "Journal" plain
 	       (file+datetree "~/org/life.org")
 	       "%<%T> %?"
@@ -176,7 +181,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (setq org-agenda-files '("~/org/inbox.org"
 			 ;;"~/org/life.org"
-			 )
+	 		 )
       )
 
 ;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
@@ -188,8 +193,7 @@
          ((org-agenda-filter-by-tag "Life")))
 	("d" tags "Deal"
          ((org-agenda-filter-by-tag "Deal")))
-	)
-      )
+	))
 
 
 

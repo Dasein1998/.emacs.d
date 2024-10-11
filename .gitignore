@@ -4,6 +4,7 @@ etc/
 pyim/
 tree-sitter/
 rime/
+eln-cache/
 custom.el
 .org-id-locations
 .DS_Store
