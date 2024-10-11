@@ -122,7 +122,7 @@
   :config
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
+  ;;(org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol)
   (add-to-list 'org-roam-capture-templates
@@ -134,7 +134,23 @@
   )
 (use-package org-node
   :after org
-  :config (org-node-cache-mode))
+  :config 
+  (org-node-cache-mode)
+  (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
+  (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
+  (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
+  (setq org-node-extra-id-dirs '("~/org-roam/"))
+)
+
+(use-package org-node-fakeroam
+:after org-node
+:config
+(org-node-fakeroam-fast-render-mode) ;; build the Roam buffer faster
+(org-node-fakeroam-setup-persistence) ;; cache previews on disk
+(org-node-fakeroam-redisplay-mode) ;; autorefresh the Roam buffer
+(org-node-fakeroam-db-feed-mode) ;; keep Roam DB up to date
+(org-node-fakeroam-jit-backlinks-mode) ;; skip DB for Roam buffer
+)
 
 
 ;; 第一步: 告诉 Emacs 从哪里读取 Zotero 的信息
