@@ -29,6 +29,7 @@
   (setq corfu-quit-at-boundary t)
   (global-corfu-mode)
   )
+
   ;; A few more useful configurations...
 (use-package emacs
 :ensure nil
@@ -98,7 +99,6 @@
   :defer t
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
-
   :config
   ;; Setup completion at point
   (defun tempel-setup-capf ()

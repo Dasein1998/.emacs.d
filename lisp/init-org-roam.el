@@ -17,8 +17,6 @@
   ("C-c n n" . org-noter) ;; 与 org-roam 配合
   )
 
-
-
 (use-package cdlatex
   :after tex ; cdlatex 需要 auctex 中的 texmathp.el
   :defer t
@@ -51,7 +49,6 @@
   (define-key org-cdlatex-mode-map (kbd "{") 'my/insert-curly-bra-OCDL)
   )
 
-
 ;; latex
 (defun my/latex-hook ()
   (turn-on-cdlatex)
@@ -74,7 +71,6 @@
   (add-hook 'latex-mode-hook 'my/latex-hook)
   )
 
-
 (use-package org
   :ensure nil
   :after tex
@@ -88,12 +84,6 @@
   (add-hook 'org-mode-hook #'org-cdlatex-mode) ;; 打开 cdlatex
   )
 
-;;==============================
-;; org 中 LaTeX 相关设置
-;;==============================
-;; 在 ~/texmf/tex/latex/ 下的 .sty 文件
-;;(setq org-latex-packages-alist '(("" "mysymbol" t)))
-
 (use-package org-fragtog
   :hook (org-mode . org-fragtog-mode)
   :config
@@ -105,6 +95,7 @@
   :ensure(:host github :repo "karthink/org-preview")
   :hook (org-mode . org-preview-mode)
   )
+
 (use-package org-roam
   :ensure t
   :defer t
@@ -130,6 +121,7 @@
 		 :unnarrowed t))
   (setq citar-org-roam-capture-template-key "c")
   )
+
 (use-package org-node
   :after org
   :config 
@@ -138,18 +130,11 @@
   (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
   (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
   (setq org-node-extra-id-dirs '("~/org-roam/"))
+  (setq org-node-alter-candidates t)
+  (keymap-set global-map "M-s M-f" #'org-node-find)
+  (keymap-set org-mode-map "M-s M-i" #'org-node-insert-link)
+  (keymap-set global-map "M-s M-g" #'org-node-grep) ;; Requires consult
 )
-
-(use-package org-node-fakeroam
-:after org-node
-:config
-(org-node-fakeroam-fast-render-mode) ;; build the Roam buffer faster
-(org-node-fakeroam-setup-persistence) ;; cache previews on disk
-(org-node-fakeroam-redisplay-mode) ;; autorefresh the Roam buffer
-(org-node-fakeroam-db-feed-mode) ;; keep Roam DB up to date
-(org-node-fakeroam-jit-backlinks-mode) ;; skip DB for Roam buffer
-)
-
 
 ;; 第一步: 告诉 Emacs 从哪里读取 Zotero 的信息
 (setq zot_bib '("~/org-roam/reference.bib")
@@ -157,7 +142,6 @@
       org_refs '("~/org-roam/reference/") ) ; 自定义的 org-roam 文献笔记目录
 
 ;; 第二步: 让 citar 读取 Zotero 的信息
-
 ;;;citar in org-mode
 (use-package citar
   :demand T
@@ -179,6 +163,7 @@
   :config
   (setq citar-open-resources '(:files :links))
   )
+
 (use-package citar-embark
   :ensure t
   :after citar embark
@@ -196,7 +181,6 @@
   (interactive)
   (citar-open-entry (thing-at-point 'word))
   )
-
 
 (use-package citar-org-roam
   :diminish
@@ -230,5 +214,4 @@
   )
 
 (advice-add 'citar-create-note :after #'citar-add-org-noter-document-property)
-
 (setq org-noter-notes-search-path '("~/org-roam/reference" "~/org-roam" "~/org-roam/reference"))

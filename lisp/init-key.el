@@ -4,6 +4,7 @@
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/lisp/"))
+
 (use-package mwim
   :ensure (:wait t)
   :bind
@@ -63,7 +64,6 @@
   :config
   (workgroups-mode 1)
   )
-
 
 (use-package newcomment
   :ensure nil

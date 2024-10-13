@@ -77,13 +77,7 @@
 					 ("note" ?n "~/org-roam")
 					 )
 	)
-  ;; Set notes dir(s), see below
-  ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
-  ;;If you have org files with many headings (say some subset of your agenda files, for example) that you would like to include in a consult-notes search, you can enable consult-notes-org-headings-mode and the headings for files you specify in consult-notes-org-headings-files will be included in consult-notes.
-  ;;(setq consult-notes-org-headings-files '("~/path/to/file1.org"
-  ;;"~/path/to/file2.org"))
   (consult-notes-org-headings-mode)
-  ;; search only for text files in denote dir
   :bind
   ("M-s n" . consult-notes))
 

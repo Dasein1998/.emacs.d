@@ -2,12 +2,15 @@
 (use-package saveplace
   :ensure nil
   :hook (after-init . save-place-mode))
+
 (use-package hl-line
   :ensure nil
   :hook (after-init . global-hl-line-mode))
+
 (use-package delsel
   :ensure nil
   :hook (after-init . delete-selection-mode))
+
 (use-package recentf
   :ensure nil
   :hook (after-init . recentf-mode)
