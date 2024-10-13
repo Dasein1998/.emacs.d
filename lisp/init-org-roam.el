@@ -104,8 +104,6 @@
 ;; 第二步: 让 citar 读取 Zotero 的信息
 ;;;citar in org-mode
 (use-package citar
-  :demand T
-  :defer t
   :custom
   (citar-bibliography zot_bib)
   (citar-open-entry-function #'citar-open-entry-in-zotero)
@@ -130,35 +128,7 @@
   :config (citar-embark-mode)
   )
 
-(use-package citar-denote
-:ensure(:repo "pprevos/citar-denote" :host github)
-:custom
-;; Package defaults
-(citar-denote-file-type 'org)
-(citar-denote-keyword "bib")
-(citar-denote-signature nil)
-(citar-denote-subdir nil)
-(citar-denote-template nil)
-(citar-denote-title-format "title")
-(citar-denote-title-format-andstr "and")
-(citar-denote-title-format-authors 1)
-(citar-denote-use-bib-keywords nil)
-:preface
-(bind-key "C-c w n" #'citar-denote-open-note)
-:config
-(citar-denote-mode)
-;; Bind all available commands
-:bind (("C-c w d" . citar-denote-dwim)
-       ("C-c w e" . citar-denote-open-reference-entry)
-       ("C-c w a" . citar-denote-add-citekey)
-       ("C-c w k" . citar-denote-remove-citekey)
-       ("C-c w r" . citar-denote-find-reference)
-       ("C-c w l" . citar-denote-link-reference)
-       ("C-c w f" . citar-denote-find-citation)
-       ("C-c w x" . citar-denote-nocite)
-       ("C-c w y" . citar-denote-cite-nocite)
-       ("C-c w z" . citar-denote-nobib))
-)
+
 
 (setq citar-templates
       '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
