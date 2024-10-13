@@ -7,8 +7,9 @@
    ("C-c n r" . denote-rename-file)
    ("C-c n l" . denote-link)
    ("C-c n b" . denote-backlinks))
-  :config
+  :custom
   (setq denote-directory (expand-file-name "~/org-roam"))
+  :config
   (denote-rename-buffer-mode 1)
   (require 'denote-silo-extras)
   (setq denote-silo-extras-directories 

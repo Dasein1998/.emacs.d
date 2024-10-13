@@ -215,6 +215,36 @@
   )
 (global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
 
+(use-package org-recur
+  :hook ((org-mode . org-recur-mode)
+         (org-agenda-mode . org-recur-agenda-mode))
+  :config
+  (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
+
+  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
+  (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
+  (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
+
+  (setq org-recur-finish-done t
+        org-recur-finish-archive t))
+;; Refresh org-agenda after rescheduling a task.
+(defun org-agenda-refresh ()
+  "Refresh all `org-agenda' buffers."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (derived-mode-p 'org-agenda-mode)
+        (org-agenda-maybe-redo)))))
+
+
+(use-package org-appear
+  :ensure (:host github :repo "awth13/org-appear")
+  :config
+  (add-hook 'org-mode-hook 'org-appear-mode)
+  (setq org-hide-emphasis-markers t)
+  (setq org-appear-autoentities t)
+  (setq org-appear-autolinks t)
+  (setq org-appear-delay 1)
+  )
 
 ;;hide properties
 (defun org-hide-properties ()

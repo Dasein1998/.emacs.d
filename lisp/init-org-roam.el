@@ -96,46 +96,6 @@
   :hook (org-mode . org-preview-mode)
   )
 
-(use-package org-roam
-  :ensure t
-  :defer t
-  :custom
-  (org-roam-directory (file-truename "~/org-roam"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  ;;(org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol)
-  (add-to-list 'org-roam-capture-templates
-	       '("c" "citar literature note" plain "%?"
-		 :target (file+head "%(expand-file-name citar-org-roam-subdir org-roam-directory)/${citar-citekey}.org"
-				    "#+title: Notes on: ${citar-title}\n#+subtitle: ${citar-author}, ${citar-date}")
-		 :unnarrowed t))
-  (setq citar-org-roam-capture-template-key "c")
-  )
-
-(use-package org-node
-  :after org
-  :config 
-  (org-node-cache-mode)
-  (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
-  (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
-  (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
-  (setq org-node-extra-id-dirs '("~/org-roam/"))
-  (setq org-node-alter-candidates t)
-  (keymap-set global-map "M-s M-f" #'org-node-find)
-  (keymap-set org-mode-map "M-s M-i" #'org-node-insert-link)
-  (keymap-set global-map "M-s M-g" #'org-node-grep) ;; Requires consult
-)
-
 ;; 第一步: 告诉 Emacs 从哪里读取 Zotero 的信息
 (setq zot_bib '("~/org-roam/reference.bib")
       zot_pdf "~/pdf" ; Zotero 的 ZotFile 同步文件夹
@@ -167,35 +127,50 @@
 (use-package citar-embark
   :ensure t
   :after citar embark
-  :no-require t
   :config (citar-embark-mode)
   )
+
+(use-package citar-denote
+:ensure(:repo "pprevos/citar-denote" :host github)
+:custom
+;; Package defaults
+(citar-denote-file-type 'org)
+(citar-denote-keyword "bib")
+(citar-denote-signature nil)
+(citar-denote-subdir nil)
+(citar-denote-template nil)
+(citar-denote-title-format "title")
+(citar-denote-title-format-andstr "and")
+(citar-denote-title-format-authors 1)
+(citar-denote-use-bib-keywords nil)
+:preface
+(bind-key "C-c w n" #'citar-denote-open-note)
+:config
+(citar-denote-mode)
+;; Bind all available commands
+:bind (("C-c w d" . citar-denote-dwim)
+       ("C-c w e" . citar-denote-open-reference-entry)
+       ("C-c w a" . citar-denote-add-citekey)
+       ("C-c w k" . citar-denote-remove-citekey)
+       ("C-c w r" . citar-denote-find-reference)
+       ("C-c w l" . citar-denote-link-reference)
+       ("C-c w f" . citar-denote-find-citation)
+       ("C-c w x" . citar-denote-nocite)
+       ("C-c w y" . citar-denote-cite-nocite)
+       ("C-c w z" . citar-denote-nobib))
+)
 
 (setq citar-templates
       '((main . " ${date year issued:4} ${title:48} ${author editor:30%sn}")
         (suffix . " ${=key= id:15} ${=type=:12} ${tags keywords:*}")
         (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
         (note . "Notes on ${author editor:%etal}, ${title}")))
+
 (defun my/citar-open-entry-by-citekey ()
   "open citekey at point"
   (interactive)
   (citar-open-entry (thing-at-point 'word))
   )
-
-(use-package citar-org-roam
-  :diminish
-  :after (citar org-roam)
-  :config (citar-org-roam-mode)
-  (setq citar-org-roam-subdir '("~/org-roam/reference/"))
-  )
-
-(setq citar-org-roam-template-fields
-      '((:citar-citekey "key")
-        (:citar-title "title")
-        (:citar-author "author" "editor")
-        (:citar-date "date" "year" "issued")
-        (:citar-pages "pages")
-        (:citar-type "=type="))   )
 
 (defun citar-add-org-noter-document-property(key &optional entry)
   "Set various properties PROPERTIES drawer when new Citar note is created."

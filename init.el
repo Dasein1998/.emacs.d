@@ -19,8 +19,8 @@
     ;; Terminal mode
     (progn
     (menu-bar-mode 1)
-    (tool-bar-mode 1) 
-    )   
+    (tool-bar-mode 1)
+    )
     )
 (fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
@@ -33,7 +33,7 @@
 (setq make-backup-files nil)                 ; 关闭文件自动备份
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
 ;(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
-;(savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
+(savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
 (setq inhibit-splash-screen t)               ;关闭首页
@@ -49,8 +49,7 @@
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file t)
+
 (defvar elpaca-installer-version 0.7)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -89,7 +88,9 @@
     (load "./elpaca-autoloads")))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
-
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; (setopt custom-file "~/.emacs.d/custom.el")
+;; (load custom-file t)
 (require 'package)
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
