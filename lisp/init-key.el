@@ -59,9 +59,7 @@
 
 (use-package workgroups2
   :ensure t
-  :hook
-  (on-first-input . workgroups-mode)
-  :config
+  :init
   (workgroups-mode 1)
   )
 

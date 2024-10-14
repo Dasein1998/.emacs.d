@@ -173,10 +173,7 @@
 	       )
 	     )
 (global-set-key "\C-ca" 'org-agenda)
-(setq org-agenda-files '("~/org/inbox.org"
-			 ;;"~/org/life.org"
-	 		 )
-      )
+(setq org-agenda-files '("~/org/inbox.org"))
 
 ;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
 (setq org-agenda-custom-commands
@@ -220,11 +217,9 @@
          (org-agenda-mode . org-recur-agenda-mode))
   :config
   (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
-
   ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
   (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
   (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
-
   (setq org-recur-finish-done t
         org-recur-finish-archive t))
 ;; Refresh org-agenda after rescheduling a task.
@@ -234,7 +229,6 @@
     (with-current-buffer buffer
       (when (derived-mode-p 'org-agenda-mode)
         (org-agenda-maybe-redo)))))
-
 
 (use-package org-appear
   :ensure (:host github :repo "awth13/org-appear")
