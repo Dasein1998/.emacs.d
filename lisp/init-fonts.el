@@ -77,7 +77,7 @@
 (load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
-  :ensure (:wait t)
+  ;; :ensure (:wait t)
   :config
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)

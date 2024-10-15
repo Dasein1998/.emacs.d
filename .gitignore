@@ -10,3 +10,4 @@ custom.el
 .org-id-locations
 .DS_Store
 lisp/init-my-mode.el
+history

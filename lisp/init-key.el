@@ -6,19 +6,19 @@
   (find-file "~/.emacs.d/lisp/"))
 
 (use-package mwim
-  :ensure (:wait t)
+  ;; :ensure (:wait t)
   :bind
   ("C-a" . mwim-beginning-of-code-or-line)
   ("C-e" . mwim-end-of-code-or-line))
 
 (use-package which-key
-  :ensure (:wait t)
+  ;; :ensure (:wait t)
   :hook
   (on-first-input . which-key-mode)
   )
 
 (use-package hydra
-  :ensure (:wait t)
+  ;; :ensure (:wait t)
   :defer t
   :config
   (defhydra my/org-hydra (global-map "C-c o" :color pink :hint nil )
@@ -41,7 +41,7 @@
   )
 
 (use-package use-package-hydra
-  :ensure (:wait t)
+  ;; :ensure (:wait t)
   :defer t
   :after hydra)
 

@@ -1,7 +1,8 @@
 (provide 'init-dasein-denote)
 (use-package denote
-  :ensure (:wait t)
-  :hook (dired-mode . denote-dired-mode)
+  ;; :ensure (:wait t)
+  :defer t
+  ;; :hook (dired-mode . denote-dired-mode)
   :bind
   (("C-c n n" . denote)
    ("C-c n r" . denote-rename-file)
@@ -20,8 +21,8 @@
 (use-package citar-denote
 :ensure(:repo "pprevos/citar-denote" :host github)
 :after (citar denote)
-:preface
-(bind-key "C-c w n" #'citar-denote-open-note)
+;; :preface
+;; (bind-key "C-c w n" #'citar-denote-open-note)
 :custom
 ;; Package defaults
 (citar-denote-file-type 'org)
