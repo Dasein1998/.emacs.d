@@ -49,7 +49,7 @@
   '(org-level-5 ((t (:inherit outline-5 :height 1.02))))
   '(org-level-6 ((t (:inherit outline-6 :height 1.00))))
 ) ;;heading的字体大小
-  (setq org-file-apps
+(setq org-file-apps
     '(("\\.docx\\'" . default)
       ("\\.mm\\'" . default)
       ("\\.x?html?\\'" . default)
@@ -100,6 +100,44 @@
   (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
   )
 
+;;; org-super-links
+(use-package org-super-links
+:ensure (:repo "toshism/org-super-links" :host github )
+  :config
+  (require 'org-id)
+  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+  :bind (("C-c s s" . org-super-links-link)
+         ("C-c s l" . org-super-links-store-link)
+         ("C-c s C-l" . org-super-links-insert-link)
+         ("C-c s d" . org-super-links-quick-insert-drawer-link)
+         ("C-c s i" . org-super-links-quick-insert-inline-link)
+         ("C-c s C-d" . org-super-links-delete-link))
+  )
+(global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
+
+(use-package org-recur
+  :hook ((org-mode . org-recur-mode)
+         (org-agenda-mode . org-recur-agenda-mode))
+  :config
+  (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
+  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
+  (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
+  (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
+  (setq org-recur-finish-done t
+        org-recur-finish-archive t))
+
+
+(use-package org-appear
+  :ensure (:host github :repo "awth13/org-appear")
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-hide-emphasis-markers t)
+  (setq org-appear-autoentities t)
+  (setq org-appear-autolinks t)
+  (setq org-appear-delay 1)
+  )
+
+
 ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
 (font-lock-add-keywords 'org-mode
                         '(("\\cc\\( \\)[/+*_=~][^a-zA-Z0-9/+*_=~\n]+?[/+*_=~]\\( \\)?\\cc?"
@@ -121,19 +159,15 @@
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
 
-;;; org-super-links
-(use-package org-super-links
-:ensure (:repo "toshism/org-super-links" :host github )
-  :config
-  (require 'org-id)
-  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-  :bind (("C-c s s" . org-super-links-link)
-         ("C-c s l" . org-super-links-store-link)
-         ("C-c s C-l" . org-super-links-insert-link)
-         ("C-c s d" . org-super-links-quick-insert-drawer-link)
-         ("C-c s i" . org-super-links-quick-insert-inline-link)
-         ("C-c s C-d" . org-super-links-delete-link))
-  )
+
+  ;; Refresh org-agenda after rescheduling a task.
+(defun org-agenda-refresh ()
+  "Refresh all `org-agenda' buffers."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (derived-mode-p 'org-agenda-mode)
+        (org-agenda-maybe-redo)))))
+
 
 ;;;Org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -210,35 +244,7 @@
     ;;(org-display-inline-images)
     )
   )
-(global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
 
-(use-package org-recur
-  :hook ((org-mode . org-recur-mode)
-         (org-agenda-mode . org-recur-agenda-mode))
-  :config
-  (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
-  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
-  (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
-  (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
-  (setq org-recur-finish-done t
-        org-recur-finish-archive t))
-;; Refresh org-agenda after rescheduling a task.
-(defun org-agenda-refresh ()
-  "Refresh all `org-agenda' buffers."
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      (when (derived-mode-p 'org-agenda-mode)
-        (org-agenda-maybe-redo)))))
-
-(use-package org-appear
-  :ensure (:host github :repo "awth13/org-appear")
-  :config
-  (add-hook 'org-mode-hook 'org-appear-mode)
-  (setq org-hide-emphasis-markers t)
-  (setq org-appear-autoentities t)
-  (setq org-appear-autolinks t)
-  (setq org-appear-delay 1)
-  )
 
 ;;hide properties
 (defun org-hide-properties ()
