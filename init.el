@@ -10,18 +10,12 @@
     (setq mac-command-modifier 'meta)
     (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
 )
-(if (display-graphic-p)
-    ;; GUI mode
-    (progn
-      (tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
-(menu-bar-mode -1)                        ;; 关闭菜单栏
-      )
+(if (display-graphic-p) ;; GUI mode
+       (progn (tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
+           (menu-bar-mode -1))                        ;; 关闭菜单栏
     ;; Terminal mode
-    (progn
-    (menu-bar-mode 1)
-    (tool-bar-mode 1)
-    )
-    )
+    (progn (menu-bar-mode 1)
+    (tool-bar-mode 1)))
 (fset 'yes-or-no-p 'y-or-n-p)                ; yes or no 改为 y or n
 ;(setq confirm-kill-emacs #'yes-or-no-p)     ; 在关闭 Emacs 前询问是否确认关闭，防止误触
 (electric-pair-mode t)                       ; 自动补全括号
@@ -29,7 +23,6 @@
 (column-number-mode t)                       ; 在 Mode line 上显示列号
 (global-auto-revert-mode t)                  ; 当另一程序修改了文件时，让 Emacs 及时刷新 Buffer
 (delete-selection-mode t)                    ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
-
 (setq make-backup-files nil)                 ; 关闭文件自动备份
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
 ;(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
@@ -48,7 +41,6 @@
 
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
-
 
 (defvar elpaca-installer-version 0.7)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -96,8 +88,7 @@
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-			)
-      )
+			))
 (when (< emacs-major-version 27)
   (package-initialize))
 (setq

@@ -32,6 +32,7 @@
 ;;             C-c c org-Capture
 ;;                C-c a Agenda
 ;;             C-c , org-Priority
+;;            C-c
 ")
 
 ;;; https://github.com/jamescherti/minimal-emacs.d/blob/main/early-init.el

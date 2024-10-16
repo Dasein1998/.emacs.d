@@ -1,6 +1,6 @@
 (provide 'init-dashboard)
 (use-package dashboard
-  ;; :disabled t
+  :disabled t
   :ensure (:wait t)
   :config
   (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists) 

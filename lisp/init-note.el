@@ -74,7 +74,8 @@
              )
   :config
   (setq consult-notes-file-dir-sources '(
-					 ("note" ?n "~/org-roam")
+					 ("roam" ?n "~/org-roam")
+           ("note" ?n"~/notes")
 					 )
 	)
   (consult-notes-org-headings-mode)
