@@ -7,17 +7,19 @@
   (("C-c n n" . denote)
    ("C-c n r" . denote-rename-file)
    ("C-c n l" . denote-link)
-   ("C-c n b" . denote-backlinks))
+   ("C-c n b" . denote-backlinks)
+   ("C-c n k" . denote-rename-file-keywords)
+   ("C-c n s" . denote-silo-extras-open-or-create))
   :config
   (setq denote-directory (expand-file-name "~/org-roam"))
   (setq denote-file-type 'org)
   (denote-rename-buffer-mode 1)
   (require 'denote-silo-extras)
-  (setq denote-silo-extras-directories 
-  `("~/org/"
-    "~/notes/")
-    )
-)
+  (setq denote-silo-extras-directories
+	`("~/org/"
+	  "~/notes/")
+	)
+  )
 (use-package citar-denote
 :ensure(:repo "pprevos/citar-denote" :host github)
 :after (citar denote)
