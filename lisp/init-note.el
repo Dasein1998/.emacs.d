@@ -83,7 +83,7 @@
   ("M-s n" . consult-notes))
 
 (use-package olivetti
-  ;;:disabled t
+  :disabled t
   :bind ("<f8>" . olivetti-mode)
   :init
   (setq olivetti-body-width 0.85)
