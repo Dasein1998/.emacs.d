@@ -4,12 +4,15 @@
 (when (and (eq system-type 'windows-nt)
            (eq w32-ansi-code-page 65001))
   (setq w32-system-coding-system 'utf-8)
+  (setq file-name-coding-system 'gbk)
   (define-coding-system-alias 'cp65001 'utf-8))
 (when (eq system-type 'darwin) ;; mac specific settings
     (setq mac-option-modifier 'alt)
     (setq mac-command-modifier 'meta)
     (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
 )
+;; https://emacs-china.org/t/emacs-utf-8/21143/28?u=dasein
+
 (if (display-graphic-p) ;; GUI mode
        (progn (tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
            (menu-bar-mode -1))                        ;; 关闭菜单栏
@@ -111,8 +114,8 @@
   ;; Enable use-package :ensure support for Elpaca.
   (elpaca-use-package-mode))
 
-;; (require 'init-dired)
-;; (require 'init-env)
+(require 'init-dired)
+(require 'init-env)
 (require 'init-vertico)
 (require 'init-dashboard)
 (require 'init-fonts)

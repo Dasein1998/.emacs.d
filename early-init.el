@@ -13,7 +13,7 @@
 ;;(setq-default mode-line-format nil)          ; Prevent flashing of unstyled modeline at startup
 ;; Inhibit resizing Puremacs frame
 (setq frame-inhibit-implied-resize t)
-
+(setq warning-minimum-level :emergency)
 ;; To suppress flashing at startup
 (setq-default inhibit-redisplay t
               inhibit-message t)
@@ -32,7 +32,8 @@
 ;;             C-c c org-Capture
 ;;                C-c a Agenda
 ;;             C-c , org-Priority
-;;            C-c
+;;        C-c n o Denote-Open-or-create
+;;  C-c n s  Denote-silo-extras-open-or-create
 ")
 
 ;;; https://github.com/jamescherti/minimal-emacs.d/blob/main/early-init.el
