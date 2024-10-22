@@ -116,8 +116,8 @@
   )
 
 (use-package spacious-padding
-:hook
-(org-mode . spacious-padding-mode)
+:init
+(spacious-padding-mode 1)
 :config
 (setq spacious-padding-widths
       '( :internal-border-width 30

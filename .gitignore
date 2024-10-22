@@ -11,3 +11,8 @@ custom.el
 .DS_Store
 lisp/init-my-mode.el
 history
+transient/history.el
+blink-search/
+recentf
+places
+blink-search.db
