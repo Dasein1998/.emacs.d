@@ -4,6 +4,7 @@
   :config
   (setq org-modules nil)
   (require 'org-tempo)
+  (require 'org-protocol)
   (setq org-src-fontify-natively t);;org内代码自动高亮
   (setq word-wrap-by-category t) ;;分词折行
   (require 'org-indent)
@@ -207,6 +208,11 @@
 	       :empty-lines 1
 	       )
 	     )
+(add-to-list 'org-capture-templates
+             `("l" "Add browser bookmark" entry
+               (file+datetree "~/org/index.org")
+               "* %x \n:PROPERTIES:\n:TIME: %T\n:END: \n%?"
+               :prepend t))
 (global-set-key "\C-ca" 'org-agenda)
 (setq org-agenda-files '("~/org/inbox.org"))
 
