@@ -59,6 +59,11 @@
   :hook (completion-list-mode . consult-preview-at-point-mode)
   ;; The :init configuration is always executed (Not lazy)
   :config
+  (if sys/win32p
+    (progn
+      (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
+      (add-to-list 'process-coding-system-alist '("explorer" gbk . gbk))
+      (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))))
   ;; Optionally configure the register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
