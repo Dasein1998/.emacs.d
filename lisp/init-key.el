@@ -1,7 +1,7 @@
 (provide 'init-key)
 ;; (global-set-key (kbd "M-f") 'forward-char)
 ;; (global-set-key (kbd "M-b") 'backward-char)
-(defun open-init-file()
+(defun my-init-file()
   (interactive)
   (find-file "~/.emacs.d/lisp/"))
 

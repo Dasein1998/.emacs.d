@@ -28,6 +28,11 @@
   (setq corfu-auto t)
   (setq corfu-quit-at-boundary t)
   (global-corfu-mode)
+  :config
+  (corfu-popupinfo-mode)
+  (corfu-history-mode 1)
+  (savehist-mode 1)
+  (add-to-list 'savehist-additional-variables 'corfu-history)
   )
 
   ;; A few more useful configurations...

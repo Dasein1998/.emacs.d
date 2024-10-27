@@ -72,8 +72,7 @@
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8)
 (setq system-time-locale "C")
-(when (eq system-type 'windows-nt)
-  (setq file-name-coding-system 'gbk))
+
 (load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
@@ -115,19 +114,19 @@
 		(pyim-select-word-by-number 2)))
   )
 
-(use-package spacious-padding
-:init
-(spacious-padding-mode 1)
-:config
-(setq spacious-padding-widths
-      '( :internal-border-width 30
-         :header-line-width 30
-         :mode-line-width 1
-         :tab-width 4
-         :right-divider-width 30
-         :scroll-bar-width 10
-         :fringe-width 8))
-)
+;; (use-package spacious-padding
+;; :init
+;; (spacious-padding-mode 1)
+;; :config
+;; (setq spacious-padding-widths
+;;       '( :internal-border-width 30
+;;          :header-line-width 30
+;;          :mode-line-width 1
+;;          :tab-width 4
+;;          :right-divider-width 30
+;;          :scroll-bar-width 10
+;;          :fringe-width 8))
+;; )
 (use-package nerd-icons-completion
   :after marginalia
   :config

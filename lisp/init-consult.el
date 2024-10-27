@@ -61,6 +61,7 @@
   :config
   (if sys/win32p
     (progn
+      (add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
       (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
       (add-to-list 'process-coding-system-alist '("explorer" gbk . gbk))
       (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))))

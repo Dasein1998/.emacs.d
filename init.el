@@ -1,11 +1,13 @@
 (defconst IS-WINDOWS (eq system-type 'windows-nt))
 (defconst IS-LINUX (eq system-type 'gnu/linux))
-					;windows-nt的编码问题
-(when (and (eq system-type 'windows-nt)
-           (eq w32-ansi-code-page 65001))
-  (setq w32-system-coding-system 'utf-8)
-  (setq file-name-coding-system 'gbk)
-  (define-coding-system-alias 'cp65001 'utf-8))
+;; windows-nt的编码问题
+;;  (when (and (eq system-type 'windows-nt);;打开windows中的utf-8后的设置
+;;             (eq w32-ansi-code-page 65001))
+;;    (setq w32-system-coding-system 'utf-8)
+;;    (setq file-name-coding-system 'gbk)
+;;    (define-coding-system-alias 'cp65001 'utf-8))
+(when (eq system-type 'windows-nt)
+  (setq file-name-coding-system 'gbk))
 (when (eq system-type 'darwin) ;; mac specific settings
     (setq mac-option-modifier 'alt)
     (setq mac-command-modifier 'meta)
@@ -101,7 +103,6 @@
       vc-use-package-deactivate-advice t )
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'process-coding-system-alist '("rg" utf-8 . gbk));;解决counslt-rg无法搜索中文的问题，开启默认utf-8后就不需要了。
 (set-frame-parameter (selected-frame) 'buffer-predicate
 		     (lambda (buf) (not (string-match-p "^*" (buffer-name buf)))));;only cycle through buffers whose name does not start with an *
 (setq frame-title-format

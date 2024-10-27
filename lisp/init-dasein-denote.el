@@ -14,6 +14,7 @@
    )
   :config
   (setq denote-directory (expand-file-name "~/org-roam"))
+  (setq denote-rename-confirmations nil) 
   (setq denote-file-type 'org)
   (denote-rename-buffer-mode 1)
   (require 'denote-silo-extras)
