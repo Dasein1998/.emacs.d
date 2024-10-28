@@ -230,14 +230,16 @@
 
 
 ;;;从windows剪贴板插入图片
-(defun org-insert-image-from-clipboard ()
+(defun my/org-insert-image-from-clipboard ()
   "Insert an image from the clipboard into the current org buffer."
   (interactive)
   (let* ((current-dir (file-name-directory buffer-file-name))
 	 (file-name-base (file-name-base buffer-file-name))
 	 ;;(attach-dir (concat current-dir "assets/" file-name-base "/"))
-	 (attach-dir (concat "assets/" file-name-base "/"))
-	 (image-file (concat attach-dir (format-time-string "%Y%m%d%H%M%S") ".png")))
+	 (attach-dir "assets/")
+   (attach-dir-pic "./assets/")
+	 (image-file (concat attach-dir (format-time-string "%Y%m%d%H%M%S") ".png"))
+   (image-file-pic (concat attach-dir-pic (format-time-string "%Y%m%d%H%M%S") ".png")));;相对路径
     ;; Ensure attach directory exists
     (unless (file-exists-p attach-dir)
       (make-directory attach-dir t))
@@ -247,7 +249,7 @@
       (error "Unsupported OS")
       )
     ;; Insert the link to the image in the org file
-    (insert (concat "[[file:" image-file "]]"))
+    (insert (concat "[[file:" image-file-pic "]]"));;相对路径
     ;;(org-display-inline-images)
     )
   )
