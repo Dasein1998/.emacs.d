@@ -127,9 +127,24 @@
   (setq consult-project-function (lambda (_) (projectile-project-root)))
     ;;;; 5. No project support
   ;; (setq consult-project-function nil)
+
+  (consult-customize
+ consult-ripgrep consult-git-grep consult-grep
+;;  consult-bookmark consult-recent-file 
+ consult-xref
+ consult--source-bookmark consult--source-file-register
+ consult--source-recent-file consult--source-project-recent-file
+ ;; my/command-wrapping-consult    ;; disable auto previews inside my command
+;;  :preview-key '(:debounce 0.4 any) ;; Option 1: Delay preview
+ :preview-key "M-.")            ;; Option 2: Manual preview
   )
 (global-set-key (kbd "C-s")'consult-line-multi)
 
 (use-package diminish
   :ensure t
   )
+
+(use-package deadgrep
+:ensure t
+:bind
+("<f5>" . deadgrep))
