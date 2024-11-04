@@ -43,7 +43,7 @@
 ;; Archive in one file
 (setq org-archive-location "~/org/done.org_archive::datetree/")
 (custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
   '(org-level-3 ((t (:inherit outline-3 :height 1.06))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.04))))
@@ -115,7 +115,7 @@
          ("C-c s i" . org-super-links-quick-insert-inline-link)
          ("C-c s C-d" . org-super-links-delete-link))
   )
-(global-set-key (kbd "C-c i") 'org-insert-image-from-clipboard)
+(global-set-key (kbd "C-c i") 'my/org-insert-image-from-clipboard)
 
 (use-package org-recur
   :hook ((org-mode . org-recur-mode)

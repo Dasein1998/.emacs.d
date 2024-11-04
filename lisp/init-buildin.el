@@ -17,6 +17,8 @@
   :init
   (setq recentf-max-menu-items 99)
   (setq recentf-max-saved-items 99)
+  (setq initial-buffer-choice #'recentf-open-files)
+
   )
 
 (use-package whitespace
