@@ -1,8 +1,8 @@
 (provide 'init-project)
 (use-package transient
-:ensure t)
+  :ensure t)
 (use-package magit
-:after transient
+  :after transient
   :defer t
 )
 

@@ -140,10 +140,6 @@
   )
 (global-set-key (kbd "C-s")'consult-line-multi)
 
-(use-package diminish
-  :ensure t
-  )
-
 (use-package deadgrep
 :ensure t
 :bind

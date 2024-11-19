@@ -13,17 +13,6 @@
   ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-
-  ;; Enable Corfu only for certain modes.
-   ;:hook ((prog-mode . corfu-mode)
-    ;      (shell-mode . corfu-mode)
-     ;     (eshell-mode . corfu-mode)
-  ;   (org-mode . corfu-mode)
-  ;  (markdown-mode . corfu-mode))
-
-  ;; Recommended: Enable Corfu globally.
-  ;; This is recommended since Dabbrev can be used globally (M-/).
-  ;; See also `corfu-excluded-modes'.
   :init
   (setq corfu-auto t)
   (setq corfu-quit-at-boundary t)
@@ -41,43 +30,34 @@
   :config
   ;; TAB cycle if there are only few candidates
   (setq completion-cycle-threshold 3)
-
-  ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
-  ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
-
-  ;; Enable indentation+completion using the TAB key.
-  ;; `completion-at-point' is often bound to M-TAB.
   (setq tab-always-indent 'complete)
   :custom
   (text-mode-ispell-word-completion nil)
   )
-  
-  ;; Enable Corfu completion UI
-  ;; See the Corfu README for more configuration tips.
-  ;; Add extensions
+
 (use-package cape
   :ensure t
   :after corfu
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-symbol)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p i" . cape-ispell)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345))
+  :bind (
+    ;; ("C-c p p" . completion-at-point) ;; capf
+    ;;      ("C-c p t" . complete-tag)        ;; etags
+    ;;      ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
+    ;;      ("C-c p h" . cape-history)
+    ;;      ("C-c p f" . cape-file)
+    ;;      ("C-c p k" . cape-keyword)
+    ;;      ("C-c p s" . cape-symbol)
+    ;;      ("C-c p a" . cape-abbrev)
+    ;;      ("C-c p i" . cape-ispell)
+    ;;      ("C-c p l" . cape-line)
+    ;;      ("C-c p w" . cape-dict)
+    ;;      ("C-c p \\" . cape-tex)
+    ;;      ("C-c p _" . cape-tex)
+    ;;      ("C-c p ^" . cape-tex)
+    ;;      ("C-c p &" . cape-sgml)
+    ;;      ("C-c p r" . cape-rfc1345)
+    )
   :config
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   
@@ -93,27 +73,16 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
-
   )
 
   ;; Configure Tempel
 (use-package tempel
-  ;; Require trigger prefix before template name when completing.
-  ;; :custom
-  ;; (tempel-trigger-prefix "<")
   :defer t
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
   :config
   ;; Setup completion at point
   (defun tempel-setup-capf ()
-    ;; Add the Tempel Capf to `completion-at-point-functions'.
-    ;; `tempel-expand' only triggers on exact matches. Alternatively use
-    ;; `tempel-complete' if you want to see all matches, but then you
-    ;; should also configure `tempel-trigger-prefix', such that Tempel
-    ;; does not trigger too often when you don't expect it. NOTE: We add
-    ;; `tempel-expand' *before* the main programming mode Capf, such
-    ;; that it will be tried first.
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
@@ -127,8 +96,5 @@
   ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
   ;; (global-tempel-abbrev-mode)
   )
-
-  ;; Optional: Add tempel-collection.
-  ;; The package is young and doesn't have comprehensive coverage.
 (use-package tempel-collection
   :after (tempel))

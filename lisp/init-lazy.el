@@ -15,7 +15,6 @@
       (file-name-extension (buffer-name)) t))))
 )
 
-(elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
 (use-package on
 :ensure(:repo "ajgrf/on.el" :host github )
 )

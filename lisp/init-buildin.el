@@ -1,16 +1,17 @@
 (provide 'init-buildin)
+;; 记录了上次打开文件时光标停留在第几行、第几列
 (use-package saveplace
   :ensure nil
   :hook (after-init . save-place-mode))
-
+;; 高亮当前行。
 (use-package hl-line
   :ensure nil
   :hook (after-init . global-hl-line-mode))
-
+;; 选中文本后，可直接输入，省去删除操作
 (use-package delsel
   :ensure nil
   :hook (after-init . delete-selection-mode))
-
+;; 保存历史访问过的文件
 (use-package recentf
   :ensure nil
   :hook (after-init . recentf-mode)
@@ -18,9 +19,14 @@
   (setq recentf-max-menu-items 99)
   (setq recentf-max-saved-items 99)
   (setq initial-buffer-choice #'recentf-open-files)
-
   )
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :ensure nil
+  :hook
+  (on-first-input . savehist-mode))
 
+;; 显示空白字符
 (use-package whitespace
   :ensure nil
   :hook (after-init . global-whitespace-mode) ;; 注意，这里是全局打开
@@ -63,7 +69,7 @@
      tab-mark         ; tabs (show by symbol)
      )))
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (let ((mgs-list '("You are what you do.")))
-              (message (nth (random (length mgs-list)) mgs-list)))))
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             (let ((mgs-list '("You are what you do.")))
+;;               (message (nth (random (length mgs-list)) mgs-list)))))

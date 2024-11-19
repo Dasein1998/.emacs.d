@@ -76,7 +76,6 @@
 (load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
-  ;; :ensure (:wait t)
   :config
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
@@ -95,11 +94,6 @@
   (global-set-key (kbd "M-f") 'pyim-forward-word)
   (global-set-key (kbd "M-b") 'pyim-backward-word)
   (setq prefer-short-word t)
-					;(require 'popup)
-					;(setq pyim-page-tooltip 'popup)
-					;(require 'posframe)
-					;(setq pyim-page-tooltip 'posframe)
-
   ;; 显示 5 个候选词。
   (setq pyim-page-length 5)
   ;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
@@ -113,20 +107,7 @@
 		(interactive)
 		(pyim-select-word-by-number 2)))
   )
-
-;; (use-package spacious-padding
-;; :init
-;; (spacious-padding-mode 1)
-;; :config
-;; (setq spacious-padding-widths
-;;       '( :internal-border-width 30
-;;          :header-line-width 30
-;;          :mode-line-width 1
-;;          :tab-width 4
-;;          :right-divider-width 30
-;;          :scroll-bar-width 10
-;;          :fringe-width 8))
-;; )
+(elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
 (use-package nerd-icons-completion
   :after marginalia
   :config

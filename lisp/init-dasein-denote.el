@@ -1,8 +1,6 @@
 (provide 'init-dasein-denote)
 (use-package denote
-  ;; :ensure (:wait t)
   :defer t
-  ;; :hook (dired-mode . denote-dired-mode)
   :bind
   (("C-c n n" . denote)
    ("C-c n r" . denote-rename-file)

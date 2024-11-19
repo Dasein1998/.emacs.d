@@ -16,10 +16,6 @@
   ("M-g f" . avy-goto-line)
   )
 
-;; (global-set-key (kbd "C-:")'avy-goto-char)
-;; (global-set-key (kbd "M-g f")'avy-goto-line)
-;; (global-set-key (kbd "M-g w")'avy-goto-word-1)
-
 ;; https://github.com/abo-abo/ace-window
 (use-package ace-window
   :ensure t
