@@ -43,7 +43,7 @@
 ;; Archive in one file
 (setq org-archive-location "~/org/done.org_archive::datetree/")
 (custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
   '(org-level-3 ((t (:inherit outline-3 :height 1.06))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.04))))
@@ -67,44 +67,11 @@
 		      )
       )
 ;; 任务的状态
-(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "DOING(o)" "|" "DONE(d)" "CANCELLED(c)")))
-
-(use-package consult-notes
-  :commands (consult-notes
-             consult-notes-search-in-all-notes
-             )
-  :config
-  (setq consult-notes-file-dir-sources '(
-					 ("roam" ?n "~/org-roam")
-           ("note" ?n"~/notes")
-					 )
-	)
-  (consult-notes-org-headings-mode)
-  :bind
-  ("M-s n" . consult-notes))
-
-(use-package olivetti
-  :disabled t
-  :bind ("<f8>" . olivetti-mode)
-  :init
-  (setq olivetti-body-width 0.85)
-  (defun xs-toggle-olivetti-for-org ()
-    "if current buffer is org and only one visible buffer
-  enable olivetti mode"
-    (if (and (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
-	     (or (eq (length (window-list nil nil nil)) 1)
-		 (window-at-side-p (frame-first-window) 'right))) ;; frame-first-window 的 mode 是 org-mode 并且没有右边 window
-	(olivetti-mode 1)
-      (olivetti-mode 0)
-      (when (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
-	(visual-line-mode 1))))
-  (add-hook 'org-mode-hook #'xs-toggle-olivetti-for-org)
-  (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
-  )
+;; (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "DOING(o)" "|" "DONE(d)" "CANCELLED(c)")))
 
 ;;; org-super-links
 (use-package org-super-links
-:ensure (:repo "toshism/org-super-links" :host github )
+  :ensure (:repo "toshism/org-super-links" :host github )
   :config
   (require 'org-id)
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
@@ -184,7 +151,7 @@
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
 	       (file+weektree "~/org/work.org")
-	       "%<%T> %?"
+	       "**** %<%T> %?"
 	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
@@ -211,7 +178,7 @@
 (add-to-list 'org-capture-templates
              `("l" "Add browser bookmark" entry
                (file+datetree "~/org/index.org")
-               "* %x \n:PROPERTIES:\n:TIME: %T\n:END: \n%?"
+               "* %? %x \n:PROPERTIES:\n:TIME: %T\n:END: \n"
                :prepend t))
 (global-set-key "\C-ca" 'org-agenda)
 (setq org-agenda-files '("~/org/inbox.org"))

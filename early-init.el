@@ -96,3 +96,9 @@
 
 
 ;; (setq package-enable-at-startup nil)
+(setq initial-frame-alist
+      (append initial-frame-alist
+              '((left   . 900)
+                (top    . 100)
+                (width  . 100)
+                (height . 50))))
