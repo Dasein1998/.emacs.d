@@ -9,10 +9,11 @@
    ("C-c n k" . denote-rename-file-keywords)
    ("C-c n s" . denote-silo-extras-open-or-create)
    ("C-c n o" . denote-open-or-create)
+   ("<f6>" . denote-open-or-create)
    )
   :config
   (setq denote-directory (expand-file-name "~/org-roam"))
-  (setq denote-rename-confirmations nil) 
+  (setq denote-rename-confirmations nil)
   (setq denote-file-type 'org)
   (denote-rename-buffer-mode 1)
   (require 'denote-silo-extras)
