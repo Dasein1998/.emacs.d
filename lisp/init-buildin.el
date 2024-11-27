@@ -73,3 +73,9 @@
 ;;           (lambda ()
 ;;             (let ((mgs-list '("You are what you do.")))
 ;;               (message (nth (random (length mgs-list)) mgs-list)))))
+
+(use-package emacs
+:ensure nil
+:config
+(setq tooltip-delay 3) ;;鼠标放上去3秒后触发tooltip 
+(setq use-system-tooltips nil))

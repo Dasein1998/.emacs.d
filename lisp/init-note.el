@@ -140,7 +140,7 @@
 
 ;;;Org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
-(setq org-default-notes-file "~/org/life.org")
+;; (setq org-default-notes-file "~/org/life.org")
 (setq org-capture-templates nil)
 (add-to-list 'org-capture-templates
 	     '("t" "Task"

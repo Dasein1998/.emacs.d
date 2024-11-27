@@ -73,7 +73,7 @@
 
   ;; Configure Tempel
 (use-package tempel
-  :defer t
+  ;; :defer t
   :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
          ("M-*" . tempel-insert))
   :config

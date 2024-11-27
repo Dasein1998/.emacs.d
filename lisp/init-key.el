@@ -21,7 +21,7 @@
   )
 
 (use-package hydra
-  :defer t
+  ;; :defer t
   :config
   (defhydra my/org-hydra (global-map "C-c o" :color pink :hint nil )
     ("k" org-previous-visible-heading "Back")
@@ -43,7 +43,7 @@
   )
 
 (use-package use-package-hydra
-  :defer t
+  ;; :defer t
   :after hydra)
 
 (use-package expand-region
