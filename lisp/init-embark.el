@@ -19,7 +19,9 @@
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
-                 (window-parameters (mode-line-format . none)))))
+                 (window-parameters (mode-line-format . none))))
+  (setq embark-minimal-indicator nil)
+                 )
 
 
 (use-package embark-consult

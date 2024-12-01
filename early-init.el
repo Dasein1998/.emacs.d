@@ -32,8 +32,6 @@
 ;; ;;             C-c c org-Capture
 ;; ;;                C-c a Agenda
 ;; ;;             C-c , org-Priority
-;; ;;        C-c n o Denote-Open-or-create
-;; ;;  C-c n s  Denote-silo-extras-open-or-create
 ;; ")
 
 ;;; https://github.com/jamescherti/minimal-emacs.d/blob/main/early-init.el
