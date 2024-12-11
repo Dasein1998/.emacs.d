@@ -4,9 +4,9 @@
   :ensure nil
   :hook (after-init . save-place-mode))
 ;; 高亮当前行。
-(use-package hl-line
-  :ensure nil
-  :hook (after-init . global-hl-line-mode))
+;; (use-package hl-line
+;;   :ensure nil
+;;   :hook (after-init . global-hl-line-mode))
 ;; 选中文本后，可直接输入，省去删除操作
 (use-package delsel
   :ensure nil
@@ -29,6 +29,7 @@
 ;; 显示空白字符
 (use-package whitespace
   :ensure nil
+  :disabled t 
   :hook (after-init . global-whitespace-mode) ;; 注意，这里是全局打开
   :config
   ;; Don't use different background for tabs.

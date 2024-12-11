@@ -4,7 +4,7 @@
   :bind
   (("C-c n n" . denote)
    ("C-c n r" . denote-rename-file)
-   ("C-c n l" . denote-link)
+   ("C-c n l" . denote-link-or-create)
    ("C-c n b" . denote-backlinks)
    ("C-c n k" . denote-rename-file-keywords)
    ("C-c n s" . denote-silo-extras-open-or-create)

@@ -73,7 +73,7 @@
 (prefer-coding-system 'utf-8)
 (setq system-time-locale "C")
 
-(load-theme 'modus-operandi)
+;; (load-theme 'modus-operandi)
 
 (use-package rainbow-delimiters
   :config
@@ -108,8 +108,13 @@
 		(pyim-select-word-by-number 2)))
   )
 (elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
-(use-package nerd-icons-completion
-  :after marginalia
-  :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+;; (use-package nerd-icons-completion
+;;   :after marginalia
+;;   :config
+;;   (nerd-icons-completion-mode)
+;;   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+(use-package modus-themes
+:config
+(require 'modus-themes)
+(load-theme 'modus-operandi-tinted :no-confirm))
