@@ -4,9 +4,9 @@
   :ensure nil
   :hook (after-init . save-place-mode))
 ;; 高亮当前行。
-;; (use-package hl-line
-;;   :ensure nil
-;;   :hook (after-init . global-hl-line-mode))
+(use-package hl-line
+  :ensure nil
+  :hook (after-init . global-hl-line-mode))
 ;; 选中文本后，可直接输入，省去删除操作
 (use-package delsel
   :ensure nil
@@ -29,7 +29,7 @@
 ;; 显示空白字符
 (use-package whitespace
   :ensure nil
-  :disabled t 
+  :disabled t
   :hook (after-init . global-whitespace-mode) ;; 注意，这里是全局打开
   :config
   ;; Don't use different background for tabs.
@@ -63,9 +63,9 @@
    whitespace-style
    '(face             ; visualize things below:
      empty            ; empty lines at beginning/end of buffer
-  ;     lines-tail       ; lines go beyond `fill-column'
+					;     lines-tail       ; lines go beyond `fill-column'
      space-before-tab ; spaces before tab
-   ;  trailing         ; trailing blanks
+					;  trailing         ; trailing blanks
      tabs             ; tabs (show by face)
      tab-mark         ; tabs (show by symbol)
      )))
@@ -78,5 +78,5 @@
 (use-package emacs
 :ensure nil
 :config
-(setq tooltip-delay 3) ;;鼠标放上去3秒后触发tooltip 
+(setq tooltip-delay 3) ;;鼠标放上去3秒后触发tooltip
 (setq use-system-tooltips nil))

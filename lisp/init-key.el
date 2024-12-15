@@ -1,10 +1,10 @@
 (provide 'init-key)
 ;; (global-set-key (kbd "M-f") 'forward-char)
 ;; (global-set-key (kbd "M-b") 'backward-char)
-(global-unset-key (kbd "M-<"))
-(global-unset-key (kbd "M->"))
-(global-set-key (kbd "M-<") 'undo)
-(global-set-key (kbd "M->") 'undo-redo)
+; (global-unset-key (kbd "M-<"))
+; (global-unset-key (kbd "M->"))
+; (global-set-key (kbd "M-<") 'undo)
+; (global-set-key (kbd "M->") 'undo-redo)
 
 (defun my-init-file()
   (interactive)
@@ -90,3 +90,23 @@
   ("C-c C-d" . helpful-at-point)
   ("C-h F" . helpful-function)
   )
+
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1) ((control) . nil)))
+(setq scroll-conservatively most-positive-fixnum)
+(setq scroll-preserve-screen-position t)
+(setq fast-but-imprecise-scrolling nil)
+(setq mouse-wheel-progressive-speed nil) ;;禁止emacs滚动加速
+
+(use-package writeroom-mode
+  :hook (elpaca-after-init-hook . global-writeroom-mode)
+  :config
+  (setq split-width-threshold 100
+        writeroom-width 110
+        writeroom-bottom-divider-width 0
+        writeroom-fringes-outside-margins t
+        writeroom-fullscreen-effect nil
+        writeroom-major-modes '(org-mode text-mode prog-mode conf-mode special-mode Info-mode dired-mode)
+        writeroom-major-modes-exceptions '(process-menu-mode proced-mode)
+        writeroom-maximize-window nil
+        writeroom-mode-line t
+        writeroom-mode-line-toggle-position 'mode-line-format))

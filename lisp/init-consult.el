@@ -37,6 +37,7 @@
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgrep)
+         ("<f5>" . consult-ripgrep)
          ("M-s l" . consult-line)
          ("M-s L" . consult-line-multi)
          ("M-s k" . consult-keep-lines)
@@ -143,4 +144,4 @@
 (use-package deadgrep
 :ensure t
 :bind
-("<f5>" . deadgrep))
+("<f6>" . deadgrep))
