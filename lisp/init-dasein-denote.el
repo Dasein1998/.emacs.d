@@ -18,7 +18,7 @@
   (denote-rename-buffer-mode 1)
   (require 'denote-silo-extras)
   (setq denote-silo-extras-directories
-	`("~/org/"
+	`("~/org-roam/"
 	  "~/notes/")
 	)
   )

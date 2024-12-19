@@ -35,13 +35,13 @@
 (setq org-read-date-prefer-future 'time)
 ;; use refile to help archive note just in one file
 (setq org-refile-files
-      '("~/org/note.org_archive"))
+      '("~/org-roam/note.org_archive"))
 (setq org-refile-targets
       '((nil :maxlevel . 1)
         (org-refile-files :maxlevel . 1)))
 
 ;; Archive in one file
-(setq org-archive-location "~/org/done.org_archive::datetree/")
+(setq org-archive-location "~/org-roam/done.org_archive::datetree/")
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
@@ -73,8 +73,8 @@
 (use-package org-super-links
   :ensure (:repo "toshism/org-super-links" :host github )
   :config
-  (require 'org-id)
-  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+  ;; (require 'org-id)
+  ;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
   :bind (("C-c s s" . org-super-links-link)
          ("C-c s l" . org-super-links-store-link)
          ("C-c s C-l" . org-super-links-insert-link)
@@ -140,29 +140,29 @@
 
 ;;;Org-capture
 (global-set-key (kbd "C-c c") 'org-capture)
-;; (setq org-default-notes-file "~/org/life.org")
+;; (setq org-default-notes-file "~/org-roam/life.org")
 (setq org-capture-templates nil)
 (add-to-list 'org-capture-templates
 	     '("t" "Task"
 	       entry
-	       (file "~/org/inbox.org")
+	       (file "~/org-roam/inbox.org")
 	       "* TODO [#B] %? %^g \n  %i  %a")
 	     )
 (add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
-	       (file+weektree "~/org/work.org")
+	       (file+weektree "~/org-roam/work.org")
 	       "**** %<%T> %?"
 	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
-	     '("f" "Flomo" entry (file "~/org/flomo.org")
+	     '("f" "Flomo" entry (file "~/org-roam/flomo.org")
 	       ;;  "* %U - %^{heading}  \n %?\n"
 	       "* %U \n %?\n"
 	       :prepend t
 	       )
 	     )
 (add-to-list 'org-capture-templates
-	     '("d" "Deal" entry (file "~/org/deal.org")
+	     '("d" "Deal" entry (file "~/org-roam/deal.org")
 	       ;;  "* %U - %^{heading}  \n %?\n"
 	       "* %U \n %?\n"
 	       :prepend t
@@ -170,18 +170,18 @@
 	     )
 (add-to-list 'org-capture-templates
 	     '("j" "Journal" plain
-	       (file+datetree "~/org/life.org")
+	       (file+datetree "~/org-roam/life.org")
 	       "%<%T> %?"
 	       :empty-lines 1
 	       )
 	     )
 (add-to-list 'org-capture-templates
              `("l" "Add browser bookmark" entry
-               (file+datetree "~/org/index.org")
+               (file+datetree "~/org-roam/index.org")
                "* %? %x \n:PROPERTIES:\n:TIME: %T\n:END: \n"
                :prepend t))
 (global-set-key "\C-ca" 'org-agenda)
-(setq org-agenda-files '("~/org/inbox.org"))
+(setq org-agenda-files '("~/org-roam/inbox.org"))
 
 ;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
 (setq org-agenda-custom-commands
