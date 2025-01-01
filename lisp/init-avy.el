@@ -1,21 +1,4 @@
 (provide 'init-avy)
-(elpaca '(avy-huma :repo "Dasein1998/avy-huma" :host github))
-
-(use-package ace-pinyin
-  :ensure t
-  :after avy
-  :config
-  (require 'avy-huma)
-  (ace-pinyin-global-mode 1)
-  )
-(use-package avy
-  :ensure t
-  :bind
-  ;;(("M-j C-SPC" 、. avy-goto-char-timer))
-  ("C-;" . avy-goto-char)
-  ("M-g f" . avy-goto-line)
-  )
-
 ;; https://github.com/abo-abo/ace-window
 (use-package ace-window
   :ensure t

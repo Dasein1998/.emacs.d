@@ -10,9 +10,6 @@
   (require 'org-indent)
   ;;(setq org-startup-indented t)
   (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
-  (add-to-list 'org-emphasis-alist
-               '("*" (:foreground "red")
-		 ))
   :bind
   ("C-i" . cape-elisp-block)
   )
@@ -58,17 +55,6 @@
       ("\\.png\\'" . default)
       (auto-mode . emacs)))
 
-(setq org-tag-alist '(        ;;orgmode中快速给标题加标签
-		      ("长" . ?c)
-		      ("短" . ?d)
-		      ("快" . ?k)
-		      ("慢" . ?m)
-		      ("问题" . ?w)
-		      )
-      )
-;; 任务的状态
-;; (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "DOING(o)" "|" "DONE(d)" "CANCELLED(c)")))
-
 ;;; org-super-links
 (use-package org-super-links
   :ensure (:repo "toshism/org-super-links" :host github )
@@ -83,17 +69,6 @@
          ("C-c s C-d" . org-super-links-delete-link))
   )
 (global-set-key (kbd "C-c i") 'my/org-insert-image-from-clipboard)
-
-(use-package org-recur
-  :hook ((org-mode . org-recur-mode)
-         (org-agenda-mode . org-recur-agenda-mode))
-  :config
-  (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
-  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
-  (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
-  (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
-  (setq org-recur-finish-done t
-        org-recur-finish-archive t))
 
 
 (use-package org-appear

@@ -31,7 +31,8 @@
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
-         ;; M-s bindings (search-map)
+         ;; M-s bindings (search-map) 
+         ("M-s a" . consult-org-agenda)
          ("M-s d" . consult-find)
          ("M-s D" . consult-locate)
          ("M-s g" . consult-grep)
@@ -140,8 +141,3 @@
  :preview-key "M-.")            ;; Option 2: Manual preview
   )
 (global-set-key (kbd "C-s")'consult-line-multi)
-
-(use-package deadgrep
-:ensure t
-:bind
-("<f6>" . deadgrep))

@@ -129,6 +129,6 @@
 (require 'init-buildin)
 (require 'init-embark)
 (require 'init-my-mode)
-(require 'init-org-roam)
+;; (require 'init-org-roam)
 ;; (require 'init-dasein-denote)
 (provide 'init)
