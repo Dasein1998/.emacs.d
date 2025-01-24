@@ -73,16 +73,18 @@
 (prefer-coding-system 'utf-8)
 (setq system-time-locale "C")
 
-;; (load-theme 'modus-operandi)
-
 (use-package rainbow-delimiters
   :config
   (rainbow-delimiters-mode)
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
+(use-package pyim-humadict
+:init (slot/vc-install :fetcher "github" :repo "Dasein1998/huma_pyim")
+)
+
 (use-package pyim
-  :ensure (:wait t)
+  :ensure t
   :defer t
   :init
   (setq default-input-method "pyim")
@@ -107,7 +109,10 @@
 		(interactive)
 		(pyim-select-word-by-number 2)))
   )
-(elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
+;; (elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
+
+
+
 ;; (use-package nerd-icons-completion
 ;;   :after marginalia
 ;;   :config

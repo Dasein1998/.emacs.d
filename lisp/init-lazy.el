@@ -1,7 +1,7 @@
 (provide 'init-lazy)
-
 (use-package auto-save
-:ensure (:host github :repo "manateelazycat/auto-save")
+:ensure t
+:init (slot/vc-install :fetcher "github" :repo "manateelazycat/auto-save")
 :config
 (auto-save-enable)
 (setq auto-save-silent t)   ; quietly save
@@ -16,5 +16,6 @@
 )
 
 (use-package on
-:ensure(:repo "ajgrf/on.el" :host github )
+:init (slot/vc-install :fetcher "github" :repo "ajgrf/on.el")
+:ensure t
 )

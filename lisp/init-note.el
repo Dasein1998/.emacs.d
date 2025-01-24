@@ -38,7 +38,7 @@
         (org-refile-files :maxlevel . 1)))
 
 ;; Archive in one file
-(setq org-archive-location "~/org-roam/done.org_archive::datetree/")
+;; (setq org-archive-location "~/org-roam/done.org_archive::datetree/")
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.08))))
@@ -56,30 +56,30 @@
       (auto-mode . emacs)))
 
 ;;; org-super-links
-(use-package org-super-links
-  :ensure (:repo "toshism/org-super-links" :host github )
-  :config
-  ;; (require 'org-id)
-  ;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-  :bind (("C-c s s" . org-super-links-link)
-         ("C-c s l" . org-super-links-store-link)
-         ("C-c s C-l" . org-super-links-insert-link)
-         ("C-c s d" . org-super-links-quick-insert-drawer-link)
-         ("C-c s i" . org-super-links-quick-insert-inline-link)
-         ("C-c s C-d" . org-super-links-delete-link))
-  )
+;; (use-package org-super-links
+;;   :ensure (:repo "toshism/org-super-links" :host github )
+;;   :config
+;;   ;; (require 'org-id)
+;;   ;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+;;   :bind (("C-c s s" . org-super-links-link)
+;;          ("C-c s l" . org-super-links-store-link)
+;;          ("C-c s C-l" . org-super-links-insert-link)
+;;          ("C-c s d" . org-super-links-quick-insert-drawer-link)
+;;          ("C-c s i" . org-super-links-quick-insert-inline-link)
+;;          ("C-c s C-d" . org-super-links-delete-link))
+;;   )
 (global-set-key (kbd "C-c i") 'my/org-insert-image-from-clipboard)
 
 
-(use-package org-appear
-  :ensure (:host github :repo "awth13/org-appear")
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setq org-hide-emphasis-markers t)
-  (setq org-appear-autoentities t)
-  (setq org-appear-autolinks t)
-  (setq org-appear-delay 1)
-  )
+;; (use-package org-appear
+;;   t github :repo "awth13/org-appear")
+;;   :hook (org-mode . org-appear-mode)
+;;   :config
+;;   (setq org-hide-emphasis-markers t)
+;;   (setq org-appear-autoentities t)
+;;   (setq org-appear-autolinks t)
+;;   (setq org-appear-delay 1)
+;;   )
 
 
 ;;emacs中文会导致orgmode无法正常高亮。需要添加相应的空格。
@@ -156,7 +156,7 @@
                "* %? %x \n:PROPERTIES:\n:TIME: %T\n:END: \n"
                :prepend t))
 (global-set-key "\C-ca" 'org-agenda)
-(setq org-agenda-files '("~/org-roam/inbox.org"))
+;; (setq org-agenda-files '("~/org-roam/inbox.org"))
 
 ;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
 (setq org-agenda-custom-commands

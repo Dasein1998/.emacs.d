@@ -47,44 +47,6 @@
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backups"))));autosave in one dir
 
-(defvar elpaca-installer-version 0.7)
-(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil :depth 1
-                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-       (build (expand-file-name "elpaca/" elpaca-builds-directory))
-       (order (cdr elpaca-order))
-       (default-directory repo))
-  (add-to-list 'load-path (if (file-exists-p build) build repo))
-  (unless (file-exists-p repo)
-    (make-directory repo t)
-    (when (< emacs-major-version 28) (require 'subr-x))
-    (condition-case-unless-debug err
-        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                 ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
-                                                 ,@(when-let ((depth (plist-get order :depth)))
-                                                     (list (format "--depth=%d" depth) "--no-single-branch"))
-                                                 ,(plist-get order :repo) ,repo))))
-                 ((zerop (call-process "git" nil buffer t "checkout"
-                                       (or (plist-get order :ref) "--"))))
-                 (emacs (concat invocation-directory invocation-name))
-                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                 ((require 'elpaca))
-                 ((elpaca-generate-autoloads "elpaca" repo)))
-            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-          (error "%s" (with-current-buffer buffer (buffer-string))))
-      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-  (unless (require 'elpaca-autoloads nil t)
-    (require 'elpaca)
-    (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
-(add-hook 'after-init-hook #'elpaca-process-queues)
-(elpaca `(,@elpaca-order))
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 ;; (setopt custom-file "~/.emacs.d/custom.el")
 ;; (load custom-file t)
@@ -94,11 +56,10 @@
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
 			))
-(when (< emacs-major-version 27)
-  (package-initialize))
+
 (setq
       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
- ;     use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
+      ;; use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
       use-package-expand-minimally t
       vc-use-package-deactivate-advice t )
 
@@ -110,8 +71,14 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-(elpaca elpaca-use-package
-  (elpaca-use-package-mode))
+
+(cl-defun slot/vc-install (&key (fetcher "github") repo name rev backend)
+  (let* ((url (format "https://%s.com/%s" fetcher repo))
+         (iname (when name (intern name)))
+         (pac-name (or iname (intern (file-name-base repo)))))
+    (unless (package-installed-p pac-name)
+      (package-vc-install url iname rev backend))))
+
 
 (require 'init-dired)
 (require 'init-env)
@@ -120,7 +87,7 @@
 (require 'init-fonts)
 (require 'init-key)
 (require 'init-company)
-(require 'init-project)
+;; (require 'init-project)
 (require 'init-consult)
 (require 'init-lazy)
 (require 'init-lan)
