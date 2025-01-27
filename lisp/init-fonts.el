@@ -79,18 +79,18 @@
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
-(use-package pyim-humadict
-:init (slot/vc-install :fetcher "github" :repo "Dasein1998/huma_pyim")
-)
-
-(use-package pyim
-  :ensure t
-  :defer t
+  (use-package pyim-humadict
   :init
-  (setq default-input-method "pyim")
+  (slot/vc-install :fetcher "github" :repo "Dasein1998/pyim-humadict")
   :config
-  (require 'pyim-humadict)
+  )
+(use-package pyim
+  :defer t
+  ;; :init
+  :config
+    (setq default-input-method "pyim")
   (pyim-humadict-enable)
+  (require 'pyim-humadict)
   (pyim-default-scheme 'huma)
   (require 'pyim-cstring-utils)
   (global-set-key (kbd "M-f") 'pyim-forward-word)
@@ -110,6 +110,7 @@
 		(pyim-select-word-by-number 2)))
   )
 ;; (elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
+
 
 
 

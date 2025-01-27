@@ -50,13 +50,15 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 ;; (setopt custom-file "~/.emacs.d/custom.el")
 ;; (load custom-file t)
-(require 'package)
-(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-			 ;("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-			))
+(unless (package-installed-p 'vc-use-package)
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
 
+(require 'package)
+(setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+                         ("melpa" . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+                         ("nongnu" . "https://mirrors.ustc.edu.cn/elpa/nongnu/")))
+(when (< emacs-major-version 27)
+  (package-initialize))
 (setq
       use-package-always-ensure t            ;避免每个软件包都需要加 ":ensure t"
       ;; use-package-always-defer t            ;避免每个软件包都需要加 ":defer t"
