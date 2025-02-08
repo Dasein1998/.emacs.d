@@ -96,3 +96,17 @@
 (setq scroll-preserve-screen-position t)
 (setq fast-but-imprecise-scrolling nil)
 (setq mouse-wheel-progressive-speed nil) ;;禁止emacs滚动加速
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+(add-hook 'org-capture-mode-hook 'evil-insert-state)

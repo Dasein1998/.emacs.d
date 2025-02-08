@@ -79,11 +79,6 @@
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
-  (use-package pyim-humadict
-  :init
-  (slot/vc-install :fetcher "github" :repo "Dasein1998/pyim-humadict")
-  :config
-  )
 (use-package pyim
   :defer t
   ;; :init
@@ -109,16 +104,11 @@
 		(interactive)
 		(pyim-select-word-by-number 2)))
   )
-;; (elpaca '(pyim-humadict :host github :repo "Dasein1998/huma_pyim"))
 
-
-
-
-;; (use-package nerd-icons-completion
-;;   :after marginalia
-;;   :config
-;;   (nerd-icons-completion-mode)
-;;   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+(use-package pyim-humadict
+  :init
+  (slot/vc-install :fetcher "github" :repo "Dasein1998/pyim-humadict")
+  )
 
 (use-package modus-themes
 :config
