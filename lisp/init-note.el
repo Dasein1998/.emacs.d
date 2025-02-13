@@ -118,23 +118,10 @@
 ;; (setq org-default-notes-file "~/org-roam/life.org")
 (setq org-capture-templates nil)
 (add-to-list 'org-capture-templates
-	     '("t" "Task"
-	       entry
-	       (file "~/org-roam/inbox.org")
-	       "* TODO [#B] %? %^g \n  %i  %a")
-	     )
-(add-to-list 'org-capture-templates
 	     '("w" "Work journal" plain
 	       (file+weektree "~/org-roam/work.org")
-	       "**** %<%T> %?"
+	       "%<%T> %?"
 	       :empty-lines 1)
-	     )
-(add-to-list 'org-capture-templates
-	     '("f" "Flomo" entry (file "~/org-roam/flomo.org")
-	       ;;  "* %U - %^{heading}  \n %?\n"
-	       "* %U \n %?\n"
-	       :prepend t
-	       )
 	     )
 (add-to-list 'org-capture-templates
 	     '("d" "Deal" entry (file "~/org-roam/deal.org")
@@ -150,11 +137,6 @@
 	       :empty-lines 1
 	       )
 	     )
-(add-to-list 'org-capture-templates
-             `("l" "Add browser bookmark" entry
-               (file+datetree "~/org-roam/index.org")
-               "* %? %x \n:PROPERTIES:\n:TIME: %T\n:END: \n"
-               :prepend t))
 (global-set-key "\C-ca" 'org-agenda)
 ;; (setq org-agenda-files '("~/org-roam/inbox.org"))
 
