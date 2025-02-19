@@ -151,20 +151,22 @@
          ((org-agenda-filter-by-tag "Deal")))
 	))
 (use-package olivetti
-  :init
+  :config
   (setq olivetti-body-width 0.618)
-  (defun xs-toggle-olivetti-for-org ()
-    "if current buffer is org and only one visible buffer
-  enable olivetti mode"
-    (if (and (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
-	     (or (eq (length (window-list nil nil nil)) 1)
-		 (window-at-side-p (frame-first-window) 'right))) ;; frame-first-window 的 mode 是 org-mode 并且没有右边 window
-	(olivetti-mode 1)
-      (olivetti-mode 0)
-      (when (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
-	(visual-line-mode 1))))
-  (add-hook 'org-mode-hook #'xs-toggle-olivetti-for-org)
-  (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
+  (add-hook 'text-mode-hook 'olivetti-mode)
+  (add-hook 'org-mode-hook 'olivetti-mode)
+  ;; (defun xs-toggle-olivetti-for-org ()
+  ;;   "if current buffer is org and only one visible buffer
+  ;; enable olivetti mode"
+  ;;   (if (and (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
+  ;; 	     (or (eq (length (window-list nil nil nil)) 1)
+  ;; 		 (window-at-side-p (frame-first-window) 'right))) ;; frame-first-window 的 mode 是 org-mode 并且没有右边 window
+  ;; 	(olivetti-mode 1)
+  ;;     (olivetti-mode 0)
+  ;;     (when (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
+  ;; 	(visual-line-mode 1))))
+  ;; (add-hook 'org-mode-hook #'xs-toggle-olivetti-for-org)
+  ;; (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
   )
 
 
@@ -176,9 +178,9 @@
 	 (file-name-base (file-name-base buffer-file-name))
 	 ;;(attach-dir (concat current-dir "assets/" file-name-base "/"))
 	 (attach-dir "assets/")
-   (attach-dir-pic "./assets/")
+	 (attach-dir-pic "./assets/")
 	 (image-file (concat attach-dir (format-time-string "%Y%m%d%H%M%S") ".png"))
-   (image-file-pic (concat attach-dir-pic (format-time-string "%Y%m%d%H%M%S") ".png")));;相对路径
+	 (image-file-pic (concat attach-dir-pic (format-time-string "%Y%m%d%H%M%S") ".png")));;相对路径
     ;; Ensure attach directory exists
     (unless (file-exists-p attach-dir)
       (make-directory attach-dir t))
