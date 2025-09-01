@@ -19,3 +19,5 @@ places
 blink-search.db
 bookmarks
 projectile-bookmarks.eld
+org-persist/
+projects

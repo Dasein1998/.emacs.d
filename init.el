@@ -89,7 +89,7 @@
 (require 'init-fonts)
 (require 'init-key)
 (require 'init-company)
-;; (require 'init-project)
+(require 'init-project)
 (require 'init-consult)
 (require 'init-lazy)
 (require 'init-lan)
