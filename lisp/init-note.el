@@ -1,4 +1,12 @@
 (provide 'init-note)
+(use-package org-luhmann
+  :init (slot/vc-install :fetcher "github" :repo "yibie/org-luhmann")
+  :ensure t
+  :config
+  (org-luhmann-setup)
+  :bind
+  ("<C-S-return>" . org-luhmann-add-node))
+
 (use-package org
   :ensure nil
   :config
@@ -124,11 +132,10 @@
 	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
-	     '("d" "Deal" entry (file "~/org-roam/deal.org")
-	       ;;  "* %U - %^{heading}  \n %?\n"
-	       "* %U \n %?\n"
-	       :prepend t
-	       )
+	     '("d" "Deal" plain
+	       (file+weektree "~/org-roam/deal.org")
+	       "%<%T> %?"
+	       :empty-lines 1)
 	     )
 (add-to-list 'org-capture-templates
 	     '("j" "Journal" plain

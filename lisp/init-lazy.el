@@ -16,6 +16,7 @@
 )
 
 (use-package on
-:init (slot/vc-install :fetcher "github" :repo "ajgrf/on.el")
-:ensure t
-)
+  :init (slot/vc-install :fetcher "github" :repo "ajgrf/on.el")
+  :ensure t
+  )
+
