@@ -9,6 +9,57 @@
 (defun my-init-file()
   (interactive)
   (find-file "~/.emacs.d/lisp/"))
+(use-package ace-window
+  :ensure t
+  :bind
+  ("M-o" . ace-window)
+  :config
+  ;;(global-set-key (kbd "M-o") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (defvar aw-dispatch-alist
+    '((?x aw-delete-window "Delete Window")
+      (?m aw-swap-window "Swap Windows")
+      (?M aw-move-window "Move Window")
+      (?c aw-copy-window "Copy Window")
+      (?j aw-switch-buffer-in-window "Select Buffer")
+      (?n aw-flip-window)
+      (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+      (?c aw-split-window-fair "Split Fair Window")
+      (?v aw-split-window-vert "Split Vert Window")
+      (?b aw-split-window-horz "Split Horz Window")
+      (?o delete-other-windows "Delete Other Windows")
+      (?? aw-show-dispatch-help))
+    "List of actions for `aw-dispatch-default'.")
+  )
+(use-package marginalia
+  :ensure t
+  :hook
+  (on-first-input . marginalia-mode)
+  )
+
+(use-package embark
+  :ensure t
+  :disabled t
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none))))
+  (setq embark-minimal-indicator nil)
+                 )
+
+
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package mwim
   :bind
