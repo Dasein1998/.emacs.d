@@ -1,4 +1,6 @@
 (provide 'init-note)
+(setq font-lock-maximum-decoration 1)
+
 (use-package org-luhmann
   :init (slot/vc-install :fetcher "github" :repo "yibie/org-luhmann")
   :ensure t
@@ -253,7 +255,7 @@ and replace it with a link to the newly created file"
        (widen)))
    "LEVEL=1" scope))
 
-;;delete current buffer and
+;; delete current buffer and
 ;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
 (defun my/delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
