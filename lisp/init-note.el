@@ -1,4 +1,6 @@
 (provide 'init-note)
+(setq font-lock-maximum-decoration 1)
+
 (use-package org-luhmann
   :init (slot/vc-install :fetcher "github" :repo "yibie/org-luhmann")
   :ensure t
@@ -188,3 +190,57 @@
                    'display ""))))
 
 (add-hook 'org-mode-hook #'org-hide-properties)
+<<<<<<< HEAD
+=======
+
+;;; some function
+;;move headline to a single file
+;;https://emacs.stackexchange.com/questions/22078/how-to-split-a-long-org-file-into-separate-org-files
+(defun my/org-move-tree (buffer-file-name)
+  "move the sub-tree which contains the point to a file,
+and replace it with a link to the newly created file"
+  (interactive "F")
+  (org-mark-subtree)
+  (let*
+      ((title    (car (last (org-get-outline-path t))))
+       (dir      (file-name-directory buffer-file-name))
+       (filename (concat dir title ".org"))
+       (content  (buffer-substring (region-beginning) (region-end))))
+    (delete-region (region-beginning) (region-end))
+    (insert (format "** [[file:%s][%s]]\n" filename title))
+    (with-temp-buffer
+      (insert content)
+      (write-file filename))))
+
+;;split one big org file to multi single org file by first headline
+;;https://emacs.stackexchange.com/questions/66828/split-org-file-into-smaller-ones
+(defun my/org-export-each-level-1-headline-to-org (&optional scope)
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (let* ((title (car (last (org-get-outline-path t))))
+            (dir (file-name-directory buffer-file-name))
+            (filename (concat dir title ".org"))
+            content)
+       (org-narrow-to-subtree)
+       (setq content (buffer-substring-no-properties (point-min) (point-max)))
+       (with-temp-buffer
+         (insert content)
+         (write-file filename))
+       (widen)))
+   "LEVEL=1" scope))
+
+;; delete current buffer and
+;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
+(defun my/delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if filename
+        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
+            (progn
+              (delete-file filename)
+              (message "Deleted file %s." filename)
+              (kill-buffer)))
+      (message "Not a file visiting buffer!"))))
+>>>>>>> refs/remotes/origin/main

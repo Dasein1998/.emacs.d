@@ -82,4 +82,4 @@
 (use-package modus-themes
 :config
 (require 'modus-themes)
-(load-theme 'modus-operandi-tinted :no-confirm))
+(load-theme 'modus-vivendi-tinted :no-confirm))
