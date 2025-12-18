@@ -87,51 +87,6 @@
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
 
 
-  ;; Refresh org-agenda after rescheduling a task.
-(defun org-agenda-refresh ()
-  "Refresh all `org-agenda' buffers."
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      (when (derived-mode-p 'org-agenda-mode)
-        (org-agenda-maybe-redo)))))
-
-
-;;;Org-capture
-(global-set-key (kbd "C-c c") 'org-capture)
-;; (setq org-default-notes-file "~/org-roam/life.org")
-(setq org-capture-templates nil)
-(add-to-list 'org-capture-templates
-	     '("w" "Work journal" plain
-	       (file+weektree "~/org-roam/work.org")
-	       "%<%T> %?"
-	       :empty-lines 1)
-	     )
-(add-to-list 'org-capture-templates
-	     '("d" "Deal" plain
-	       (file+weektree "~/org-roam/deal.org")
-	       "%<%T> %?"
-	       :empty-lines 1)
-	     )
-(add-to-list 'org-capture-templates
-	     '("j" "Journal" plain
-	       (file+datetree "~/org-roam/life.org")
-	       "%<%T> %?"
-	       :empty-lines 1
-	       )
-	     )
-(global-set-key "\C-ca" 'org-agenda)
-;; (setq org-agenda-files '("~/org-roam/inbox.org"))
-
-;; https://www.cnblogs.com/Open_Source/archive/2011/07/17/2108747.html
-(setq org-agenda-custom-commands
-      '(
-	("w" tags "Work"
-         ((org-agenda-filter-by-tag "Work")))
-	("f" tags "Life"
-         ((org-agenda-filter-by-tag "Life")))
-	("d" tags "Deal"
-         ((org-agenda-filter-by-tag "Deal")))
-	))
 (use-package olivetti
   :config
   (setq olivetti-body-width 0.618)
@@ -190,57 +145,3 @@
                    'display ""))))
 
 (add-hook 'org-mode-hook #'org-hide-properties)
-<<<<<<< HEAD
-=======
-
-;;; some function
-;;move headline to a single file
-;;https://emacs.stackexchange.com/questions/22078/how-to-split-a-long-org-file-into-separate-org-files
-(defun my/org-move-tree (buffer-file-name)
-  "move the sub-tree which contains the point to a file,
-and replace it with a link to the newly created file"
-  (interactive "F")
-  (org-mark-subtree)
-  (let*
-      ((title    (car (last (org-get-outline-path t))))
-       (dir      (file-name-directory buffer-file-name))
-       (filename (concat dir title ".org"))
-       (content  (buffer-substring (region-beginning) (region-end))))
-    (delete-region (region-beginning) (region-end))
-    (insert (format "** [[file:%s][%s]]\n" filename title))
-    (with-temp-buffer
-      (insert content)
-      (write-file filename))))
-
-;;split one big org file to multi single org file by first headline
-;;https://emacs.stackexchange.com/questions/66828/split-org-file-into-smaller-ones
-(defun my/org-export-each-level-1-headline-to-org (&optional scope)
-  (interactive)
-  (org-map-entries
-   (lambda ()
-     (let* ((title (car (last (org-get-outline-path t))))
-            (dir (file-name-directory buffer-file-name))
-            (filename (concat dir title ".org"))
-            content)
-       (org-narrow-to-subtree)
-       (setq content (buffer-substring-no-properties (point-min) (point-max)))
-       (with-temp-buffer
-         (insert content)
-         (write-file filename))
-       (widen)))
-   "LEVEL=1" scope))
-
-;; delete current buffer and
-;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
-(defun my/delete-file-and-buffer ()
-  "Kill the current buffer and deletes the file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if filename
-        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
-            (progn
-              (delete-file filename)
-              (message "Deleted file %s." filename)
-              (kill-buffer)))
-      (message "Not a file visiting buffer!"))))
->>>>>>> refs/remotes/origin/main

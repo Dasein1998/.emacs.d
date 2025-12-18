@@ -100,20 +100,6 @@
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
 
-(use-package doom-modeline
-  :ensure t
-  :hook (on-first-file . doom-modeline-mode)
-  :config
-  (setq doom-modeline-buffer-state-icon nil)
-  (setq doom-modeline-buffer-modification-icon nil)
-  )
-
-(use-package workgroups2
-  :ensure t
-  :init
-  (workgroups-mode 1)
-  )
-
 (use-package newcomment
   :ensure nil
   :bind ([remap comment-dwim] . #'comment-or-uncomment)
