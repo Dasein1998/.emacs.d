@@ -85,27 +85,9 @@
                                            "\\1 \\2 \\3" text)))
       text))
   (add-to-list 'org-export-filter-paragraph-functions #'eli-strip-ws-maybe))
-
-
-(use-package olivetti
-  :config
-  (setq olivetti-body-width 0.618)
-  (add-hook 'text-mode-hook 'olivetti-mode)
-  (add-hook 'org-mode-hook 'olivetti-mode)
-  ;; (defun xs-toggle-olivetti-for-org ()
-  ;;   "if current buffer is org and only one visible buffer
-  ;; enable olivetti mode"
-  ;;   (if (and (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
-  ;; 	     (or (eq (length (window-list nil nil nil)) 1)
-  ;; 		 (window-at-side-p (frame-first-window) 'right))) ;; frame-first-window 的 mode 是 org-mode 并且没有右边 window
-  ;; 	(olivetti-mode 1)
-  ;;     (olivetti-mode 0)
-  ;;     (when (eq (buffer-local-value 'major-mode (current-buffer)) 'org-mode)
-  ;; 	(visual-line-mode 1))))
-  ;; (add-hook 'org-mode-hook #'xs-toggle-olivetti-for-org)
-  ;; (add-hook 'window-configuration-change-hook #'xs-toggle-olivetti-for-org)
-  )
-
+(use-package writeroom-mode
+  :bind ("<f6>" . writeroom-mode)
+)
 
 ;;;从windows剪贴板插入图片
 (defun my/org-insert-image-from-clipboard ()
