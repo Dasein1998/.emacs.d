@@ -134,3 +134,9 @@
 (setq fast-but-imprecise-scrolling nil)
 (setq mouse-wheel-progressive-speed nil) ;;禁止emacs滚动加速
 
+(add-hook 'org-mode-hook (lambda ()
+  (cua-mode 1)
+  (local-set-key (kbd "C-z") 'undo-only) 
+  (local-set-key (kbd "C-y") 'undo-redo)
+  (local-set-key (kbd "C-S-z") 'undo-redo)
+))
