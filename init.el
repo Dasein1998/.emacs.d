@@ -1,11 +1,6 @@
+
 (defconst IS-WINDOWS (eq system-type 'windows-nt))
 (defconst IS-LINUX (eq system-type 'gnu/linux))
-;; windows-nt的编码问题
-;;  (when (and (eq system-type 'windows-nt);;打开windows中的utf-8后的设置
-;;             (eq w32-ansi-code-page 65001))
-;;    (setq w32-system-coding-system 'utf-8)
-;;    (setq file-name-coding-system 'gbk)
-;;    (define-coding-system-alias 'cp65001 'utf-8))
 (when (eq system-type 'windows-nt)
   (setq file-name-coding-system 'gbk))
 (when (eq system-type 'darwin) ;; mac specific settings
@@ -30,7 +25,7 @@
 (delete-selection-mode t)                    ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
 (setq make-backup-files nil)                 ; 关闭文件自动备份
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
-;(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
+(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
 (savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
@@ -82,15 +77,11 @@
       (package-vc-install url iname rev backend))))
 
 
-(require 'init-env)
 (require 'init-vertico)
-(require 'init-fonts)
 (require 'init-key)
-(require 'init-company)
+(require 'init-fonts)
 (require 'init-consult)
 (require 'init-lazy)
-(require 'init-lan)
 (require 'init-note)
-(require 'init-buildin)
-(require 'init-my-mode)
 (provide 'init)
+

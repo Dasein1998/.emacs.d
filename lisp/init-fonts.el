@@ -21,9 +21,7 @@
   "Setup fonts."
   (when (display-graphic-p)
     ;; Set default font
-    (cl-loop for font in '("LXGW WenKai Mono" "Sarasa Term SC Nerd" "Iosevka" "Cascadia Code" "Fira Code" "Jetbrains Mono"
-                           "SF Mono" "Hack" "Source Code Pro" "Menlo"
-                           "Monaco" "DejaVu Sans Mono" "Consolas")
+    (cl-loop for font in '("LXGW WenKai Mono" "Sarasa Term SC Nerd" "Iosevka" "Cascadia Code" "Fira Code" "Jetbrains Mono" "SF Mono" "Hack" "Source Code Pro" "Menlo" "Monaco" "DejaVu Sans Mono" "Consolas")
              when (font-installed-p font)
              return (set-face-attribute 'default nil
                                         :family font
@@ -31,17 +29,6 @@
                                                       (sys/win32p 130)
                                                       (t 110))
                                         ))
-
-    ;; Set mode-line font
-    ;; (cl-loop for font in '("Menlo" "SF Pro Display" "Helvetica")
-    ;;          when (font-installed-p font)
-    ;;          return (progn
-    ;;                   (set-face-attribute 'mode-line nil :family font :height 120)
-    ;;                   (when (facep 'mode-line-active)
-    ;;                     (set-face-attribute 'mode-line-active nil :family font :height 120))
-    ;;                   (set-face-attribute 'mode-line-inactive nil :family font :height 120)))
-
-    ;; Specify font for all unicode characters
     (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
              when (font-installed-p font)
              return (if (< emacs-major-version 27)
@@ -79,7 +66,7 @@
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
-(use-package modus-themes
-:config
-(require 'modus-themes)
-(load-theme 'modus-vivendi-tinted :no-confirm))
+;; (use-package modus-themes
+;; :config
+;; (require 'modus-themes)
+;; (load-theme 'modus-vivendi-tinted :no-confirm))

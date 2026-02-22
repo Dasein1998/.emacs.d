@@ -1,14 +1,16 @@
 (provide 'init-note)
 (setq font-lock-maximum-decoration 1)
 
-(use-package org-luhmann
-  :init (slot/vc-install :fetcher "github" :repo "yibie/org-luhmann")
-  :ensure t
-  :config
-  (org-luhmann-setup)
+(use-package quick-note
+  :init (slot/vc-install :fetcher "github" :repo "Dasein1998/quick-note")
+  :custom
+  (quick-note-file "~/org-roam/archive/0v.txt")
+  ;; 你也可以顺便在这里修改其他的自定义选项，比如时间格式：
+  (quick-note-prefix-format "%Y%m%dT%H%M%S")
+  ;; 直接在这里绑定快捷键
   :bind
-  ("<C-S-return>" . org-luhmann-add-node))
-
+  ("C-c n" . quick-note))
+ 
 (use-package org
   :ensure nil
   :config
@@ -113,17 +115,3 @@
     ;;(org-display-inline-images)
     )
   )
-
-
-;;hide properties
-(defun org-hide-properties ()
-  "Hide org headline's properties using overlay."
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward
-            "^ *:PROPERTIES:\n\\( *:.+?:.*\n\\)+ *:END:\n" nil t)
-      (overlay-put (make-overlay
-                    (match-beginning 0) (match-end 0))
-                   'display ""))))
-
-(add-hook 'org-mode-hook #'org-hide-properties)
