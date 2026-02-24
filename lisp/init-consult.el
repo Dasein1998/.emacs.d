@@ -8,6 +8,7 @@
          ("M-s r" . consult-ripgrep)
          ("<f5>" . consult-ripgrep)
          ("M-s l" . consult-line)
+	 ("C-f" . consult-line)
          ("M-s M-o" . consult-recent-file)
          ;; Isearch integration
          ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch

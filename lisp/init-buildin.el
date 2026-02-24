@@ -18,7 +18,7 @@
   :init
   (setq recentf-max-menu-items 99)
   (setq recentf-max-saved-items 99)
-  (setq initial-buffer-choice #'recentf-open-files)
+  ;; (setq initial-buffer-choice #'recentf-open-files)
   )
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
