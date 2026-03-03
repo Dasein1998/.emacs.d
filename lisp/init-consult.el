@@ -3,12 +3,12 @@
   :ensure t
   :bind (("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ;; M-g bindings (goto-map)
+        ;; M-g bindings (goto-map)
          ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
          ("M-s r" . consult-ripgrep)
          ("<f5>" . consult-ripgrep)
          ("M-s l" . consult-line)
-	 ("C-f" . consult-line)
+	       ("C-f" . consult-line)
          ("M-s M-o" . consult-recent-file)
          ;; Isearch integration
          ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
@@ -25,7 +25,7 @@
       (add-to-list 'process-coding-system-alist '("es" gbk . gbk))
       (add-to-list 'process-coding-system-alist '("explorer" gbk . gbk))
       (setq consult-locate-args (encode-coding-string "es.exe -i -p -r" 'gbk))))
-  (setq register-preview-delay 0.5
+  (setq register-preview-delay 0.7
         register-preview-function #'consult-register-format)
   (advice-add #'register-preview :override #'consult-register-window)
   ;; Use Consult to select xref locations with preview
@@ -59,4 +59,4 @@
  consult--source-recent-file consult--source-project-recent-file
  :preview-key "M-.")            ;; Option 2: Manual preview
   )
-(global-set-key (kbd "C-s")'consult-line-multi)
+;; (global-set-key (kbd "C-s")'consult-line-multi)

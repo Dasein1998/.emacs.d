@@ -84,6 +84,5 @@
 (require 'init-lazy)
 (require 'init-note)
 (require 'init-buildin)
-
 (provide 'init)
 

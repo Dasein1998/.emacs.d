@@ -11,12 +11,11 @@
   (eq system-type 'darwin)
   "Are we running on a Mac system?")
 
-
 ;; Font
 (defun font-installed-p (font-name)
   "Check if font with FONT-NAME is available."
   (find-font (font-spec :name font-name)))
-;; Fonts
+
 (defun centaur-setup-fonts ()
   "Setup fonts."
   (when (display-graphic-p)
@@ -28,31 +27,7 @@
                                         :height (cond (sys/macp 140)
                                                       (sys/win32p 130)
                                                       (t 110))
-                                        ))
-    (cl-loop for font in '("Segoe UI Symbol" "Symbola" "Symbol")
-             when (font-installed-p font)
-             return (if (< emacs-major-version 27)
-                        (set-fontset-font "fontset-default" 'unicode font nil 'prepend)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend)))
-
-    ;; Emoji
-    (cl-loop for font in '("Noto Color Emoji" "Apple Color Emoji" "Segoe UI Emoji")
-             when (font-installed-p font)
-             return (cond
-                     ((< emacs-major-version 27)
-                      (set-fontset-font "fontset-default" 'unicode font nil 'prepend))
-                     ((< emacs-major-version 28)
-                      (set-fontset-font t 'symbol (font-spec :family font) nil 'prepend))
-                     (t
-                      (set-fontset-font t 'emoji (font-spec :family font) nil 'prepend))))
-
-    ;; Specify font for Chinese characters
-    (cl-loop for font in '("LXGW WenKai Mono Screen" "Sarasa Term SC Nerd" "LXGW WenKai Screen R" "WenQuanYi Micro Hei" "PingFang SC" "Microsoft Yahei" "STFangsong")
-             when (font-installed-p font)
-             return (progn
-                      (setq face-font-rescale-alist `((,font . 1.0)))
-                      (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family font))))))
-
+                                        ))))
 (centaur-setup-fonts)
 (add-hook 'window-setup-hook #'centaur-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
@@ -66,7 +41,10 @@
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
-;; (use-package modus-themes
-;; :config
-;; (require 'modus-themes)
-;; (load-theme 'modus-vivendi-tinted :no-confirm))
+(use-package ef-themes
+  :ensure t
+  :config
+  ;; All customisations here.
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-italic-constructs t)
+  (modus-themes-load-theme 'ef-elea-dark))

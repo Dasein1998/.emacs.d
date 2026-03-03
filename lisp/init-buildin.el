@@ -75,3 +75,14 @@
 :config
 (setq tooltip-delay 3) ;;鼠标放上去3秒后触发tooltip
 (setq use-system-tooltips nil))
+
+(use-package cua-base
+  :ensure nil ; 内置包无需下载
+  :hook ((text-mode . cua-mode)
+         (markdown-mode . cua-mode)
+         (org-mode . cua-mode))
+  :bind
+  ("C-z" . undo-only) 
+  ("C-y" . undo-redo)
+  ("C-S-z" . undo-redo)
+  )
