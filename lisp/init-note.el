@@ -10,7 +10,25 @@
   ;; 直接在这里绑定快捷键
   :bind
   ("C-c n" . quick-note))
- 
+  
+(add-hook 'text-mode-hook
+  (lambda ()
+    (when (string-match "done.txt" (buffer-name))
+      ;; 关键步骤 1: 允许这个 buffer 支持多行语法高亮
+      (setq-local font-lock-multiline t)
+      
+      (font-lock-add-keywords nil
+        '(
+          ;; 1. 处理已完成的任务及其下方的解释行
+          ;; 使用 [[:space:]] 代替空格更稳健，\\(?:\n +.*\\)* 表示匹配后续所有缩进行
+          ("^x .*\\(?:\n +.*\\)*" . 'shadow)
+          
+          ;; 2. 处理未完成的任务行（排除以 x 或空格开头的行）
+          ("^[^x ].*" . 'font-lock-keyword-face)
+          )
+        t)
+      (font-lock-flush))))
+
 (use-package org
   :ensure nil
   :config
