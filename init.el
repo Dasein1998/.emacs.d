@@ -25,7 +25,7 @@
 (delete-selection-mode t)                    ; 选中文本后输入文本会替换文本（更符合我们习惯了的其它编辑器的逻辑）
 (setq make-backup-files nil)                 ; 关闭文件自动备份
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
-(global-display-line-numbers-mode 1)         ; 在 Window 显示行号
+;; (global-display-line-numbers-mode 1)         ; 在 Window 显示行号
 (savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
@@ -35,6 +35,8 @@
 (blink-cursor-mode 0)                        ;避免光标闪烁
 ;(setq split-width-threshold 1)              ;强制左右分屏
 ;当大于两个buffer时，删除前一个。
+;; (setq jit-lock-defer-timer 0.1)
+(setq org-src-fontify-natively nil)
 (defadvice org-open-at-point (after my-org-open-at-point activate)
   (while (>  (count-windows) 2)
     (delete-window (cadr (window-list-1)))))

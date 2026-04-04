@@ -134,3 +134,22 @@
 (setq fast-but-imprecise-scrolling nil)
 (setq mouse-wheel-progressive-speed nil) ;;禁止emacs滚动加速
 
+(use-package tempel
+  :ensure t
+  ;; 绑定快捷键用于手动触发表段或跳转
+  :bind (("M-+" . tempel-complete) ;; 触发补全
+         ("M-*" . tempel-insert)   ;; 直接选择插入
+         :map tempel-map
+         ("M-n" . tempel-next)     ;; 模板内下一个场
+         ("M-p" . tempel-previous)) ;; 模板内上一个场
+
+  :init
+  ;; 将 Tempel 挂载到补全列表
+  (defun tempel-setup-capf ()
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf))

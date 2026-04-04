@@ -1,10 +1,8 @@
 (provide 'init-note)
-(setq font-lock-maximum-decoration 1)
-
 (use-package quick-note
   :init (slot/vc-install :fetcher "github" :repo "Dasein1998/quick-note")
   :custom
-  (quick-note-file "~/org-roam/archive/0v.txt")
+  (quick-note-file "~/org-roam/0v.txt")
   ;; 你也可以顺便在这里修改其他的自定义选项，比如时间格式：
   (quick-note-prefix-format "%Y%m%dT%H%M%S")
   ;; 直接在这里绑定快捷键
@@ -35,8 +33,12 @@
   (setq org-modules nil)
   (require 'org-tempo)
   (require 'org-protocol)
-  (setq org-src-fontify-natively t);;org内代码自动高亮
+  ;; (setq org-src-fontify-natively t);;org内代码自动高亮
   (setq word-wrap-by-category t) ;;分词折行
+  (setq font-lock-maximum-decoration 1)
+(setq org-descriptive-links nil)
+(setq org-fontify-whole-heading-line nil)
+(setq org-src-fontify-natively nil)
   (require 'org-indent)
   ;;(setq org-startup-indented t)
   (setq org-yank-image-save-method "assets/");;orgmode中，yank media的保存位置
