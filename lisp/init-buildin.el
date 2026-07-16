@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (provide 'init-buildin)
 ;; 记录了上次打开文件时光标停留在第几行、第几列
 (use-package saveplace
@@ -87,7 +88,7 @@
 ;;          (markdown-mode . cua-mode)
 ;;          (org-mode . cua-mode))
 ;;   :bind
-;;   ("C-z" . undo-only) 
+;;   ("C-z" . undo-only)
 ;;   ("C-y" . undo-redo)
 ;;   ("C-S-z" . undo-redo)
 ;;   :config

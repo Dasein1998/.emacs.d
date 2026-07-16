@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-vertico)
 ;; Enable vertico
 (use-package vertico

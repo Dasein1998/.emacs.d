@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-key)
 ;; (global-set-key (kbd "M-f") 'forward-char)
 ;; (global-set-key (kbd "M-b") 'backward-char)

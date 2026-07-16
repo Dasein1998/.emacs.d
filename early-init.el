@@ -1,9 +1,12 @@
-(let (;; temporarily increase `gc-cons-threshold' when loading to speed up startup.
-      (gc-cons-threshold most-positive-fixnum)
-      ;; Empty to avoid analyzing files when loading remote files.
-      (file-name-handler-alist nil))
+;; 保存原值，用于 init 加载完成后恢复
+(defvar my/init-file-name-handler-alist file-name-handler-alist
+  "Original `file-name-handler-alist' before initialization.")
 
-      )
+;; 临时增大 gc-cons-threshold，极大减少初始化过程中的 GC 次数
+(setq gc-cons-threshold most-positive-fixnum)
+;; 清空 file-name-handler-alist，避免初始化时加载 Tramp、gz 等文件处理器
+(setq file-name-handler-alist nil)
+
 ;;(tool-bar-mode -1)                           ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
 ;;(menu-bar-mode -1)                        ;; 关闭菜单栏
 (setq frame-inhibit-implied-resize t)        ;禁止frame缩放

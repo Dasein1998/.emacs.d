@@ -1,4 +1,4 @@
-
+;; -*- lexical-binding: t -*-
 (defconst IS-WINDOWS (eq system-type 'windows-nt))
 (defconst IS-LINUX (eq system-type 'gnu/linux))
 (when (eq system-type 'windows-nt)
@@ -26,7 +26,7 @@
 (setq make-backup-files nil)                 ; 关闭文件自动备份
 (add-hook 'prog-mode-hook #'hs-minor-mode)   ; 编程模式下，可以折叠代码块
 ;; (global-display-line-numbers-mode 1)         ; 在 Window 显示行号
-(savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
+; (savehist-mode 1)                            ; （可选）打开 Buffer 历史记录保存
 ;(setq display-line-numbers-type 'relative)  ; （可选）显示相对行号
 (setq-default cursor-type 'bar)              ;设置光标为竖线
 (setq inhibit-splash-screen t)               ;关闭首页
@@ -47,8 +47,11 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 ;; (setopt custom-file "~/.emacs.d/custom.el")
 ;; (load custom-file t)
-(unless (package-installed-p 'vc-use-package)
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
+;; 延迟安装 vc-use-package，不阻塞启动
+(eval-after-load 'use-package
+  '(unless (package-installed-p 'vc-use-package)
+     (package-vc-install "https://github.com/slotThe/vc-use-package")))
+
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://mirrors.ustc.edu.cn/elpa/gnu/")
@@ -79,12 +82,25 @@
       (package-vc-install url iname rev backend))))
 
 
-(require 'init-vertico)
-(require 'init-key)
-(require 'init-fonts)
-(require 'init-consult)
-(require 'init-lazy)
-(require 'init-note)
+;; 核心模块 — 立即加载
+(require 'init-vertico)       ;; 补全框架，需要尽早就位
+(require 'init-fonts)         ;; 字体设置，需要在 GUI 出现前执行
 (require 'init-buildin)
-(provide 'init)
+(require 'init-key)
 
+;; 非核心模块 — Emacs 空闲 1.5 秒后才加载，极大改善启动速度
+(run-with-idle-timer 1 nil
+  (lambda ()
+    (require 'init-consult)
+    (require 'init-lazy)
+    (require 'init-note)
+    (require 'init-buildin)))
+
+;; 初始化完成后恢复 GC 阈值和文件处理器
+(add-hook 'after-init-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 64 1024 1024))  ;; 64MB，比原始默认大很多
+            (setq file-name-handler-alist my/init-file-name-handler-alist))
+          90)  ;; 低优先级，确保在其他 hook 之后运行
+
+(provide 'init)

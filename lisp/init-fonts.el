@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-fonts)
 (defconst sys/win32p
   (eq system-type 'windows-nt)
@@ -28,7 +30,7 @@
                                                       (sys/win32p 130)
                                                       (t 110))
                                         ))))
-(centaur-setup-fonts)
+; (centaur-setup-fonts)
 (add-hook 'window-setup-hook #'centaur-setup-fonts)
 (add-hook 'server-after-make-frame-hook #'centaur-setup-fonts)
 (set-charset-priority 'unicode)
@@ -41,10 +43,18 @@
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
-(use-package ef-themes
-  :ensure t
-  :config
-  ;; All customisations here.
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-italic-constructs t)
-  (modus-themes-load-theme 'ef-elea-dark))
+  (use-package ef-themes
+    :ensure t
+    :defer t
+    :config
+    ;; All customisations here.
+    (setq modus-themes-mixed-fonts t)
+    (setq modus-themes-italic-constructs t))
+
+  ;; 延迟加载主题到初始化完成后，避免启动时卡顿
+  (add-hook 'after-init-hook
+            (lambda ()
+              (require 'ef-themes)
+              ;; 改用 ef-themes 的正确加载函数
+              (ef-themes-load-theme 'ef-elea-dark))
+            99)

@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t -*-
+
+
 (provide 'init-note)
 (use-package quick-note
   :init (slot/vc-install :fetcher "github" :repo "Dasein1998/quick-note")
@@ -8,24 +11,49 @@
   ;; 直接在这里绑定快捷键
   :bind
   ("C-c n" . quick-note))
-  
+
 (add-hook 'text-mode-hook
   (lambda ()
-    (when (string-match "done.txt" (buffer-name))
+    (when (string-match "todo.txt" (buffer-name))
       ;; 关键步骤 1: 允许这个 buffer 支持多行语法高亮
       (setq-local font-lock-multiline t)
-      
       (font-lock-add-keywords nil
         '(
           ;; 1. 处理已完成的任务及其下方的解释行
           ;; 使用 [[:space:]] 代替空格更稳健，\\(?:\n +.*\\)* 表示匹配后续所有缩进行
           ("^x .*\\(?:\n +.*\\)*" . 'shadow)
-          
           ;; 2. 处理未完成的任务行（排除以 x 或空格开头的行）
           ("^[^x ].*" . 'font-lock-keyword-face)
           )
         t)
-      (font-lock-flush))))
+      (font-lock-flush)
+      (local-set-key (kbd "C-c c") 'my/todo-mark-done)
+      )))
+
+(defun my/todo-mark-done ()
+  "将当前行或选中区域内的行标记为完成（todo.txt 格式）。
+仅当行首自带创建时间（YYYY-MM-DD）时才添加完成时间，否则只添加 \"x \" 前缀。
+已完成的行保持不变。"
+  (interactive)
+  (let ((date (format-time-string "%Y-%m-%d"))
+        (start (if (use-region-p) (region-beginning) (point)))
+        (end (if (use-region-p) (region-end) (point))))
+    (let ((start-line (line-number-at-pos start))
+          (end-line (line-number-at-pos end)))
+      (save-excursion
+        (goto-char (point-min))
+        (forward-line (1- start-line))
+        (while (<= (line-number-at-pos) end-line)
+          (beginning-of-line)
+          (unless (looking-at "x ")
+            (if (looking-at "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} ")
+                ;; 行首有创建时间，添加完成时间：x 完成日期 创建日期 任务
+                (insert (concat "x " date " "))
+              ;; 行首无创建时间，只添加 x 前缀
+              (insert "x ")))
+          (forward-line 1))))
+    (when (use-region-p)
+      (deactivate-mark))))
 
 (use-package org
   :ensure nil

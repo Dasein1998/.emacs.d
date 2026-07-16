@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-company)
 
 (use-package corfu
@@ -19,7 +21,6 @@
   :config
   (corfu-popupinfo-mode)
   (corfu-history-mode 1)
-  (savehist-mode 1)
   (add-to-list 'savehist-additional-variables 'corfu-history)
   )
 

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-consult)
 (use-package consult
   :ensure t

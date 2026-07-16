@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-env)
 (setenv "PATH" (concat (getenv "PATH") ";" "C:\\Program Files\\Git\\usr\\bin"))
 (setenv "PATH" (concat (getenv "PATH") ";" "E:\\Program Files\\Git\\usr\\bin"))
@@ -7,5 +9,3 @@
   :config
   (add-hook 'after-init-hook 'benchmark-init/deactivate)
 )
-
-

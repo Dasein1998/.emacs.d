@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (provide 'init-lazy)
 (use-package auto-save
 :ensure t
